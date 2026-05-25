@@ -19,17 +19,18 @@ function HomePage() {
   return (
     <>
       <HeroContent />
+      <CategoriesSection
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
+      />
       <motion.div {...reveal}>
-        <CategoriesSection
+        <ProductsSection
+          key={selectedCategory}
           selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
         />
-
-        <ProductsSection key={selectedCategory} selectedCategory={selectedCategory} />
 
         <AboutSection />
 
-        
         <FooterSection />
       </motion.div>
     </>

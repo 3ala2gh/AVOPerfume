@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { perfumes, type CategoryName } from "./catalogData";
+import Modal from "../common/Modal";
+import { perfumes, type CategoryName, type Perfume } from "./catalogData";
 
 const VISIBLE_COUNT = 3;
 
@@ -14,6 +15,7 @@ export default function ProductsSection({
 }: ProductsSectionProps) {
   const [startIndex, setStartIndex] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
+  const [activePerfume, setActivePerfume] = useState<Perfume | null>(null);
 
   const filteredPerfumes = useMemo(
     () =>
@@ -58,8 +60,8 @@ export default function ProductsSection({
       id="products"
       className="mx-auto max-w-7xl scroll-mt-20 px-4 py-20 sm:px-6 lg:px-8"
     >
-      <div className="mb-8 sm:mb-10">
-        <div className="min-w-0">
+      <div className="mb-8 sm:mb-10 ">
+        <div className="min-w-0 text-center">
           <h3 className="mb-2 text-2xl tracking-wider sm:text-4xl">FEATURED COLLECTION</h3>
           <p className="text-sm opacity-70 sm:text-lg">{filteredPerfumes.length} perfumes available</p>
         </div>
@@ -109,7 +111,8 @@ export default function ProductsSection({
             {visiblePerfumes.map((perfume, cardIndex) => (
               <div
                 key={`${perfume.name}-${cardIndex}`}
-                className="group w-full cursor-pointer"
+                className="group flex h-full flex-col w-full cursor-pointer"
+                onClick={() => setActivePerfume(perfume)}
               >
                 <div className="relative mb-2 aspect-[3/4] overflow-hidden bg-gray-100">
                   <img
@@ -124,15 +127,18 @@ export default function ProductsSection({
                 <h4 className="mb-1 line-clamp-2 text-[11px] tracking-wide sm:mb-2 sm:text-base md:text-xl">
                   {perfume.name}
                 </h4>
-                <p className="mb-2 hidden text-sm opacity-60 md:block">{perfume.description}</p>
+                <p className="mb-2 hidden min-h-[40px] text-sm opacity-60 md:block">
+                  {perfume.description}
+                </p>
 
-                <div className="flex items-center justify-between">
+                <div className="mt-auto flex items-center justify-between">
                   <span className="text-[11px] sm:text-sm md:text-lg">${perfume.price}</span>
                   <button
                     type="button"
+                    onClick={(event) => event.stopPropagation()}
                     className="border border-black px-2 py-1 text-[10px] transition-all duration-300 hover:bg-black hover:text-white sm:px-3 sm:py-1 sm:text-xs md:px-6 md:py-2 md:text-sm"
                   >
-                    <span className="sm:hidden">Add to Cart</span>
+                    <span className="sm:hidden">Add</span>
                     <span className="hidden sm:inline">Add to Cart</span>
                   </button>
                 </div>
@@ -162,6 +168,41 @@ export default function ProductsSection({
           <ChevronRight className="h-4 w-4" />
         </button>
       </div>
+
+      <Modal
+        isOpen={activePerfume !== null}
+        onClose={() => setActivePerfume(null)}
+        title={activePerfume?.name}
+        size="lg"
+      >
+        {activePerfume ? (
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="aspect-[4/5] bg-gray-100">
+              <img
+                src={activePerfume.image}
+                alt={activePerfume.name}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="flex flex-col p-6 sm:p-8">
+              <p className="mb-2 text-xs uppercase tracking-[0.2em] opacity-60">
+                {activePerfume.category}
+              </p>
+              <h4 className="mb-4 text-2xl tracking-wide sm:text-3xl">
+                {activePerfume.name}
+              </h4>
+              <p className="mb-6 text-base opacity-80">{activePerfume.description}</p>
+              <p className="mb-6 text-xl">${activePerfume.price}</p>
+              <button
+                type="button"
+                className="mt-auto w-full border border-black px-6 py-3 text-sm transition-all duration-300 hover:bg-black hover:text-white"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        ) : null}
+      </Modal>
     </section>
   );
 }

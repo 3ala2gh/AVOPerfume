@@ -1,7 +1,6 @@
-export default function HeroContent() {
-  const heroImage =
-    "https://images.unsplash.com/photo-1610245182596-a7ad35b1e463?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920";
+import heroImage from "../../assets/Avo Hero Pic.png";
 
+export default function HeroContent() {
   return (
     <section className="relative h-screen bg-black text-white">
       <img
@@ -11,7 +10,9 @@ export default function HeroContent() {
       />
       <div className="relative flex h-full items-center justify-center">
         <div className="px-4 text-center">
-          <h2 className="mb-6 text-5xl tracking-widest md:text-7xl">TIMELESS LUXURY</h2>
+          <h2 className="mb-6 text-5xl tracking-widest md:text-7xl">
+            TIMELESS LUXURY
+          </h2>
           <p className="mb-8 text-lg tracking-wide opacity-90 md:text-xl">
             Discover our exclusive collection of fine fragrances
           </p>
