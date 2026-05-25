@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  color: #2f2a25;
+  background: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.container {
+  width: min(1000px, 92vw);
+  margin: 0 auto;
+  padding: 48px 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 3rem);
+}
+
+h2 {
+  margin: 0 0 10px;
+}
+
+.lead {
+  margin: 14px 0 24px;
+  color: #6a5f56;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  padding: 20px;
+  border: 1px solid #e3d6c8;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+}
