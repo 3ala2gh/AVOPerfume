@@ -1,0 +1,9 @@
+model Perfume {
+  id          Int      @id @default(autoincrement())
+  name        String
+  price       Decimal
+  description String?
+  imageUrl    String?
+  category    String
+  createdAt   DateTime @default(now())
+}

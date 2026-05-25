@@ -1,2 +1,10 @@
 
 backend/.git.backup/
+
+# Environment files
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
