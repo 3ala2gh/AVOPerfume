@@ -41,7 +41,7 @@ export default function Navbar() {
                 to="/"
                 className="rounded-sm text-inherit no-underline outline-none focus-visible:ring-2 focus-visible:ring-black/40"
               >
-                AVO PERFUMES
+                AVO PERFUME
               </Link>
             </h1>
 

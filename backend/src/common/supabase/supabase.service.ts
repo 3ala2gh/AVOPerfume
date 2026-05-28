@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 
 @Injectable()
 export class SupabaseService {
-  private readonly supabase: SupabaseClient;
+  private readonly supabase: ReturnType<typeof createClient>;
 
   constructor() {
     const supabaseUrl = process.env.SUPABASE_URL;
@@ -20,7 +20,7 @@ export class SupabaseService {
     });
   }
 
-  get client(): SupabaseClient {
+  get client(): ReturnType<typeof createClient> {
     return this.supabase;
   }
 }

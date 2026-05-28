@@ -1,5 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { v2 as cloudinary } from 'cloudinary';
+import { UploadedFile } from '../types/uploaded-file.type.js';
 
 @Injectable()
 export class CloudinaryService {
@@ -17,7 +18,7 @@ export class CloudinaryService {
   }
 
   async uploadImage(
-    file: Express.Multer.File,
+    file: UploadedFile,
     folder = 'avo-perfume',
   ): Promise<{ secureUrl: string; publicId: string }> {
     if (!file?.buffer) {
@@ -32,12 +33,13 @@ export class CloudinaryService {
         { folder, resource_type: 'image' },
         (error, uploadResult) => {
           if (error || !uploadResult) {
-            reject(
-              error ??
-                new InternalServerErrorException(
-                  'Cloudinary upload returned no result',
-                ),
-            );
+            const rejectionError =
+              error instanceof Error
+                ? error
+                : new InternalServerErrorException(
+                    'Cloudinary upload returned no result',
+                  );
+            reject(rejectionError);
             return;
           }
 

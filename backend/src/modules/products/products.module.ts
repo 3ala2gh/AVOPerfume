@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { CloudinaryModule } from '../../common/cloudinary/cloudinary.module';
-import { ProductsController } from './products.controller';
-import { ProductsService } from './products.service';
+import { CloudinaryModule } from '../../common/cloudinary/cloudinary.module.js';
+import { ProductsController } from './products.controller.js';
+import { ProductsService } from './products.service.js';
 
 @Module({
   imports: [CloudinaryModule],
