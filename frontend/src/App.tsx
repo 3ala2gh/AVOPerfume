@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import type { AuthResponse } from './types/auth'
 import Navbar from './components/layout/Navbar'
 import HomePage from './pages/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
@@ -7,15 +8,13 @@ import PerfumeDetailsPage from './pages/PerfumeDetailsPage'
 import ProductsPage from './pages/ProductsPage'
 import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 import AdminLoginPage from './pages/admin/AdminLoginPage'
+import { useAdminSession } from './hooks/useAdminSession'
 
-const ADMIN_AUTH_KEY = 'avo_admin_auth'
 
 function App() {
   const location = useLocation()
   const navigate = useNavigate()
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(
-    () => window.localStorage.getItem(ADMIN_AUTH_KEY) === 'true',
-  )
+  const { isAdminAuthenticated, login, logout } = useAdminSession()
 
   const isAdminLoginRoute = location.pathname === '/admin/login'
 
@@ -42,13 +41,16 @@ function App() {
           <Route
             path="/admin/login"
             element={
-              <AdminLoginPage
-                onLogin={() => {
-                  window.localStorage.setItem(ADMIN_AUTH_KEY, 'true')
-                  setIsAdminAuthenticated(true)
-                  navigate('/admin', { replace: true })
-                }}
-              />
+              isAdminAuthenticated ? (
+                <Navigate to="/admin" replace />
+              ) : (
+                <AdminLoginPage
+                  onLogin={(auth: AuthResponse) => {
+                    login(auth)
+                    navigate('/admin', { replace: true })
+                  }}
+                />
+              )
             }
           />
           <Route
@@ -57,8 +59,7 @@ function App() {
               isAdminAuthenticated ? (
                 <AdminDashboardPage
                   onLogout={() => {
-                    window.localStorage.removeItem(ADMIN_AUTH_KEY)
-                    setIsAdminAuthenticated(false)
+                    logout()
                     navigate('/', { replace: true })
                   }}
                 />

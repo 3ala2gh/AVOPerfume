@@ -1,12 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import 'dotenv/config';
-import { randomBytes, scryptSync } from 'node:crypto';
 import process from 'node:process';
+import bcrypt from 'bcrypt';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from '../src/generated/prisma/client';
-import type { Prisma } from '../src/generated/prisma/client';
+import { PrismaClient } from '../src/generated/prisma/client.js';
+import type { Prisma } from '../src/generated/prisma/client.js';
 
 function getEnvOrDefault(key: string, fallback: string): string {
   const value = process.env[key];
@@ -27,9 +24,8 @@ const adapter = new PrismaPg({ connectionString: databaseUrl });
 const prisma = new PrismaClient({ adapter });
 
 function hashPassword(password: string): string {
-  const salt = randomBytes(16).toString('hex');
-  const hash = scryptSync(password, salt, 64).toString('hex');
-  return `${salt}:${hash}`;
+  const saltRounds = 12;
+  return bcrypt.hashSync(password, saltRounds);
 }
 
 async function main() {

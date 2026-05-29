@@ -1,20 +1,41 @@
-import type { FormEvent } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { useAdminLoginSubmit } from '../../hooks/useAdminLoginSubmit'
+import type { AuthResponse, LoginPayload } from '../../types/auth'
 
 type AdminLoginPageProps = {
-  onLogin: () => void
+  onLogin: (auth: AuthResponse) => void
 }
 
+const adminLoginSchema = z.object({
+  email: z.email('Please enter a valid email address'),
+  password: z.string().min(1, 'Password is required'),
+})
+
 function AdminLoginPage({ onLogin }: AdminLoginPageProps) {
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    onLogin()
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setError,
+  } = useForm<LoginPayload>({
+    resolver: zodResolver(adminLoginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
+  const onSubmit = useAdminLoginSubmit({ onLogin, setError })
 
   return (
     <main className="container">
       <h1>Admin Login</h1>
       <p className="lead">Sign in as admin to access dashboard routes.</p>
-      <form onSubmit={handleSubmit} className="max-w-sm space-y-4 rounded-xl border border-black/10 bg-white/90 p-5">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="max-w-sm space-y-4 rounded-xl border border-black/10 bg-white/90 p-5"
+      >
         <div className="space-y-2">
           <label htmlFor="admin-email" className="block text-sm font-medium">
             Email
@@ -22,9 +43,10 @@ function AdminLoginPage({ onLogin }: AdminLoginPageProps) {
           <input
             id="admin-email"
             type="email"
-            required
             className="w-full rounded-md border border-black/20 px-3 py-2 outline-none focus:border-black"
+            {...register('email')}
           />
+          {errors.email && <p className="text-sm text-red-600">{errors.email.message}</p>}
         </div>
         <div className="space-y-2">
           <label htmlFor="admin-password" className="block text-sm font-medium">
@@ -33,15 +55,18 @@ function AdminLoginPage({ onLogin }: AdminLoginPageProps) {
           <input
             id="admin-password"
             type="password"
-            required
             className="w-full rounded-md border border-black/20 px-3 py-2 outline-none focus:border-black"
+            {...register('password')}
           />
+          {errors.password && <p className="text-sm text-red-600">{errors.password.message}</p>}
         </div>
+        {errors.root && <p className="text-sm text-red-600">{errors.root.message}</p>}
         <button
           type="submit"
-          className="w-full rounded-md bg-black px-4 py-2 text-white transition-opacity hover:opacity-90"
+          disabled={isSubmitting}
+          className="w-full rounded-md bg-black px-4 py-2 text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
         >
-          Login
+          {isSubmitting ? 'Logging in...' : 'Login'}
         </button>
       </form>
     </main>
