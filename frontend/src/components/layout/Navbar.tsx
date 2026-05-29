@@ -1,12 +1,15 @@
 import { Menu, Search } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { findPerfumeByQuery, perfumeToSlug, perfumes } from '../home/catalogData'
+import { findPerfumeByQuery, perfumeToSlug, toPerfumes } from '../home/catalogData'
+import { useProductsQuery } from '../../hooks/useProductsQuery'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const { data: products = [] } = useProductsQuery()
+  const perfumes = toPerfumes(products)
   const navigate = useNavigate()
   const normalizedQuery = searchQuery.trim().toLowerCase()
   const searchMatches =
@@ -24,7 +27,7 @@ export default function Navbar() {
 
   function handleSearchSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const perfume = findPerfumeByQuery(searchQuery)
+    const perfume = findPerfumeByQuery(perfumes, searchQuery)
     if (!perfume) {
       return
     }
@@ -81,9 +84,14 @@ export default function Navbar() {
                       key={perfume.name}
                       type="button"
                       onClick={() => goToPerfume(perfume.name)}
-                      className="block w-full border-b border-black/10 px-3 py-2 text-left text-sm last:border-b-0 hover:bg-black hover:text-white"
+                      className="flex w-full items-center gap-3 border-b border-black/10 px-3 py-2 text-left text-sm last:border-b-0 hover:bg-black hover:text-white"
                     >
-                      {perfume.name}
+                      <img
+                        src={perfume.image}
+                        alt={perfume.name}
+                        className="h-10 w-10 flex-shrink-0 rounded-sm object-cover"
+                      />
+                      <span className="line-clamp-1">{perfume.name}</span>
                     </button>
                   ))}
                 </div>
@@ -140,9 +148,14 @@ export default function Navbar() {
                     key={perfume.name}
                     type="button"
                     onClick={() => goToPerfume(perfume.name)}
-                    className="block w-full border-b border-black/10 px-3 py-2 text-left text-sm last:border-b-0 hover:bg-black hover:text-white"
+                    className="flex w-full items-center gap-3 border-b border-black/10 px-3 py-2 text-left text-sm last:border-b-0 hover:bg-black hover:text-white"
                   >
-                    {perfume.name}
+                    <img
+                      src={perfume.image}
+                      alt={perfume.name}
+                      className="h-10 w-10 flex-shrink-0 rounded-sm object-cover"
+                    />
+                    <span className="line-clamp-1">{perfume.name}</span>
                   </button>
                 ))}
               </div>

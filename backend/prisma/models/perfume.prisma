@@ -4,6 +4,7 @@ model Perfume {
   price       Decimal
   description String?
   imageUrl    String?
-  category    String
+  categoryId  Int
+  category    Category @relation(fields: [categoryId], references: [id])
   createdAt   DateTime @default(now())
 }

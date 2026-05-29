@@ -42,6 +42,16 @@ async function main() {
   const adminRole = await prisma.role.upsert(upsertRoleArgs('admin'));
 
   await prisma.role.upsert(upsertRoleArgs('user'));
+  const defaultCategories = ['Floral', 'Woody', 'Oriental', 'Fresh'];
+  await Promise.all(
+    defaultCategories.map((name) =>
+      prisma.category.upsert({
+        where: { name },
+        update: {},
+        create: { name },
+      }),
+    ),
+  );
 
   await prisma.user.upsert({
     where: { email: adminEmail },

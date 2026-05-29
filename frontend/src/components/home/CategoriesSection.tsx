@@ -1,14 +1,17 @@
-import { categoryOrder, perfumes, type CategoryName } from './catalogData'
+import { getCategoryOrder, type CategoryName, type Perfume } from './catalogData'
 
 type CategoriesSectionProps = {
+  perfumes: Perfume[]
   selectedCategory: CategoryName
   onSelectCategory: (category: CategoryName) => void
 }
 
 export default function CategoriesSection({
+  perfumes,
   selectedCategory,
   onSelectCategory,
 }: CategoriesSectionProps) {
+  const categoryOrder = getCategoryOrder(perfumes)
   const categories = categoryOrder.map((name) => {
     const count =
       name === 'All' ? perfumes.length : perfumes.filter((item) => item.category === name).length

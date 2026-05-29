@@ -1,16 +1,18 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Modal from "../common/Modal";
-import { perfumes, type CategoryName, type Perfume } from "./catalogData";
+import { type CategoryName, type Perfume } from "./catalogData";
 
 const VISIBLE_COUNT = 3;
 
 type ProductsSectionProps = {
+  perfumes: Perfume[];
   selectedCategory: CategoryName;
 };
 
 export default function ProductsSection({
+  perfumes,
   selectedCategory,
 }: ProductsSectionProps) {
   const [startIndex, setStartIndex] = useState(0);
@@ -22,7 +24,7 @@ export default function ProductsSection({
       selectedCategory === "All"
         ? perfumes
         : perfumes.filter((perfume) => perfume.category === selectedCategory),
-    [selectedCategory],
+    [perfumes, selectedCategory],
   );
 
   const visiblePerfumes = useMemo(() => {
@@ -37,13 +39,19 @@ export default function ProductsSection({
   const canGoPrevious = startIndex > 0;
   const canGoNext = startIndex < maxStartIndex;
 
+  useEffect(() => {
+    setStartIndex(0);
+  }, [selectedCategory, perfumes]);
+
   function showNext() {
     if (!canGoNext) {
       return;
     }
 
     setDirection(1);
-    setStartIndex((current) => Math.min(maxStartIndex, current + VISIBLE_COUNT));
+    setStartIndex((current) =>
+      Math.min(maxStartIndex, current + VISIBLE_COUNT),
+    );
   }
 
   function showPrevious() {
@@ -62,8 +70,12 @@ export default function ProductsSection({
     >
       <div className="mb-8 sm:mb-10 ">
         <div className="min-w-0 text-center">
-          <h3 className="mb-2 text-2xl tracking-wider sm:text-4xl">FEATURED COLLECTION</h3>
-          <p className="text-sm opacity-70 sm:text-lg">{filteredPerfumes.length} perfumes available</p>
+          <h3 className="mb-2 text-2xl tracking-wider sm:text-4xl">
+            FEATURED COLLECTION
+          </h3>
+          <p className="text-sm opacity-70 sm:text-lg">
+            {filteredPerfumes.length} perfumes available
+          </p>
         </div>
       </div>
 
@@ -132,7 +144,9 @@ export default function ProductsSection({
                 </p>
 
                 <div className="mt-auto flex items-center justify-between">
-                  <span className="text-[11px] sm:text-sm md:text-lg">${perfume.price}</span>
+                  <span className="text-[11px] sm:text-sm md:text-lg">
+                    {perfume.price} JOD
+                  </span>
                   <button
                     type="button"
                     onClick={(event) => event.stopPropagation()}
@@ -191,7 +205,9 @@ export default function ProductsSection({
               <h4 className="mb-4 text-2xl tracking-wide sm:text-3xl">
                 {activePerfume.name}
               </h4>
-              <p className="mb-6 text-base opacity-80">{activePerfume.description}</p>
+              <p className="mb-6 text-base opacity-80">
+                {activePerfume.description}
+              </p>
               <p className="mb-6 text-xl">${activePerfume.price}</p>
               <button
                 type="button"

@@ -1,21 +1,14 @@
-import { useEffect, useState } from 'react'
 import { ProductCard } from '../components/product/ProductCard'
-import { listProducts } from '../api/products.api'
-import type { Product } from '../types/product'
+import { useProductsQuery } from '../hooks/useProductsQuery'
 
 function ProductsPage() {
-  const [products, setProducts] = useState<Product[]>([])
-
-  useEffect(() => {
-    listProducts()
-      .then(setProducts)
-      .catch(() => setProducts([]))
-  }, [])
+  const { data: products = [], isLoading } = useProductsQuery()
 
   return (
     <main className="container">
       <h1>Products</h1>
-      <p className="lead">Starter data is currently served from the backend module.</p>
+      <p className="lead">Products are loaded from your database.</p>
+      {isLoading && <p>Loading products...</p>}
       <section className="card-grid">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />

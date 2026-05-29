@@ -1,17 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { useAdminLoginSubmit } from '../../hooks/useAdminLoginSubmit'
+import { adminLoginSchema } from '../../schema/adminLogin.schema'
 import type { AuthResponse, LoginPayload } from '../../types/auth'
 
 type AdminLoginPageProps = {
   onLogin: (auth: AuthResponse) => void
 }
-
-const adminLoginSchema = z.object({
-  email: z.email('Please enter a valid email address'),
-  password: z.string().min(1, 'Password is required'),
-})
 
 function AdminLoginPage({ onLogin }: AdminLoginPageProps) {
   const {
