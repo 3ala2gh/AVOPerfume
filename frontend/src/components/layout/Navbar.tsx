@@ -71,12 +71,6 @@ export default function Navbar() {
               <Link to="/offers" className="text-[#111] transition-opacity hover:opacity-60">
                 Offers
               </Link>
-              <Link
-                to="/admin/login"
-                className="text-[#111] transition-opacity hover:opacity-60"
-              >
-                Admin
-              </Link>
             </div>
           </div>
 
@@ -210,9 +204,6 @@ export default function Navbar() {
               </Link>
               <Link to="/offers" onClick={() => setIsMenuOpen(false)}>
                 Offers
-              </Link>
-              <Link to="/admin/login" onClick={() => setIsMenuOpen(false)}>
-                Admin
               </Link>
               <button
                 type="button"

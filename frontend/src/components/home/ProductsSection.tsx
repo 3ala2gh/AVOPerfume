@@ -192,6 +192,7 @@ export default function ProductsSection({
       <div className="mt-6 flex justify-center sm:mt-8">
         <Link
           to="/shop"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="border border-black px-6 py-2.5 text-sm font-medium tracking-wide transition-all hover:bg-black hover:text-white sm:text-base"
         >
           View All Perfumes

@@ -7,7 +7,7 @@ import {
 @Injectable()
 export class AdminService {
   async publishWebsite() {
-    const deployHookUrl = process.env.FRONTEND_DEPLOY_HOOK_URL;
+    const deployHookUrl = process.env.FRONTEND_DEPLOY_HOOK_URL?.trim();
 
     if (!deployHookUrl) {
       throw new BadRequestException(
@@ -21,8 +21,9 @@ export class AdminService {
       });
 
       if (!response.ok) {
+        const responseBody = await response.text();
         throw new InternalServerErrorException(
-          `Deploy hook request failed with status ${response.status}.`,
+          `Deploy hook request failed with status ${response.status}. Response: ${responseBody || 'empty body'}`,
         );
       }
 

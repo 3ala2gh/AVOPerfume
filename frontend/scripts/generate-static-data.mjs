@@ -1,23 +1,35 @@
 import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
-function normalizeApiBaseUrl(rawUrl) {
-  const fallbackUrl = 'http://localhost:3000/api'
-  if (!rawUrl) {
-    return fallbackUrl
-  }
+function getCandidateBaseUrls(rawUrl) {
+  const fallbackUrl = 'http://localhost:3000'
+  const normalizedRaw = (rawUrl ?? fallbackUrl).replace(/\/+$/, '')
 
-  const normalized = rawUrl.replace(/\/+$/, '')
-  return normalized.endsWith('/api') ? normalized : `${normalized}/api`
+  // Try both styles because some deployments expose routes under /api
+  // while others expose them at root.
+  const withoutApi = normalizedRaw.endsWith('/api')
+    ? normalizedRaw.slice(0, -4)
+    : normalizedRaw
+  const withApi = normalizedRaw.endsWith('/api') ? normalizedRaw : `${normalizedRaw}/api`
+
+  return Array.from(new Set([withApi, withoutApi]))
 }
 
-async function fetchJson(baseUrl, endpoint) {
-  const response = await fetch(`${baseUrl}${endpoint}`)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch ${endpoint} (${response.status} ${response.statusText})`)
+async function fetchJson(candidates, endpoint) {
+  let lastError = null
+
+  for (const baseUrl of candidates) {
+    const response = await fetch(`${baseUrl}${endpoint}`)
+    if (response.ok) {
+      return response.json()
+    }
+
+    lastError = new Error(
+      `Failed to fetch ${endpoint} from ${baseUrl} (${response.status} ${response.statusText})`,
+    )
   }
 
-  return response.json()
+  throw lastError ?? new Error(`Failed to fetch ${endpoint}`)
 }
 
 async function writeStaticJson(fileName, payload) {
@@ -31,17 +43,17 @@ async function writeStaticJson(fileName, payload) {
 async function main() {
   // Build-time source URL for static snapshot generation.
   // STATIC_DATA_API_URL is preferred so we can keep runtime Vite vars independent.
-  const apiBaseUrl = normalizeApiBaseUrl(
+  const candidateBaseUrls = getCandidateBaseUrls(
     process.env.STATIC_DATA_API_URL ??
       process.env.VITE_API_URL ??
       process.env.VITE_API_BASE_URL,
   )
 
-  console.log(`Fetching static data from: ${apiBaseUrl}`)
+  console.log(`Fetching static data from candidates: ${candidateBaseUrls.join(', ')}`)
 
   const [products, categories] = await Promise.all([
-    fetchJson(apiBaseUrl, '/products'),
-    fetchJson(apiBaseUrl, '/products/categories'),
+    fetchJson(candidateBaseUrls, '/products'),
+    fetchJson(candidateBaseUrls, '/products/categories'),
   ])
 
   await Promise.all([

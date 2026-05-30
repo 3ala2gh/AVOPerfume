@@ -22,6 +22,14 @@ function App() {
   const isAdminLoginRoute = location.pathname === '/admin/login'
 
   useEffect(() => {
+    if (location.hash) {
+      return
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [location.pathname, location.hash])
+
+  useEffect(() => {
     if (!location.hash) {
       return
     }
