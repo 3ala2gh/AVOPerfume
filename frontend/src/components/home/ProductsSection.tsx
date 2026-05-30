@@ -217,11 +217,11 @@ export default function ProductsSection({
       >
         {activePerfume ? (
           <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="relative min-h-[220px] bg-gray-100 p-2 sm:min-h-[260px] md:min-h-[420px]">
+            <div className="relative flex min-h-[170px] items-center justify-center bg-gray-100 p-1 sm:min-h-[210px] md:min-h-[420px]">
               <img
                 src={activePerfume.image}
                 alt={activePerfume.name}
-                className="h-full w-full object-contain"
+                className="max-h-[160px] w-full object-contain sm:max-h-[200px] md:max-h-[390px]"
               />
             </div>
             <div className="p-6 md:p-10">
