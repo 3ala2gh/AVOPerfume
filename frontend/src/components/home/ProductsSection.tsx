@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, ShoppingCart } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Modal from "../common/Modal";
@@ -156,10 +156,13 @@ export default function ProductsSection({
                       event.stopPropagation();
                       addToCart(perfume);
                     }}
-                    className="border border-black px-2 py-1 text-[10px] transition-all duration-300 hover:bg-black hover:text-white sm:px-3 sm:py-1 sm:text-xs md:px-6 md:py-2 md:text-sm"
+                    className="inline-flex h-9 w-12 items-center justify-center rounded-full border border-black bg-white transition-all duration-300 hover:bg-black hover:text-white sm:h-10 sm:w-14"
+                    aria-label={`Add ${perfume.name} to cart`}
                   >
-                    <span className="sm:hidden">Add</span>
-                    <span className="hidden sm:inline">Add to Cart</span>
+                    <span className="relative inline-flex">
+                      <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5" />
+                      <Plus className="absolute left-1.5 top-0.5 h-2.5 w-2.5 sm:left-2 sm:top-1 sm:h-3 sm:w-3" />
+                    </span>
                   </button>
                 </div>
               </div>
@@ -189,13 +192,20 @@ export default function ProductsSection({
         </button>
       </div>
 
-      <div className="mt-6 flex justify-center sm:mt-8">
+      <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row">
         <Link
           to="/shop"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="border border-black px-6 py-2.5 text-sm font-medium tracking-wide transition-all hover:bg-black hover:text-white sm:text-base"
         >
           View All Perfumes
+        </Link>
+        <Link
+          to="/offers"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="border border-black px-6 py-2.5 text-sm font-medium tracking-wide transition-all hover:bg-black hover:text-white sm:text-base"
+        >
+          View Offers
         </Link>
       </div>
 
