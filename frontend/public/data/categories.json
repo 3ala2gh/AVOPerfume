@@ -1,0 +1,32 @@
+[
+  {
+    "id": 4,
+    "name": "Floral",
+    "createdAt": "2026-05-29T00:43:35.585Z"
+  },
+  {
+    "id": 5,
+    "name": "Fresh",
+    "createdAt": "2026-05-29T00:43:37.014Z"
+  },
+  {
+    "id": 7,
+    "name": "Oriental",
+    "createdAt": "2026-05-29T00:43:37.068Z"
+  },
+  {
+    "id": 3,
+    "name": "Uncategorized",
+    "createdAt": "2026-05-29T00:42:57.370Z"
+  },
+  {
+    "id": 1,
+    "name": "Wood",
+    "createdAt": "2026-05-29T00:42:56.420Z"
+  },
+  {
+    "id": 6,
+    "name": "Woody",
+    "createdAt": "2026-05-29T00:43:37.066Z"
+  }
+]

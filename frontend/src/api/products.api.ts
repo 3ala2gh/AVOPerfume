@@ -1,7 +1,7 @@
 import { api } from './api'
 import type { Category, CreateProductInput, Product, UpdateProductInput } from '../types/product'
 
-export async function listProducts(): Promise<Product[]> {
+export async function listProductsFromApi(): Promise<Product[]> {
   const { data } = await api.get<Product[]>('/products')
   return data.map((item) => ({
     ...item,
@@ -64,7 +64,7 @@ export async function deleteProduct(id: number): Promise<void> {
   })
 }
 
-export async function listCategories(): Promise<Category[]> {
+export async function listCategoriesFromApi(): Promise<Category[]> {
   const { data } = await api.get<Category[]>('/products/categories')
   return data
 }

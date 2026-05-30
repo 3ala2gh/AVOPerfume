@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "generate:data": "node ./scripts/generate-static-data.mjs",
+    "build": "npm run generate:data && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

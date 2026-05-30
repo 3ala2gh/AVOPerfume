@@ -1,10 +1,16 @@
 import { useQuery } from '@tanstack/react-query'
-import { listCategories } from '../api/products.api'
+import { listPublicCategories } from '../api/public-data.api'
+import { listCategoriesFromApi } from '../api/products.api'
 
-export function useCategoriesQuery() {
-  return useQuery({
-    queryKey: ['categories'],
-    queryFn: listCategories,
-  })
+type CategoriesQuerySource = 'public' | 'admin'
+
+type UseCategoriesQueryOptions = {
+  source?: CategoriesQuerySource
 }
 
+export function useCategoriesQuery({ source = 'public' }: UseCategoriesQueryOptions = {}) {
+  return useQuery({
+    queryKey: ['categories', source],
+    queryFn: source === 'admin' ? listCategoriesFromApi : listPublicCategories,
+  })
+}

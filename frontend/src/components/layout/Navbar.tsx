@@ -68,6 +68,9 @@ export default function Navbar() {
               <Link to="/shop" className="text-[#111] transition-opacity hover:opacity-60">
                 Shop
               </Link>
+              <Link to="/offers" className="text-[#111] transition-opacity hover:opacity-60">
+                Offers
+              </Link>
               <Link
                 to="/admin/login"
                 className="text-[#111] transition-opacity hover:opacity-60"
@@ -204,6 +207,9 @@ export default function Navbar() {
               </Link>
               <Link to="/shop" onClick={() => setIsMenuOpen(false)}>
                 Shop
+              </Link>
+              <Link to="/offers" onClick={() => setIsMenuOpen(false)}>
+                Offers
               </Link>
               <Link to="/admin/login" onClick={() => setIsMenuOpen(false)}>
                 Admin

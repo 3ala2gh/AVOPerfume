@@ -1,0 +1,24 @@
+[
+  {
+    "id": 3,
+    "name": "Blue De Chanel",
+    "description": "best Perfume on the Earth",
+    "gender": "unisex",
+    "price": "30",
+    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780080707/avo-perfume/t6yveyg18sbottmd7zwg.png",
+    "categoryId": 5,
+    "category": "Fresh",
+    "createdAt": "2026-05-29T18:51:50.440Z"
+  },
+  {
+    "id": 2,
+    "name": "perfume 2",
+    "description": "the best 2",
+    "gender": "unisex",
+    "price": "10",
+    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780014302/avo-perfume/rsmwgjvhkgwcyiyadnv4.png",
+    "categoryId": 1,
+    "category": "Wood",
+    "createdAt": "2026-05-29T00:25:03.721Z"
+  }
+]
