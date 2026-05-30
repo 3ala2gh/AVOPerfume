@@ -49,7 +49,7 @@ export default function Modal({
     <AnimatePresence>
       {isOpen ? (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-2 sm:p-4"
           onClick={onClose}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -59,7 +59,7 @@ export default function Modal({
             role="dialog"
             aria-modal="true"
             aria-label={title ?? "Modal"}
-            className={`relative w-full bg-white ${sizeClassMap[size]}`}
+            className={`relative max-h-[88vh] w-full overflow-y-auto bg-white ${sizeClassMap[size]}`}
             onClick={(event) => event.stopPropagation()}
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}

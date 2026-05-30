@@ -221,7 +221,7 @@ function ShopPage() {
         {activePerfume ? (
           <AnimatePresence>
             <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="relative min-h-[280px] bg-gray-100 p-1.5 md:min-h-[360px]">
+              <div className="relative min-h-[220px] bg-gray-100 p-1.5 sm:min-h-[260px] md:min-h-[360px]">
                 <img
                   src={activePerfume.image}
                   alt={activePerfume.name}

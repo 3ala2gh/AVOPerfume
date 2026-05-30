@@ -217,7 +217,7 @@ export default function ProductsSection({
       >
         {activePerfume ? (
           <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="relative min-h-[320px] bg-gray-100 p-3 md:min-h-[420px]">
+            <div className="relative min-h-[220px] bg-gray-100 p-2 sm:min-h-[260px] md:min-h-[420px]">
               <img
                 src={activePerfume.image}
                 alt={activePerfume.name}
