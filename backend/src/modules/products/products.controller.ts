@@ -34,6 +34,11 @@ export class ProductsController {
     return this.productsService.findAllCategories();
   }
 
+  @Get('offers')
+  findOffers() {
+    return this.productsService.findAllOffers();
+  }
+
   @Post('upload-image')
   @UseInterceptors(FileInterceptor('file'))
   async uploadImage(@UploadedFile() file: UploadedFileType) {
@@ -75,6 +80,21 @@ export class ProductsController {
     return this.productsService.createCategory(body.name);
   }
 
+  @Post('offers')
+  @UseGuards(AdminJwtGuard)
+  @UseInterceptors(FileInterceptor('image'))
+  async createOffer(@UploadedFile() image: UploadedFileType) {
+    if (!image) {
+      throw new BadRequestException('image is required');
+    }
+
+    if (!image.mimetype?.startsWith('image/')) {
+      throw new BadRequestException('Only image files are allowed');
+    }
+
+    return this.productsService.createOffer({ image });
+  }
+
   @Put(':id')
   @UseGuards(AdminJwtGuard)
   @UseInterceptors(FileInterceptor('image'))
@@ -102,5 +122,11 @@ export class ProductsController {
   @UseGuards(AdminJwtGuard)
   async deletePerfume(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.deletePerfume(id);
+  }
+
+  @Delete('offers/:id')
+  @UseGuards(AdminJwtGuard)
+  async deleteOffer(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.deleteOffer(id);
   }
 }

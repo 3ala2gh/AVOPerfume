@@ -30,6 +30,10 @@ type UpdatePerfumeParams = {
   image?: UploadedFile;
 };
 
+type CreateOfferParams = {
+  image: UploadedFile;
+};
+
 @Injectable()
 export class ProductsService {
   constructor(
@@ -80,6 +84,39 @@ export class ProductsService {
 
   uploadProductImage(file: UploadedFile) {
     return this.cloudinaryService.uploadImage(file);
+  }
+
+  findAllOffers() {
+    return this.prismaService.offer.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
+  async createOffer({ image }: CreateOfferParams) {
+    const uploadedImage = await this.cloudinaryService.uploadImage(image);
+
+    return this.prismaService.offer.create({
+      data: {
+        imageUrl: uploadedImage.secureUrl,
+      },
+    });
+  }
+
+  async deleteOffer(id: number) {
+    const existingOffer = await this.prismaService.offer.findUnique({
+      where: { id },
+      select: { id: true },
+    });
+
+    if (!existingOffer) {
+      throw new NotFoundException('Offer not found');
+    }
+
+    await this.prismaService.offer.delete({
+      where: { id },
+    });
+
+    return { success: true };
   }
 
   async createPerfume({

@@ -1,4 +1,5 @@
-import type { Category, Product } from '../types/product'
+import type { Category, Offer, Product } from '../types/product'
+import { listOffersFromApi } from './offers.api'
 import { listCategoriesFromApi, listProductsFromApi } from './products.api'
 
 async function fetchStaticJson<T>(path: string): Promise<T> {
@@ -35,4 +36,8 @@ export async function listPublicProducts(): Promise<Product[]> {
 
 export async function listPublicCategories(): Promise<Category[]> {
   return withPublicFallback('/data/categories.json', () => listCategoriesFromApi())
+}
+
+export async function listPublicOffers(): Promise<Offer[]> {
+  return withPublicFallback('/data/offers.json', () => listOffersFromApi())
 }

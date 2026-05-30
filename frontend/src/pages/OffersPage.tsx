@@ -1,21 +1,17 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { getStoredOfferImages } from '../utils/offersStorage'
+import { useState } from 'react'
+import { useOffersQuery } from '../hooks/useOffersQuery'
 
 function OffersPage() {
-  const [images, setImages] = useState<string[]>([])
+  const { data: offers = [] } = useOffersQuery()
   const [activeIndex, setActiveIndex] = useState(0)
 
-  useEffect(() => {
-    setImages(getStoredOfferImages())
-  }, [])
-
   function goNext() {
-    setActiveIndex((currentIndex) => (currentIndex + 1) % images.length)
+    setActiveIndex((currentIndex) => (currentIndex + 1) % offers.length)
   }
 
   function goPrevious() {
-    setActiveIndex((currentIndex) => (currentIndex - 1 + images.length) % images.length)
+    setActiveIndex((currentIndex) => (currentIndex - 1 + offers.length) % offers.length)
   }
 
   return (
@@ -30,19 +26,19 @@ function OffersPage() {
       </section>
 
       <section className="px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10">
-        {images.length === 0 ? (
+        {offers.length === 0 ? (
           <div className="mx-auto w-full max-w-7xl">
             <p className="text-black/70">No offers yet. Please check again soon.</p>
           </div>
         ) : (
           <div className="relative mx-auto w-full max-w-[1500px] overflow-hidden bg-black/5 shadow-sm">
             <img
-              src={images[activeIndex]}
+              src={offers[activeIndex]?.imageUrl}
               alt={`Offer ${activeIndex + 1}`}
               className="h-[56vh] w-full object-cover sm:h-[66vh] lg:h-[78vh] lg:object-contain"
             />
 
-            {images.length > 1 && (
+            {offers.length > 1 && (
               <>
                 <button
                   type="button"

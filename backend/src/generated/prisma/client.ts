@@ -47,6 +47,11 @@ export { Prisma }
  */
 export type Category = Prisma.CategoryModel
 /**
+ * Model Offer
+ * 
+ */
+export type Offer = Prisma.OfferModel
+/**
  * Model Perfume
  * 
  */

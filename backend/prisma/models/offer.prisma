@@ -1,0 +1,5 @@
+model Offer {
+  id        Int      @id @default(autoincrement())
+  imageUrl  String
+  createdAt DateTime @default(now())
+}

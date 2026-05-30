@@ -23,6 +23,11 @@ export * from './enums.js';
  */
 export type Category = Prisma.CategoryModel
 /**
+ * Model Offer
+ * 
+ */
+export type Offer = Prisma.OfferModel
+/**
  * Model Perfume
  * 
  */

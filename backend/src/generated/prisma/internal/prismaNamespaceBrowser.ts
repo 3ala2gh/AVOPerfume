@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Category: 'Category',
+  Offer: 'Offer',
   Perfume: 'Perfume',
   Role: 'Role',
   User: 'User'
@@ -80,6 +81,15 @@ export const CategoryScalarFieldEnum = {
 } as const
 
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+export const OfferScalarFieldEnum = {
+  id: 'id',
+  imageUrl: 'imageUrl',
+  createdAt: 'createdAt'
+} as const
+
+export type OfferScalarFieldEnum = (typeof OfferScalarFieldEnum)[keyof typeof OfferScalarFieldEnum]
 
 
 export const PerfumeScalarFieldEnum = {

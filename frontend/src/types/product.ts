@@ -10,6 +10,12 @@ export interface Product {
   createdAt?: string
 }
 
+export interface Offer {
+  id: number
+  imageUrl: string
+  createdAt?: string
+}
+
 export interface CreateProductInput {
   name: string
   description: string

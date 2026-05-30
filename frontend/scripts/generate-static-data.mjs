@@ -51,12 +51,14 @@ async function main() {
 
   console.log(`Fetching static data from candidates: ${candidateBaseUrls.join(', ')}`)
 
-  const [products, categories] = await Promise.all([
+  const [offers, products, categories] = await Promise.all([
+    fetchJson(candidateBaseUrls, '/products/offers'),
     fetchJson(candidateBaseUrls, '/products'),
     fetchJson(candidateBaseUrls, '/products/categories'),
   ])
 
   await Promise.all([
+    writeStaticJson('offers.json', offers),
     writeStaticJson('products.json', products),
     writeStaticJson('categories.json', categories),
   ])
