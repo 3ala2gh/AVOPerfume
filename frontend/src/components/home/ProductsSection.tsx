@@ -129,11 +129,11 @@ export default function ProductsSection({
                 className="group flex h-full flex-col w-full cursor-pointer"
                 onClick={() => setActivePerfume(perfume)}
               >
-                <div className="relative mb-2 aspect-[3/4] overflow-hidden bg-gray-100">
+                <div className="relative mb-2 aspect-[3/4] overflow-hidden bg-gray-100 p-2">
                   <img
                     src={perfume.image}
                     alt={perfume.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="h-full w-full object-contain transition-transform duration-500"
                   />
 
                   <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
@@ -217,7 +217,7 @@ export default function ProductsSection({
       >
         {activePerfume ? (
           <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="relative aspect-square">
+            <div className="relative min-h-[320px] bg-gray-100 p-3 md:min-h-[420px]">
               <img
                 src={activePerfume.image}
                 alt={activePerfume.name}
