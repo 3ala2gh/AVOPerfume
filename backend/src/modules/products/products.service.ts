@@ -1,15 +1,33 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CloudinaryService } from '../../common/cloudinary/cloudinary.service.js';
 import { PrismaService } from '../../common/prisma/prisma.service.js';
 import { UploadedFile } from '../../common/types/uploaded-file.type.js';
 import { Prisma } from '../../generated/prisma/client.js';
 
+type GenderInput = 'male' | 'female' | 'unisex';
+type GenderDb = 'MALE' | 'FEMALE' | 'UNISEX';
+
 type CreatePerfumeParams = {
   name: string;
   description: string;
+  gender: GenderInput;
   categoryId: number;
   price: number;
   image: UploadedFile;
+};
+
+type UpdatePerfumeParams = {
+  id: number;
+  name: string;
+  description: string;
+  gender: GenderInput;
+  categoryId: number;
+  price: number;
+  image?: UploadedFile;
 };
 
 @Injectable()
@@ -19,6 +37,30 @@ export class ProductsService {
     private readonly prismaService: PrismaService,
   ) {}
 
+  private mapPerfumeWithCategory(perfume: {
+    id: number;
+    name: string;
+    description: string | null;
+    gender: GenderDb;
+    price: Prisma.Decimal;
+    imageUrl: string | null;
+    categoryId: number;
+    category: { name: string };
+    createdAt: Date;
+  }) {
+    return {
+      id: perfume.id,
+      name: perfume.name,
+      description: perfume.description,
+      gender: perfume.gender.toLowerCase(),
+      price: perfume.price,
+      imageUrl: perfume.imageUrl,
+      categoryId: perfume.categoryId,
+      category: perfume.category.name,
+      createdAt: perfume.createdAt,
+    };
+  }
+
   findAllPerfumes() {
     return this.prismaService.perfume
       .findMany({
@@ -26,15 +68,7 @@ export class ProductsService {
         orderBy: { createdAt: 'desc' },
       })
       .then((perfumes) =>
-        perfumes.map((perfume) => ({
-          id: perfume.id,
-          name: perfume.name,
-          description: perfume.description,
-          price: perfume.price,
-          imageUrl: perfume.imageUrl,
-          category: perfume.category.name,
-          createdAt: perfume.createdAt,
-        })),
+        perfumes.map((perfume) => this.mapPerfumeWithCategory(perfume)),
       );
   }
 
@@ -51,6 +85,7 @@ export class ProductsService {
   async createPerfume({
     name,
     description,
+    gender,
     categoryId,
     price,
     image,
@@ -63,20 +98,68 @@ export class ProductsService {
         data: {
           name,
           description,
+          gender: gender.toUpperCase() as GenderDb,
           categoryId,
           price,
           imageUrl: uploadedImage.secureUrl,
         },
       })
-      .then((perfume) => ({
-        id: perfume.id,
-        name: perfume.name,
-        description: perfume.description,
-        price: perfume.price,
-        imageUrl: perfume.imageUrl,
-        category: perfume.category.name,
-        createdAt: perfume.createdAt,
-      }));
+      .then((perfume) => this.mapPerfumeWithCategory(perfume));
+  }
+
+  async updatePerfume({
+    id,
+    name,
+    description,
+    gender,
+    categoryId,
+    price,
+    image,
+  }: UpdatePerfumeParams) {
+    const existingPerfume = await this.prismaService.perfume.findUnique({
+      where: { id },
+      select: { id: true, imageUrl: true },
+    });
+
+    if (!existingPerfume) {
+      throw new NotFoundException('Perfume not found');
+    }
+
+    const imageUrl = image
+      ? (await this.cloudinaryService.uploadImage(image)).secureUrl
+      : existingPerfume.imageUrl;
+
+    return this.prismaService.perfume
+      .update({
+        where: { id },
+        include: { category: true },
+        data: {
+          name,
+          description,
+          gender: gender.toUpperCase() as GenderDb,
+          categoryId,
+          price,
+          imageUrl,
+        },
+      })
+      .then((perfume) => this.mapPerfumeWithCategory(perfume));
+  }
+
+  async deletePerfume(id: number) {
+    const existingPerfume = await this.prismaService.perfume.findUnique({
+      where: { id },
+      select: { id: true },
+    });
+
+    if (!existingPerfume) {
+      throw new NotFoundException('Perfume not found');
+    }
+
+    await this.prismaService.perfume.delete({
+      where: { id },
+    });
+
+    return { success: true };
   }
 
   async createCategory(name: string) {

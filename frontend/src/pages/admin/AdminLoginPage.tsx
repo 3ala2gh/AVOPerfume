@@ -1,5 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import Button from '../../components/common/ui/Button'
+import Input from '../../components/common/ui/Input'
 import { useAdminLoginSubmit } from '../../hooks/useAdminLoginSubmit'
 import { adminLoginSchema } from '../../schema/adminLogin.schema'
 import type { AuthResponse, LoginPayload } from '../../types/auth'
@@ -35,10 +37,9 @@ function AdminLoginPage({ onLogin }: AdminLoginPageProps) {
           <label htmlFor="admin-email" className="block text-sm font-medium">
             Email
           </label>
-          <input
+          <Input
             id="admin-email"
             type="email"
-            className="w-full rounded-md border border-black/20 px-3 py-2 outline-none focus:border-black"
             {...register('email')}
           />
           {errors.email && <p className="text-sm text-red-600">{errors.email.message}</p>}
@@ -47,22 +48,21 @@ function AdminLoginPage({ onLogin }: AdminLoginPageProps) {
           <label htmlFor="admin-password" className="block text-sm font-medium">
             Password
           </label>
-          <input
+          <Input
             id="admin-password"
             type="password"
-            className="w-full rounded-md border border-black/20 px-3 py-2 outline-none focus:border-black"
             {...register('password')}
           />
           {errors.password && <p className="text-sm text-red-600">{errors.password.message}</p>}
         </div>
         {errors.root && <p className="text-sm text-red-600">{errors.root.message}</p>}
-        <button
+        <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-md bg-black px-4 py-2 text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
+          className="w-full"
         >
           {isSubmitting ? 'Logging in...' : 'Login'}
-        </button>
+        </Button>
       </form>
     </main>
   )

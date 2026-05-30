@@ -8,6 +8,7 @@ export type Perfume = {
   price: number
   description: string
   category: string
+  gender: 'male' | 'female' | 'unisex'
   image: string
 }
 
@@ -18,6 +19,7 @@ export function toPerfume(product: Product): Perfume {
     price: Number(product.price),
     description: product.description ?? 'No description available.',
     category: product.category,
+    gender: product.gender ?? 'unisex',
     image: product.imageUrl ?? '',
   }
 }
@@ -54,4 +56,3 @@ export function findPerfumeByQuery(perfumes: Perfume[], query: string): Perfume 
     perfumes.find((perfume) => normalize(perfume.name).includes(normalizedQuery))
   )
 }
-

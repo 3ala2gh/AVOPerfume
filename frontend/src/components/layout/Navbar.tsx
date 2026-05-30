@@ -1,14 +1,18 @@
-import { Menu, Search } from 'lucide-react'
+import { Menu, Search, ShoppingCart } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { findPerfumeByQuery, perfumeToSlug, toPerfumes } from '../home/catalogData'
 import { useProductsQuery } from '../../hooks/useProductsQuery'
+import { useCart } from '../../context/cart-context'
+import CartDrawer from './CartDrawer'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false)
+  const [isCartOpen, setIsCartOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const { data: products = [] } = useProductsQuery()
+  const { totalItems } = useCart()
   const perfumes = toPerfumes(products)
   const navigate = useNavigate()
   const normalizedQuery = searchQuery.trim().toLowerCase()
@@ -42,6 +46,11 @@ export default function Navbar() {
             <h1 className="m-0 whitespace-nowrap text-lg tracking-[0.08em] text-[#111] sm:text-2xl">
               <Link
                 to="/"
+                onClick={() => {
+                  setIsMenuOpen(false)
+                  setIsMobileSearchOpen(false)
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }}
                 className="rounded-sm text-inherit no-underline outline-none focus-visible:ring-2 focus-visible:ring-black/40"
               >
                 AVO PERFUME
@@ -49,14 +58,15 @@ export default function Navbar() {
             </h1>
 
             <div className="hidden gap-8 md:flex">
-              <Link to="/#products" className="text-[#111] transition-opacity hover:opacity-60">
+              <Link
+                to="/"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="text-[#111] transition-opacity hover:opacity-60"
+              >
+                Home
+              </Link>
+              <Link to="/shop" className="text-[#111] transition-opacity hover:opacity-60">
                 Shop
-              </Link>
-              <Link to="/#categories" className="text-[#111] transition-opacity hover:opacity-60">
-                Collections
-              </Link>
-              <Link to="/#about" className="text-[#111] transition-opacity hover:opacity-60">
-                About
               </Link>
               <Link
                 to="/admin/login"
@@ -68,6 +78,23 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-3 sm:gap-4">
+            <button
+              type="button"
+              onClick={() => {
+                setIsCartOpen(true)
+                setIsMenuOpen(false)
+                setIsMobileSearchOpen(false)
+              }}
+              className="relative inline-flex items-center text-[#111] transition-opacity hover:opacity-60"
+              aria-label="Open cart"
+            >
+              <ShoppingCart className="h-5 w-5" />
+              {totalItems > 0 && (
+                <span className="absolute -right-2 -top-2 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[10px] text-white">
+                  {totalItems}
+                </span>
+              )}
+            </button>
             <form onSubmit={handleSearchSubmit} className="relative hidden md:block">
               <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 opacity-40" />
               <input
@@ -166,22 +193,36 @@ export default function Navbar() {
         {isMenuOpen && (
           <div className="border-t border-black/10 py-4 md:hidden">
             <div className="flex flex-col gap-3">
-              <Link to="/#products" onClick={() => setIsMenuOpen(false)}>
+              <Link
+                to="/"
+                onClick={() => {
+                  setIsMenuOpen(false)
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }}
+              >
+                Home
+              </Link>
+              <Link to="/shop" onClick={() => setIsMenuOpen(false)}>
                 Shop
-              </Link>
-              <Link to="/#categories" onClick={() => setIsMenuOpen(false)}>
-                Collections
-              </Link>
-              <Link to="/#about" onClick={() => setIsMenuOpen(false)}>
-                About
               </Link>
               <Link to="/admin/login" onClick={() => setIsMenuOpen(false)}>
                 Admin
               </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsMenuOpen(false)
+                  setIsCartOpen(true)
+                }}
+                className="text-left"
+              >
+                Cart {totalItems > 0 ? `(${totalItems})` : ''}
+              </button>
             </div>
           </div>
         )}
       </div>
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </nav>
   )
 }

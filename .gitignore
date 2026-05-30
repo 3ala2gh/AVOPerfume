@@ -8,3 +8,11 @@ backend/.git.backup/
 **/.env.*
 !.env.example
 !**/.env.example
+
+# Backend generated files
+backend/dist/
+backend/build/
+backend/coverage/
+backend/.tmp/
+backend/.temp/
+backend/src/generated/prisma/

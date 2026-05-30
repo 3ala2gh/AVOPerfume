@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Modal from "../common/Modal";
+import { useCart } from "../../context/cart-context";
 import { type CategoryName, type Perfume } from "./catalogData";
 
 const VISIBLE_COUNT = 3;
@@ -15,6 +17,7 @@ export default function ProductsSection({
   perfumes,
   selectedCategory,
 }: ProductsSectionProps) {
+  const { addToCart } = useCart();
   const [startIndex, setStartIndex] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
   const [activePerfume, setActivePerfume] = useState<Perfume | null>(null);
@@ -149,7 +152,10 @@ export default function ProductsSection({
                   </span>
                   <button
                     type="button"
-                    onClick={(event) => event.stopPropagation()}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      addToCart(perfume);
+                    }}
                     className="border border-black px-2 py-1 text-[10px] transition-all duration-300 hover:bg-black hover:text-white sm:px-3 sm:py-1 sm:text-xs md:px-6 md:py-2 md:text-sm"
                   >
                     <span className="sm:hidden">Add</span>
@@ -183,6 +189,15 @@ export default function ProductsSection({
         </button>
       </div>
 
+      <div className="mt-6 flex justify-center sm:mt-8">
+        <Link
+          to="/shop"
+          className="border border-black px-6 py-2.5 text-sm font-medium tracking-wide transition-all hover:bg-black hover:text-white sm:text-base"
+        >
+          View All Perfumes
+        </Link>
+      </div>
+
       <Modal
         isOpen={activePerfume !== null}
         onClose={() => setActivePerfume(null)}
@@ -191,30 +206,37 @@ export default function ProductsSection({
       >
         {activePerfume ? (
           <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="aspect-[4/5] bg-gray-100">
+            <div className="relative aspect-square">
               <img
                 src={activePerfume.image}
                 alt={activePerfume.name}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain"
               />
             </div>
-            <div className="flex flex-col p-6 sm:p-8">
-              <p className="mb-2 text-xs uppercase tracking-[0.2em] opacity-60">
-                {activePerfume.category}
-              </p>
-              <h4 className="mb-4 text-2xl tracking-wide sm:text-3xl">
-                {activePerfume.name}
-              </h4>
-              <p className="mb-6 text-base opacity-80">
-                {activePerfume.description}
-              </p>
-              <p className="mb-6 text-xl">${activePerfume.price}</p>
-              <button
-                type="button"
-                className="mt-auto w-full border border-black px-6 py-3 text-sm transition-all duration-300 hover:bg-black hover:text-white"
-              >
-                Add to Cart
-              </button>
+            <div className="p-6 md:p-10">
+              <div className="mb-6">
+                <p className="mb-2 text-xs tracking-[0.18em] uppercase text-black/50">
+                  {activePerfume.category}
+                </p>
+                <h2 className="mb-4 text-3xl tracking-wide md:text-4xl">
+                  {activePerfume.name}
+                </h2>
+                <p className="mb-6 text-2xl tracking-wide md:text-3xl">
+                  {activePerfume.price} JOD
+                </p>
+                <p className="text-base leading-relaxed text-black/70 md:text-lg">
+                  {activePerfume.description}
+                </p>
+              </div>
+              <div className="space-y-3">
+                <button
+                  type="button"
+                  onClick={() => addToCart(activePerfume)}
+                  className="w-full bg-black py-4 text-sm font-medium tracking-wide text-white transition-colors hover:bg-black/80 md:text-base"
+                >
+                  Add to Cart
+                </button>
+              </div>
             </div>
           </div>
         ) : null}

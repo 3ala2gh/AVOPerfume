@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
 import PerfumeDetailsPage from './pages/PerfumeDetailsPage'
 import ProductsPage from './pages/ProductsPage'
+import ShopPage from './pages/ShopPage'
 import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 import AdminLoginPage from './pages/admin/AdminLoginPage'
 import { useAdminSession } from './hooks/useAdminSession'
@@ -36,6 +37,7 @@ function App() {
       <main style={{ paddingTop: isAdminLoginRoute ? 0 : 64 }}>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/shop" element={<ShopPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/perfume/:slug" element={<PerfumeDetailsPage />} />
           <Route

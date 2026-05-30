@@ -1,14 +1,18 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { type FormEvent, useState } from 'react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useForm } from 'react-hook-form'
-import { useAdminCreatePerfumeSubmit } from '../../hooks/useAdminCreatePerfumeSubmit'
-import { createCategory } from '../../api/products.api'
+import { useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
+import AddCategorySection from '../../components/admin/AddCategorySection'
+import AddPerfumeSection from '../../components/admin/AddPerfumeSection'
+import EditPerfumeModal, {
+  type EditPerfumePayload,
+} from '../../components/admin/EditPerfumeModal'
+import PerfumeSearchSection from '../../components/admin/PerfumeSearchSection'
 import { useCategoriesQuery } from '../../hooks/useCategoriesQuery'
-import {
-  adminCreatePerfumeSchema,
-  type AdminCreatePerfumePayload,
-} from '../../schema/adminCreatePerfume.schema'
+import { useCreateCategoryMutation } from '../../hooks/useCreateCategoryMutation'
+import { useDeleteProductMutation } from '../../hooks/useDeleteProductMutation'
+import { useProductsQuery } from '../../hooks/useProductsQuery'
+import { useUpdateProductMutation } from '../../hooks/useUpdateProductMutation'
+import type { Product } from '../../types/product'
 
 type AdminDashboardPageProps = {
   onLogout: () => void
@@ -17,178 +21,123 @@ type AdminDashboardPageProps = {
 function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
   const queryClient = useQueryClient()
   const { data: categories = [], isLoading: isLoadingCategories } = useCategoriesQuery()
-  const [newCategoryName, setNewCategoryName] = useState('')
-  const [categorySuccess, setCategorySuccess] = useState('')
-  const [categoryError, setCategoryError] = useState('')
-  const [success, setSuccess] = useState('')
-  const {
-    mutateAsync: createCategoryMutation,
-    isPending: isAddingCategory,
-  } = useMutation({
-    mutationFn: (name: string) => createCategory(name),
-  })
+  const { data: products = [], isLoading: isLoadingProducts } = useProductsQuery()
+  const [editingPerfume, setEditingPerfume] = useState<Product | null>(null)
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setError,
-    formState: { errors, isSubmitting },
-  } = useForm<AdminCreatePerfumePayload>({
-    resolver: zodResolver(adminCreatePerfumeSchema),
-    defaultValues: {
-      name: '',
-      categoryId: 0,
-      description: '',
-      price: 0,
-    },
-  })
-  const onSubmit = useAdminCreatePerfumeSubmit({ reset, setError, setSuccess })
+  const { mutateAsync: createCategoryMutation, isPending: isAddingCategory } =
+    useCreateCategoryMutation()
+  const { mutateAsync: updatePerfumeMutation, isPending: isUpdatingPerfume } =
+    useUpdateProductMutation()
+  const { mutateAsync: deletePerfumeMutation, isPending: isDeletingPerfume } =
+    useDeleteProductMutation()
 
-  async function handleCreateCategory(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setCategoryError('')
-    setCategorySuccess('')
+  async function handleCreateCategory(name: string) {
+    await createCategoryMutation(name)
+    await queryClient.invalidateQueries({ queryKey: ['categories'] })
+  }
 
-    const normalizedName = newCategoryName.trim()
-    if (!normalizedName) {
-      setCategoryError('Category name is required.')
+  function openEditModal(product: Product) {
+    setEditingPerfume(product)
+  }
+
+  function closeEditModal() {
+    setEditingPerfume(null)
+  }
+
+  async function handleUpdatePerfume(values: EditPerfumePayload) {
+    if (!editingPerfume) {
       return
     }
 
     try {
-      await createCategoryMutation(normalizedName)
-      await queryClient.invalidateQueries({ queryKey: ['categories'] })
-      setCategorySuccess('Category added successfully.')
-      setNewCategoryName('')
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      setCategoryError('Unable to add category right now.')
+      await updatePerfumeMutation({
+        id: editingPerfume.id,
+        name: values.name,
+        description: values.description,
+        gender: values.gender,
+        categoryId: values.categoryId,
+        price: values.price,
+        image: values.image,
+      })
+      await queryClient.invalidateQueries({ queryKey: ['products'] })
+      toast.success('Perfume updated successfully.')
+    } catch {
+      toast.error('Unable to update perfume right now.')
+    }
+  }
+
+  async function handleDeletePerfume() {
+    if (!editingPerfume) {
+      return
+    }
+
+    const confirmed = window.confirm(
+      `Delete "${editingPerfume.name}" permanently? This action cannot be undone.`,
+    )
+    if (!confirmed) {
+      return
+    }
+
+    try {
+      await deletePerfumeMutation(editingPerfume.id)
+      await queryClient.invalidateQueries({ queryKey: ['products'] })
+      toast.success('Perfume deleted successfully.')
+      closeEditModal()
+    } catch {
+      toast.error('Unable to delete perfume right now.')
     }
   }
 
   return (
-    <main className="container">
-      <h1>Admin Dashboard</h1>
-      <p className="lead">This area is restricted to logged in admins only.</p>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="mt-6 max-w-xl space-y-4 rounded-xl border border-black/10 bg-white/90 p-5"
-      >
-        <h2 className="text-lg font-semibold">Add Perfume</h2>
-        <div className="space-y-2">
-          <label htmlFor="perfume-name" className="block text-sm font-medium">
-            Name
-          </label>
-          <input
-            id="perfume-name"
-            type="text"
-            {...register('name')}
-            className="w-full rounded-md border border-black/20 px-3 py-2 outline-none focus:border-black"
+    <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+      <header className="mb-6 sm:mb-8">
+        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Admin Dashboard</h1>
+        <p className="mt-2 text-sm text-black/70 sm:text-base">
+          This area is restricted to logged in admins only.
+        </p>
+      </header>
+
+      <section className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
+        <AddPerfumeSection
+          categories={categories}
+          isLoadingCategories={isLoadingCategories}
+        />
+
+        <div className="space-y-4 lg:space-y-6">
+          <AddCategorySection
+            isAddingCategory={isAddingCategory}
+            onCreateCategory={handleCreateCategory}
           />
-          {errors.name && <p className="text-sm text-red-600">{errors.name.message}</p>}
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="perfume-category" className="block text-sm font-medium">
-            Category
-          </label>
-          <select
-            id="perfume-category"
-            {...register('categoryId', { valueAsNumber: true })}
-            className="w-full rounded-md border border-black/20 px-3 py-2 outline-none focus:border-black"
-            disabled={isLoadingCategories}
-          >
-            <option value={0}>Select category</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-          {errors.categoryId && <p className="text-sm text-red-600">{errors.categoryId.message}</p>}
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="perfume-price" className="block text-sm font-medium">
-            Price
-          </label>
-          <input
-            id="perfume-price"
-            type="number"
-            min="0.01"
-            step="0.01"
-            {...register('price', { valueAsNumber: true })}
-            className="w-full rounded-md border border-black/20 px-3 py-2 outline-none focus:border-black"
+
+          <PerfumeSearchSection
+            products={products}
+            isLoadingProducts={isLoadingProducts}
+            onSelectPerfume={openEditModal}
           />
-          {errors.price && <p className="text-sm text-red-600">{errors.price.message}</p>}
         </div>
-        <div className="space-y-2">
-          <label htmlFor="perfume-description" className="block text-sm font-medium">
-            Description
-          </label>
-          <textarea
-            id="perfume-description"
-            {...register('description')}
-            className="min-h-28 w-full rounded-md border border-black/20 px-3 py-2 outline-none focus:border-black"
-          />
-          {errors.description && <p className="text-sm text-red-600">{errors.description.message}</p>}
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="perfume-image" className="block text-sm font-medium">
-            Image
-          </label>
-          <input
-            id="perfume-image"
-            type="file"
-            accept="image/*"
-            {...register('image')}
-            className="w-full rounded-md border border-black/20 px-3 py-2 outline-none focus:border-black"
-          />
-          {errors.image && <p className="text-sm text-red-600">{errors.image.message}</p>}
-        </div>
-        {errors.root && <p className="text-sm text-red-600">{errors.root.message}</p>}
-        {success && <p className="text-sm text-green-700">{success}</p>}
+      </section>
+
+      <div className="mt-5 sm:mt-6">
         <button
-          type="submit"
-          disabled={isSubmitting}
-          className="rounded-md bg-black px-4 py-2 text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
+          type="button"
+          onClick={onLogout}
+          className="w-full rounded-md bg-black px-4 py-2.5 text-sm text-white transition-opacity hover:opacity-90 sm:w-auto sm:text-base"
         >
-          {isSubmitting ? 'Creating...' : 'Create Perfume'}
+          Logout
         </button>
-      </form>
-      <form
-        onSubmit={handleCreateCategory}
-        className="mt-4 max-w-xl space-y-3 rounded-xl border border-black/10 bg-white/90 p-5"
-      >
-        <h2 className="text-lg font-semibold">Add Category</h2>
-        <div className="space-y-2">
-          <label htmlFor="category-name" className="block text-sm font-medium">
-            Category Name
-          </label>
-          <input
-            id="category-name"
-            type="text"
-            value={newCategoryName}
-            onChange={(event) => setNewCategoryName(event.target.value)}
-            className="w-full rounded-md border border-black/20 px-3 py-2 outline-none focus:border-black"
-          />
-        </div>
-        {categoryError && <p className="text-sm text-red-600">{categoryError}</p>}
-        {categorySuccess && <p className="text-sm text-green-700">{categorySuccess}</p>}
-        <button
-          type="submit"
-          disabled={isAddingCategory}
-          className="rounded-md bg-black px-4 py-2 text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
-        >
-          {isAddingCategory ? 'Adding...' : 'Add Category'}
-        </button>
-      </form>
-      <button
-        type="button"
-        onClick={onLogout}
-        className="mt-4 rounded-md bg-black px-4 py-2 text-white transition-opacity hover:opacity-90"
-      >
-        Logout
-      </button>
+      </div>
+
+      <EditPerfumeModal
+        key={editingPerfume?.id ?? 'no-perfume-selected'}
+        categories={categories}
+        isLoadingCategories={isLoadingCategories}
+        isUpdatingPerfume={isUpdatingPerfume}
+        isDeletingPerfume={isDeletingPerfume}
+        perfume={editingPerfume}
+        onClose={closeEditModal}
+        onSubmit={handleUpdatePerfume}
+        onDelete={handleDeletePerfume}
+      />
     </main>
   )
 }

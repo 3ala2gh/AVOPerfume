@@ -1,6 +1,13 @@
+enum Gender {
+  MALE
+  FEMALE
+  UNISEX
+}
+
 model Perfume {
   id          Int      @id @default(autoincrement())
   name        String
+  gender      Gender   @default(UNISEX)
   price       Decimal
   description String?
   imageUrl    String?
