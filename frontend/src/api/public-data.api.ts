@@ -2,6 +2,25 @@ import type { Category, Offer, Product } from '../types/product'
 import { listOffersFromApi } from './offers.api'
 import { listCategoriesFromApi, listProductsFromApi } from './products.api'
 
+function normalizeProduct(item: Product): Product {
+  const price30Ml = Number(item.price30Ml ?? item.sizes?.find((size) => size.size === '30ml')?.price ?? 6)
+  const price55Ml = Number(item.price55Ml ?? item.sizes?.find((size) => size.size === '55ml')?.price ?? item.price)
+  const price100Ml = Number(item.price100Ml ?? item.sizes?.find((size) => size.size === '100ml')?.price ?? 15)
+
+  return {
+    ...item,
+    price: price55Ml,
+    price30Ml,
+    price55Ml,
+    price100Ml,
+    sizes: [
+      { size: '30ml', price: price30Ml },
+      { size: '55ml', price: price55Ml },
+      { size: '100ml', price: price100Ml },
+    ],
+  }
+}
+
 async function fetchStaticJson<T>(path: string): Promise<T> {
   const response = await fetch(path, { cache: 'no-store' })
   if (!response.ok) {
@@ -11,8 +30,7 @@ async function fetchStaticJson<T>(path: string): Promise<T> {
   return (await response.json()) as T
 }
 
-// Public pages prefer static JSON to avoid dependency on a sleeping backend.
-// Fallback to API is used only when static JSON is missing or stale/corrupt.
+
 async function withPublicFallback<T>(
   staticPath: string,
   fallbackApi: () => Promise<T>,
@@ -25,13 +43,11 @@ async function withPublicFallback<T>(
 }
 
 export async function listPublicProducts(): Promise<Product[]> {
-  return withPublicFallback('/data/products.json', async () => {
+  const products = await withPublicFallback('/data/products.json', async () => {
     const products = await listProductsFromApi()
-    return products.map((item) => ({
-      ...item,
-      price: Number(item.price),
-    }))
+    return products
   })
+  return products.map(normalizeProduct)
 }
 
 export async function listPublicCategories(): Promise<Category[]> {

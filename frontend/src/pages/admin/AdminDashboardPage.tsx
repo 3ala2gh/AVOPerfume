@@ -16,6 +16,7 @@ import { usePublishWebsiteMutation } from '../../hooks/usePublishWebsiteMutation
 import { useProductsQuery } from '../../hooks/useProductsQuery'
 import { useUpdateProductMutation } from '../../hooks/useUpdateProductMutation'
 import type { Product } from '../../types/product'
+import { useI18n } from '../../i18n'
 
 type AdminDashboardPageProps = {
   onLogout: () => void
@@ -23,6 +24,7 @@ type AdminDashboardPageProps = {
 
 function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
   const queryClient = useQueryClient()
+  const { t } = useI18n()
   const { data: categories = [], isLoading: isLoadingCategories } = useCategoriesQuery({
     source: 'admin',
   })
@@ -66,12 +68,15 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
         gender: values.gender,
         categoryId: values.categoryId,
         price: values.price,
+        price30Ml: values.price30Ml,
+        price55Ml: values.price55Ml,
+        price100Ml: values.price100Ml,
         image: values.image,
       })
       await queryClient.invalidateQueries({ queryKey: ['products'] })
-      toast.success('Perfume updated successfully.')
+      toast.success(t('admin.perfumeUpdated'))
     } catch {
-      toast.error('Unable to update perfume right now.')
+      toast.error(t('admin.updateError'))
     }
   }
 
@@ -81,7 +86,7 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
     }
 
     const confirmed = window.confirm(
-      `Delete "${editingPerfume.name}" permanently? This action cannot be undone.`,
+      t('admin.deleteConfirm', { name: editingPerfume.name }),
     )
     if (!confirmed) {
       return
@@ -90,20 +95,20 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
     try {
       await deletePerfumeMutation(editingPerfume.id)
       await queryClient.invalidateQueries({ queryKey: ['products'] })
-      toast.success('Perfume deleted successfully.')
+      toast.success(t('admin.perfumeDeleted'))
       closeEditModal()
     } catch {
-      toast.error('Unable to delete perfume right now.')
+      toast.error(t('admin.deleteError'))
     }
   }
 
   async function handlePublishWebsite() {
     try {
       await publishWebsiteMutation()
-      toast.success('Website publish triggered successfully.')
+      toast.success(t('admin.publishTriggered'))
     } catch (error) {
       const message =
-        error instanceof Error ? error.message : 'Unable to trigger website publish right now.'
+        error instanceof Error ? error.message : t('admin.publishError')
       toast.error(message)
     }
   }
@@ -114,22 +119,22 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
         <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="mb-1 text-2xl tracking-wider">AVO PERFUMES</h1>
-              <p className="text-sm opacity-60">Admin Dashboard - Products</p>
+              <h1 className="mb-1 text-2xl tracking-wider">{t('brand')}</h1>
+              <p className="text-sm opacity-60">{t('admin.productsDashboard')}</p>
             </div>
             <div className="flex gap-3">
               <Link
                 to="/admin/offers"
                 className="flex items-center gap-2 border border-white/20 px-4 py-2 transition-colors hover:bg-white/10"
               >
-                Offers
+                {t('admin.offers')}
               </Link>
               <Link
                 to="/"
                 className="flex items-center gap-2 bg-white px-4 py-2 text-black transition-colors hover:bg-white/90"
               >
                 <Home className="h-4 w-4" />
-                View Store
+                {t('common.viewStore')}
               </Link>
             </div>
           </div>
@@ -164,14 +169,14 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
             disabled={isPublishingWebsite}
             className="w-full rounded-md border border-black px-4 py-2.5 text-sm text-black transition-colors hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-50 sm:mr-3 sm:w-auto sm:text-base"
           >
-            {isPublishingWebsite ? 'Publishing...' : 'Publish Website'}
+            {isPublishingWebsite ? t('admin.publishing') : t('admin.publishWebsite')}
           </button>
           <button
             type="button"
             onClick={onLogout}
             className="w-full rounded-md bg-black px-4 py-2.5 text-sm text-white transition-opacity hover:opacity-90 sm:w-auto sm:text-base"
           >
-            Logout
+            {t('admin.logout')}
           </button>
         </div>
 

@@ -5,6 +5,7 @@ import { findPerfumeByQuery, perfumeToSlug, toPerfumes } from '../home/catalogDa
 import { useProductsQuery } from '../../hooks/useProductsQuery'
 import { useCart } from '../../context/cart-context'
 import CartDrawer from './CartDrawer'
+import { useI18n } from '../../i18n'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -13,6 +14,7 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState('')
   const { data: products = [] } = useProductsQuery()
   const { totalItems } = useCart()
+  const { t, toggleLanguage } = useI18n()
   const perfumes = toPerfumes(products)
   const navigate = useNavigate()
   const normalizedQuery = searchQuery.trim().toLowerCase()
@@ -53,7 +55,7 @@ export default function Navbar() {
                 }}
                 className="rounded-sm text-inherit no-underline outline-none focus-visible:ring-2 focus-visible:ring-black/40"
               >
-                AVO PERFUME
+                {t('brand')}
               </Link>
             </h1>
 
@@ -63,13 +65,13 @@ export default function Navbar() {
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="text-[#111] transition-opacity hover:opacity-60"
               >
-                Home
+                {t('nav.home')}
               </Link>
               <Link to="/shop" className="text-[#111] transition-opacity hover:opacity-60">
-                Shop
+                {t('nav.shop')}
               </Link>
               <Link to="/offers" className="text-[#111] transition-opacity hover:opacity-60">
-                Offers
+                {t('nav.offers')}
               </Link>
             </div>
           </div>
@@ -83,7 +85,7 @@ export default function Navbar() {
                 setIsMobileSearchOpen(false)
               }}
               className="relative inline-flex items-center text-[#111] transition-opacity hover:opacity-60"
-              aria-label="Open cart"
+              aria-label={t('common.openCart')}
             >
               <ShoppingCart className="h-5 w-5" />
               {totalItems > 0 && (
@@ -98,7 +100,7 @@ export default function Navbar() {
                 type="text"
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Search perfumes..."
+                placeholder={t('shop.searchPerfumesPlaceholder')}
                 className="w-64 border border-black/20 py-2 pl-10 pr-4 outline-none focus:border-black"
               />
               {searchMatches.length > 0 && (
@@ -121,6 +123,14 @@ export default function Navbar() {
                 </div>
               )}
             </form>
+            <button
+              type="button"
+              onClick={toggleLanguage}
+              className="border border-black/20 px-2 py-1 text-xs transition-colors hover:bg-black hover:text-white sm:px-3 sm:text-sm"
+              aria-label={t('language.label')}
+            >
+              {t('language.switchTo')}
+            </button>
 
             <button
               type="button"
@@ -129,7 +139,7 @@ export default function Navbar() {
                 setIsMenuOpen(false)
               }}
               className="cursor-pointer border-0 bg-transparent p-0 leading-none md:hidden"
-              aria-label="Search perfume"
+              aria-label={t('common.search')}
             >
               <Search className="h-5 w-5" />
             </button>
@@ -141,7 +151,7 @@ export default function Navbar() {
                 setIsMobileSearchOpen(false)
               }}
               className="cursor-pointer border-0 bg-transparent p-0 leading-none md:hidden"
-              aria-label="Open menu"
+              aria-label={t('common.openMenu')}
             >
               <Menu className="h-5 w-5" />
             </button>
@@ -155,14 +165,14 @@ export default function Navbar() {
                 type="text"
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Type perfume name..."
+                placeholder={t('shop.typePerfumePlaceholder')}
                 className="min-w-0 flex-1 border border-black/20 px-3 py-2 outline-none focus:border-black"
               />
               <button
                 type="submit"
                 className="border border-black px-4 py-2 transition-all hover:bg-black hover:text-white"
               >
-                Search
+                {t('common.search')}
               </button>
             </form>
             {searchMatches.length > 0 && (
@@ -197,13 +207,13 @@ export default function Navbar() {
                   window.scrollTo({ top: 0, behavior: 'smooth' })
                 }}
               >
-                Home
+                {t('nav.home')}
               </Link>
               <Link to="/shop" onClick={() => setIsMenuOpen(false)}>
-                Shop
+                {t('nav.shop')}
               </Link>
               <Link to="/offers" onClick={() => setIsMenuOpen(false)}>
-                Offers
+                {t('nav.offers')}
               </Link>
               <button
                 type="button"
@@ -213,7 +223,7 @@ export default function Navbar() {
                 }}
                 className="text-left"
               >
-                Cart {totalItems > 0 ? `(${totalItems})` : ''}
+                {t('nav.cart')} {totalItems > 0 ? `(${totalItems})` : ''}
               </button>
             </div>
           </div>

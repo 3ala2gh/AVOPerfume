@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import Input from "../common/ui/Input";
 import type { Product } from "../../types/product";
+import { useI18n } from "../../i18n";
 
 type PerfumeSearchSectionProps = {
   products: Product[];
@@ -13,6 +14,7 @@ export default function PerfumeSearchSection({
   isLoadingProducts,
   onSelectPerfume,
 }: PerfumeSearchSectionProps) {
+  const { t } = useI18n();
   const [searchTerm, setSearchTerm] = useState("");
   const filteredProducts = useMemo(() => {
     const normalizedSearch = searchTerm.trim().toLowerCase();
@@ -37,19 +39,19 @@ export default function PerfumeSearchSection({
   return (
     <section className="space-y-3 rounded-xl border border-black/10 bg-white/90 p-4 sm:p-5 lg:p-6">
       <h2 className="text-base font-semibold sm:text-lg">
-        Search and Edit Perfumes
+        {t('admin.searchEditPerfumes')}
       </h2>
       <Input
         type="text"
         value={searchTerm}
         onChange={(event) => setSearchTerm(event.target.value)}
-        placeholder="Search by name, category, description, or price"
+        placeholder={t('admin.searchPerfumesPlaceholder')}
       />
       {isLoadingProducts && (
-        <p className="text-sm text-black/70">Loading perfumes...</p>
+        <p className="text-sm text-black/70">{t('admin.loadingPerfumes')}</p>
       )}
       {!isLoadingProducts && filteredProducts.length === 0 && (
-        <p className="text-sm text-black/70">No perfumes match your search.</p>
+        <p className="text-sm text-black/70">{t('admin.noPerfumesSearch')}</p>
       )}
       <div className="max-h-80 space-y-2 overflow-y-auto pr-1">
         {filteredProducts.map((product) => (
@@ -62,7 +64,7 @@ export default function PerfumeSearchSection({
             {product.imageUrl ? (
               <img
                 src={product.imageUrl}
-                alt={`${product.name} thumbnail`}
+                alt={product.name}
                 className="h-12 w-12 shrink-0 rounded-md border border-black/10 object-cover"
               />
             ) : (
@@ -73,7 +75,7 @@ export default function PerfumeSearchSection({
                 {product.name}
               </p>
               <p className="text-xs text-black/70 sm:text-sm">
-                {product.category} - {product.price.toFixed(2)} JOD
+                {product.category} - {product.price.toFixed(2)} {t('common.jod')}
               </p>
             </div>
           </button>

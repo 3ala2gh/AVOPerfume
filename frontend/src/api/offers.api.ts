@@ -7,24 +7,14 @@ export async function listOffersFromApi(): Promise<Offer[]> {
 }
 
 export async function createOffer(image: File): Promise<Offer> {
-  const token = window.localStorage.getItem('avo_admin_token')
   const formData = new FormData()
   formData.append('image', image)
 
-  const { data } = await api.post<Offer>('/products/offers', formData, {
-    headers: {
-      Authorization: token ? `Bearer ${token}` : '',
-    },
-  })
+  const { data } = await api.post<Offer>('/products/offers', formData)
 
   return data
 }
 
 export async function deleteOffer(id: number): Promise<void> {
-  const token = window.localStorage.getItem('avo_admin_token')
-  await api.delete(`/products/offers/${id}`, {
-    headers: {
-      Authorization: token ? `Bearer ${token}` : '',
-    },
-  })
+  await api.delete(`/products/offers/${id}`)
 }

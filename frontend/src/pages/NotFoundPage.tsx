@@ -1,8 +1,12 @@
+import { useI18n } from '../i18n'
+
 function NotFoundPage() {
+  const { t } = useI18n()
+
   return (
     <main className="container">
-      <h1>404</h1>
-      <p className="lead">Page not found.</p>
+      <h1>{t('notFound.title')}</h1>
+      <p className="lead">{t('notFound.text')}</p>
     </main>
   )
 }

@@ -5,6 +5,7 @@ import Input from '../common/ui/Input'
 import Select from '../common/ui/Select'
 import Textarea from '../common/ui/Textarea'
 import type { Category, Product } from '../../types/product'
+import { useI18n } from '../../i18n'
 
 type EditPerfumePayload = {
   name: string
@@ -12,6 +13,9 @@ type EditPerfumePayload = {
   gender: 'male' | 'female' | 'unisex'
   categoryId: number
   price: number
+  price30Ml: number
+  price55Ml: number
+  price100Ml: number
   image?: File
 }
 
@@ -36,13 +40,16 @@ export default function EditPerfumeModal({
   onSubmit,
   onDelete,
 }: EditPerfumeModalProps) {
+  const { t } = useI18n()
   const [name, setName] = useState(perfume?.name ?? '')
   const [description, setDescription] = useState(perfume?.description ?? '')
   const [gender, setGender] = useState<'male' | 'female' | 'unisex'>(
     perfume?.gender ?? 'unisex',
   )
   const [categoryId, setCategoryId] = useState(perfume?.categoryId ?? 0)
-  const [price, setPrice] = useState(perfume ? String(perfume.price) : '')
+  const [price30Ml, setPrice30Ml] = useState(perfume ? String(perfume.price30Ml) : '6')
+  const [price55Ml, setPrice55Ml] = useState(perfume ? String(perfume.price55Ml) : '8')
+  const [price100Ml, setPrice100Ml] = useState(perfume ? String(perfume.price100Ml) : '15')
   const [image, setImage] = useState<File | null>(null)
   const [localError, setLocalError] = useState('')
 
@@ -52,20 +59,29 @@ export default function EditPerfumeModal({
 
     const normalizedName = name.trim()
     const normalizedDescription = description.trim()
-    const normalizedPrice = Number(price)
+    const normalizedPrice30Ml = Number(price30Ml)
+    const normalizedPrice55Ml = Number(price55Ml)
+    const normalizedPrice100Ml = Number(price100Ml)
 
     if (!normalizedName) {
-      setLocalError('Name is required.')
+      setLocalError(t('admin.nameRequired'))
       return
     }
 
     if (!categoryId || categoryId <= 0) {
-      setLocalError('Category is required.')
+      setLocalError(t('admin.categoryRequired'))
       return
     }
 
-    if (!Number.isFinite(normalizedPrice) || normalizedPrice <= 0) {
-      setLocalError('Price must be greater than 0.')
+    if (
+      !Number.isFinite(normalizedPrice30Ml) ||
+      !Number.isFinite(normalizedPrice55Ml) ||
+      !Number.isFinite(normalizedPrice100Ml) ||
+      normalizedPrice30Ml <= 0 ||
+      normalizedPrice55Ml <= 0 ||
+      normalizedPrice100Ml <= 0
+    ) {
+      setLocalError(t('admin.priceRequired'))
       return
     }
 
@@ -74,7 +90,10 @@ export default function EditPerfumeModal({
       description: normalizedDescription,
       gender,
       categoryId,
-      price: normalizedPrice,
+      price: normalizedPrice55Ml,
+      price30Ml: normalizedPrice30Ml,
+      price55Ml: normalizedPrice55Ml,
+      price100Ml: normalizedPrice100Ml,
       image: image ?? undefined,
     })
   }
@@ -83,16 +102,16 @@ export default function EditPerfumeModal({
     <Modal
       isOpen={perfume !== null}
       onClose={onClose}
-      title={perfume ? `Edit ${perfume.name}` : 'Edit Perfume'}
+      title={perfume ? t('admin.editNamedPerfume', { name: perfume.name }) : t('admin.editPerfume')}
       size="md"
     >
       <form onSubmit={handleSubmit} className="space-y-4 p-4 sm:p-6">
         <h2 className="text-base font-semibold sm:text-lg">
-          {perfume ? `Edit ${perfume.name}` : 'Edit Perfume'}
+          {perfume ? t('admin.editNamedPerfume', { name: perfume.name }) : t('admin.editPerfume')}
         </h2>
         <div className="space-y-2">
           <label htmlFor="edit-perfume-name" className="block text-sm font-medium">
-            Name
+            {t('common.name')}
           </label>
           <Input
             id="edit-perfume-name"
@@ -103,21 +122,21 @@ export default function EditPerfumeModal({
         </div>
         <div className="space-y-2">
           <label htmlFor="edit-perfume-gender" className="block text-sm font-medium">
-            Gender
+            {t('common.gender')}
           </label>
           <Select
             id="edit-perfume-gender"
             value={gender}
             onChange={(event) => setGender(event.target.value as 'male' | 'female' | 'unisex')}
           >
-            <option value="unisex">Unisex</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
+            <option value="unisex">{t('common.unisex')}</option>
+            <option value="male">{t('common.male')}</option>
+            <option value="female">{t('common.female')}</option>
           </Select>
         </div>
         <div className="space-y-2">
           <label htmlFor="edit-perfume-category" className="block text-sm font-medium">
-            Category
+            {t('common.category')}
           </label>
           <Select
             id="edit-perfume-category"
@@ -125,7 +144,7 @@ export default function EditPerfumeModal({
             onChange={(event) => setCategoryId(Number(event.target.value))}
             disabled={isLoadingCategories}
           >
-            <option value={0}>Select category</option>
+            <option value={0}>{t('admin.selectCategory')}</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -134,21 +153,52 @@ export default function EditPerfumeModal({
           </Select>
         </div>
         <div className="space-y-2">
-          <label htmlFor="edit-perfume-price" className="block text-sm font-medium">
-            Price
-          </label>
-          <Input
-            id="edit-perfume-price"
-            type="number"
-            min="0.01"
-            step="0.01"
-            value={price}
-            onChange={(event) => setPrice(event.target.value)}
-          />
+          <p className="block text-sm font-medium">{t('admin.sizePrices')}</p>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="space-y-1.5">
+              <label htmlFor="edit-perfume-price-30ml" className="block text-xs text-black/65">
+                30ml
+              </label>
+              <Input
+                id="edit-perfume-price-30ml"
+                type="number"
+                min="0.01"
+                step="0.01"
+                value={price30Ml}
+                onChange={(event) => setPrice30Ml(event.target.value)}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label htmlFor="edit-perfume-price-55ml" className="block text-xs text-black/65">
+                55ml
+              </label>
+              <Input
+                id="edit-perfume-price-55ml"
+                type="number"
+                min="0.01"
+                step="0.01"
+                value={price55Ml}
+                onChange={(event) => setPrice55Ml(event.target.value)}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label htmlFor="edit-perfume-price-100ml" className="block text-xs text-black/65">
+                100ml
+              </label>
+              <Input
+                id="edit-perfume-price-100ml"
+                type="number"
+                min="0.01"
+                step="0.01"
+                value={price100Ml}
+                onChange={(event) => setPrice100Ml(event.target.value)}
+              />
+            </div>
+          </div>
         </div>
         <div className="space-y-2">
           <label htmlFor="edit-perfume-description" className="block text-sm font-medium">
-            Description
+            {t('common.description')}
           </label>
           <Textarea
             id="edit-perfume-description"
@@ -159,7 +209,7 @@ export default function EditPerfumeModal({
         </div>
         <div className="space-y-2">
           <label htmlFor="edit-perfume-image" className="block text-sm font-medium">
-            Replace Image (optional)
+            {t('admin.replaceImage')}
           </label>
           <Input
             id="edit-perfume-image"
@@ -175,7 +225,7 @@ export default function EditPerfumeModal({
             disabled={isUpdatingPerfume || isDeletingPerfume}
             className="w-full sm:w-auto"
           >
-            {isUpdatingPerfume ? 'Saving...' : 'Save Changes'}
+            {isUpdatingPerfume ? t('admin.saving') : t('admin.saveChanges')}
           </Button>
           <Button
             type="button"
@@ -184,7 +234,7 @@ export default function EditPerfumeModal({
             variant="danger"
             className="w-full sm:w-auto"
           >
-            {isDeletingPerfume ? 'Deleting...' : 'Delete Perfume'}
+            {isDeletingPerfume ? t('admin.deleting') : t('admin.deletePerfume')}
           </Button>
           <Button
             type="button"
@@ -193,7 +243,7 @@ export default function EditPerfumeModal({
             variant="outline"
             className="w-full sm:w-auto"
           >
-            Cancel
+            {t('common.cancel')}
           </Button>
         </div>
       </form>

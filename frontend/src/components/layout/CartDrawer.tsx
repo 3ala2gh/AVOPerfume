@@ -1,6 +1,7 @@
 import { X } from 'lucide-react'
 import Button from '../common/ui/Button'
 import { useCart } from '../../context/cart-context'
+import { useI18n } from '../../i18n'
 
 type CartDrawerProps = {
   isOpen: boolean
@@ -9,6 +10,7 @@ type CartDrawerProps = {
 
 export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const { items, removeFromCart, clearCart, openWhatsAppOrder } = useCart()
+  const { t } = useI18n()
 
   return (
     <>
@@ -27,12 +29,12 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       >
         <div className="flex h-full flex-col">
           <header className="flex items-center justify-between border-b border-black/10 px-4 py-4 sm:px-6">
-            <h2 className="text-base font-semibold sm:text-lg">Your Cart</h2>
+            <h2 className="text-base font-semibold sm:text-lg">{t('cart.title')}</h2>
             <button
               type="button"
               onClick={onClose}
               className="rounded border border-black/20 p-1.5 transition-colors hover:bg-black hover:text-white"
-              aria-label="Close cart"
+              aria-label={t('common.closeCart')}
             >
               <X className="h-4 w-4" />
             </button>
@@ -40,12 +42,12 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
           <div className="flex-1 overflow-y-auto px-3 py-4 sm:px-6">
             {items.length === 0 ? (
-              <p className="text-sm text-black/65">Your cart is empty.</p>
+              <p className="text-sm text-black/65">{t('cart.empty')}</p>
             ) : (
               <div className="space-y-3">
                 {items.map((item) => (
                   <article
-                    key={item.id}
+                    key={item.key}
                     className="flex items-center gap-2 rounded-lg border border-black/10 p-2.5 sm:gap-3 sm:p-3"
                   >
                     {item.image ? (
@@ -59,17 +61,17 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                     )}
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium">{item.name}</p>
-                      <p className="text-xs text-black/65">{item.category}</p>
+                      <p className="text-xs text-black/65">{item.category} - {item.size}</p>
                       <p className="mt-1 text-sm text-black/80">
-                        {item.price} JOD x {item.quantity}
+                        {t('cart.itemPrice', { price: item.price, quantity: item.quantity })}
                       </p>
                     </div>
                     <button
                       type="button"
-                      onClick={() => removeFromCart(item.id)}
+                      onClick={() => removeFromCart(item.key)}
                       className="shrink-0 border border-black/20 px-2 py-1 text-xs transition-colors hover:bg-black hover:text-white sm:px-2.5"
                     >
-                      Remove
+                      {t('common.remove')}
                     </button>
                   </article>
                 ))}
@@ -84,7 +86,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 onClick={openWhatsAppOrder}
                 className="w-full"
               >
-                Send Order On WhatsApp
+                {t('cart.sendWhatsApp')}
               </Button>
               <Button
                 type="button"
@@ -92,7 +94,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 variant="outline"
                 className="w-full"
               >
-                Clear Cart
+                {t('common.clearCart')}
               </Button>
             </div>
           </footer>

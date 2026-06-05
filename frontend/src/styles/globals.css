@@ -20,6 +20,22 @@ body {
   margin: 0;
 }
 
+html[dir='rtl'] {
+  font-family: 'Tajawal', 'Cairo', 'Noto Kufi Arabic', 'Segoe UI', sans-serif;
+}
+
+html[dir='rtl'] body {
+  text-align: right;
+}
+
+html[dir='rtl'] .text-left {
+  text-align: right;
+}
+
+html[dir='rtl'] .text-right {
+  text-align: left;
+}
+
 #root {
   min-height: 100vh;
 }

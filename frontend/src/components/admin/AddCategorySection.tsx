@@ -1,6 +1,7 @@
 import { type FormEvent, useState } from 'react'
 import Button from '../common/ui/Button'
 import Input from '../common/ui/Input'
+import { useI18n } from '../../i18n'
 
 type AddCategorySectionProps = {
   isAddingCategory: boolean
@@ -11,6 +12,7 @@ export default function AddCategorySection({
   isAddingCategory,
   onCreateCategory,
 }: AddCategorySectionProps) {
+  const { t } = useI18n()
   const [newCategoryName, setNewCategoryName] = useState('')
   const [categorySuccess, setCategorySuccess] = useState('')
   const [categoryError, setCategoryError] = useState('')
@@ -22,16 +24,16 @@ export default function AddCategorySection({
 
     const normalizedName = newCategoryName.trim()
     if (!normalizedName) {
-      setCategoryError('Category name is required.')
+      setCategoryError(t('admin.categoryRequired'))
       return
     }
 
     try {
       await onCreateCategory(normalizedName)
-      setCategorySuccess('Category added successfully.')
+      setCategorySuccess(t('admin.addCategory'))
       setNewCategoryName('')
     } catch {
-      setCategoryError('Unable to add category right now.')
+      setCategoryError(t('admin.createError'))
     }
   }
 
@@ -40,10 +42,10 @@ export default function AddCategorySection({
       onSubmit={handleCreateCategory}
       className="space-y-3 rounded-xl border border-black/10 bg-white/90 p-4 sm:p-5 lg:p-6"
     >
-      <h2 className="text-base font-semibold sm:text-lg">Add Category</h2>
+      <h2 className="text-base font-semibold sm:text-lg">{t('admin.addCategory')}</h2>
       <div className="space-y-2">
         <label htmlFor="category-name" className="block text-sm font-medium">
-          Category Name
+          {t('admin.categoryName')}
         </label>
         <Input
           id="category-name"
@@ -58,7 +60,7 @@ export default function AddCategorySection({
         disabled={isAddingCategory}
         className="w-full sm:w-auto"
       >
-        {isAddingCategory ? 'Adding...' : 'Add Category'}
+        {isAddingCategory ? t('admin.adding') : t('admin.addCategory')}
       </Button>
     </form>
   )

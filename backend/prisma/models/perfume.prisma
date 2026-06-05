@@ -9,6 +9,9 @@ model Perfume {
   name        String
   gender      Gender   @default(UNISEX)
   price       Decimal
+  price30Ml   Decimal  @default(6)
+  price55Ml   Decimal  @default(8)
+  price100Ml  Decimal  @default(15)
   description String?
   imageUrl    String?
   categoryId  Int

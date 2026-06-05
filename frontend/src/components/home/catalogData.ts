@@ -1,4 +1,4 @@
-import type { Product } from '../../types/product'
+import type { PerfumeSize, Product, ProductSizePrice } from '../../types/product'
 
 export type CategoryName = 'All' | string
 
@@ -6,17 +6,52 @@ export type Perfume = {
   id: number
   name: string
   price: number
+  price30Ml: number
+  price55Ml: number
+  price100Ml: number
+  sizes: ProductSizePrice[]
   description: string
   category: string
   gender: 'male' | 'female' | 'unisex'
   image: string
 }
 
+export const DEFAULT_PERFUME_SIZE: PerfumeSize = '55ml'
+export const DEFAULT_PERFUME_SIZE_PRICES: Record<PerfumeSize, number> = {
+  '30ml': 6,
+  '55ml': 8,
+  '100ml': 15,
+}
+
+export const PERFUME_SIZE_OPTIONS: PerfumeSize[] = ['30ml', '55ml', '100ml']
+
+export function getPerfumeSizePrice(perfume: Perfume, size: PerfumeSize): number {
+  return perfume.sizes.find((item) => item.size === size)?.price ?? DEFAULT_PERFUME_SIZE_PRICES[size]
+}
+
+function normalizeProductSizes(product: Product): ProductSizePrice[] {
+  return PERFUME_SIZE_OPTIONS.map((size) => ({
+    size,
+    price: Number(
+      product.sizes?.find((item) => item.size === size)?.price ??
+        (size === '30ml' ? product.price30Ml : size === '55ml' ? product.price55Ml : product.price100Ml) ??
+        DEFAULT_PERFUME_SIZE_PRICES[size],
+    ),
+  }))
+}
+
 export function toPerfume(product: Product): Perfume {
+  const sizes = normalizeProductSizes(product)
+  const price55Ml = getPerfumeSizePrice({ sizes } as Perfume, DEFAULT_PERFUME_SIZE)
+
   return {
     id: product.id,
     name: product.name,
-    price: Number(product.price),
+    price: price55Ml,
+    price30Ml: getPerfumeSizePrice({ sizes } as Perfume, '30ml'),
+    price55Ml,
+    price100Ml: getPerfumeSizePrice({ sizes } as Perfume, '100ml'),
+    sizes,
     description: product.description ?? 'No description available.',
     category: product.category,
     gender: product.gender ?? 'unisex',
@@ -31,6 +66,22 @@ export function toPerfumes(products: Product[]): Perfume[] {
 export function getCategoryOrder(perfumes: Perfume[]): CategoryName[] {
   const categories = Array.from(new Set(perfumes.map((perfume) => perfume.category))).filter(Boolean)
   return ['All', ...categories]
+}
+
+export function filterPerfumes(perfumes: Perfume[], selectedCategory: CategoryName): Perfume[] {
+  if (selectedCategory === 'All') {
+    return perfumes
+  }
+
+  if (selectedCategory === 'Men') {
+    return perfumes.filter((perfume) => perfume.gender === 'male')
+  }
+
+  if (selectedCategory === 'Women') {
+    return perfumes.filter((perfume) => perfume.gender === 'female')
+  }
+
+  return perfumes.filter((perfume) => perfume.category === selectedCategory)
 }
 
 function normalize(value: string): string {

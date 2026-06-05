@@ -1,11 +1,22 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { findPerfumeBySlug, toPerfumes } from "../components/home/catalogData";
+import {
+  DEFAULT_PERFUME_SIZE,
+  findPerfumeBySlug,
+  getPerfumeSizePrice,
+  PERFUME_SIZE_OPTIONS,
+  toPerfumes,
+} from "../components/home/catalogData";
 import { useCart } from "../context/cart-context";
 import { useProductsQuery } from "../hooks/useProductsQuery";
+import type { PerfumeSize } from "../types/product";
+import { useI18n } from "../i18n";
 
 function PerfumeDetailsPage() {
   const { slug = "" } = useParams();
   const { addToCart } = useCart();
+  const { t } = useI18n();
+  const [selectedSize, setSelectedSize] = useState<PerfumeSize>(DEFAULT_PERFUME_SIZE);
   const { data: products = [], isLoading } = useProductsQuery();
   const perfumes = toPerfumes(products);
   const perfume = findPerfumeBySlug(perfumes, slug);
@@ -13,7 +24,7 @@ function PerfumeDetailsPage() {
   if (isLoading) {
     return (
       <main className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-        <p className="opacity-70">Loading perfume...</p>
+        <p className="opacity-70">{t('details.loading')}</p>
       </main>
     );
   }
@@ -21,15 +32,15 @@ function PerfumeDetailsPage() {
   if (!perfume) {
     return (
       <main className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-        <h1 className="mb-4 text-3xl tracking-wide">Perfume Not Found</h1>
+        <h1 className="mb-4 text-3xl tracking-wide">{t('details.notFoundTitle')}</h1>
         <p className="mb-6 opacity-70">
-          We could not find a perfume with this name.
+          {t('details.notFoundText')}
         </p>
         <Link
           to="/"
           className="border border-black px-6 py-3 transition-all hover:bg-black hover:text-white"
         >
-          Back to Home
+          {t('common.backHome')}
         </Link>
       </main>
     );
@@ -53,9 +64,32 @@ function PerfumeDetailsPage() {
             <h1 className="mb-4 text-3xl tracking-wide md:text-4xl">
               {perfume.name}
             </h1>
-            <p className="mb-6 text-2xl tracking-wide md:text-3xl">
-              {perfume.price} JOD
+            <p className="mb-4 text-2xl tracking-wide md:text-3xl">
+              {getPerfumeSizePrice(perfume, selectedSize)} {t('common.jod')}
             </p>
+            <div className="mb-6 grid grid-cols-3 gap-2">
+              {PERFUME_SIZE_OPTIONS.map((size) => {
+                const isActive = selectedSize === size;
+
+                return (
+                  <button
+                    key={size}
+                    type="button"
+                    onClick={() => setSelectedSize(size)}
+                    className={`border px-2 py-2 text-center transition-colors ${
+                      isActive
+                        ? "border-black bg-black text-white"
+                        : "border-black/20 hover:border-black"
+                    }`}
+                  >
+                    <span className="block text-xs tracking-wide">{size}</span>
+                    <span className="block text-sm font-medium">
+                      {getPerfumeSizePrice(perfume, size)} {t('common.jod')}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
             <p className="text-base leading-relaxed text-black/70 md:text-lg">
               {perfume.description}
             </p>
@@ -63,16 +97,16 @@ function PerfumeDetailsPage() {
           <div className="space-y-3">
             <button
               type="button"
-              onClick={() => addToCart(perfume)}
+              onClick={() => addToCart(perfume, selectedSize)}
               className="w-full bg-black py-4 text-sm font-medium tracking-wide text-white transition-colors hover:bg-black/80 md:text-base"
             >
-              Add to Cart
+              {t('common.addToCart')}
             </button>
             <Link
               to="/shop"
               className="block w-full border border-black py-4 text-center text-sm font-medium tracking-wide transition-all hover:bg-black hover:text-white md:text-base"
             >
-              Continue Shopping
+              {t('common.continueShopping')}
             </Link>
           </div>
         </div>

@@ -6,7 +6,9 @@ export const adminCreatePerfumeSchema = z.object({
     message: 'Gender is required',
   }),
   categoryId: z.number().int().gt(0, 'Category is required'),
-  price: z.number().gt(0, 'Price must be greater than 0'),
+  price30Ml: z.number().gt(0, '30ml price must be greater than 0'),
+  price55Ml: z.number().gt(0, '55ml price must be greater than 0'),
+  price100Ml: z.number().gt(0, '100ml price must be greater than 0'),
   description: z.string().trim(),
   image: z
     .custom<FileList>((value) => value instanceof FileList, 'Image is required')

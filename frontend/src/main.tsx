@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import App from './App'
 import { CartProvider } from './context/cart-context'
+import { I18nProvider } from './i18n'
 import './styles/globals.css'
 
 const queryClient = new QueryClient()
@@ -13,10 +14,12 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <CartProvider>
-          <App />
-          <Toaster richColors position="top-right" />
-        </CartProvider>
+        <I18nProvider>
+          <CartProvider>
+            <App />
+            <Toaster richColors position="top-right" />
+          </CartProvider>
+        </I18nProvider>
       </BrowserRouter>
     </QueryClientProvider>
   </StrictMode>,

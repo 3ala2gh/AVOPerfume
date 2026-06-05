@@ -5,12 +5,14 @@ import Input from '../../components/common/ui/Input'
 import { useAdminLoginSubmit } from '../../hooks/useAdminLoginSubmit'
 import { adminLoginSchema } from '../../schema/adminLogin.schema'
 import type { AuthResponse, LoginPayload } from '../../types/auth'
+import { useI18n } from '../../i18n'
 
 type AdminLoginPageProps = {
   onLogin: (auth: AuthResponse) => void
 }
 
 function AdminLoginPage({ onLogin }: AdminLoginPageProps) {
+  const { t } = useI18n()
   const {
     register,
     handleSubmit,
@@ -27,15 +29,15 @@ function AdminLoginPage({ onLogin }: AdminLoginPageProps) {
 
   return (
     <main className="container">
-      <h1>Admin Login</h1>
-      <p className="lead">Sign in as admin to access dashboard routes.</p>
+      <h1>{t('admin.loginTitle')}</h1>
+      <p className="lead">{t('admin.loginSubtitle')}</p>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="max-w-sm space-y-4 rounded-xl border border-black/10 bg-white/90 p-5"
       >
         <div className="space-y-2">
           <label htmlFor="admin-email" className="block text-sm font-medium">
-            Email
+            {t('common.email')}
           </label>
           <Input
             id="admin-email"
@@ -46,7 +48,7 @@ function AdminLoginPage({ onLogin }: AdminLoginPageProps) {
         </div>
         <div className="space-y-2">
           <label htmlFor="admin-password" className="block text-sm font-medium">
-            Password
+            {t('common.password')}
           </label>
           <Input
             id="admin-password"
@@ -61,7 +63,7 @@ function AdminLoginPage({ onLogin }: AdminLoginPageProps) {
           disabled={isSubmitting}
           className="w-full"
         >
-          {isSubmitting ? 'Logging in...' : 'Login'}
+          {isSubmitting ? t('admin.loggingIn') : t('admin.login')}
         </Button>
       </form>
     </main>

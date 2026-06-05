@@ -7,12 +7,20 @@ import {
   type ReactNode,
 } from 'react'
 import { toast } from 'sonner'
-import type { Perfume } from '../components/home/catalogData'
+import {
+  DEFAULT_PERFUME_SIZE,
+  getPerfumeSizePrice,
+  type Perfume,
+} from '../components/home/catalogData'
+import type { PerfumeSize } from '../types/product'
+import { useI18n } from '../i18n'
 
 type CartItem = {
+  key: string
   id: number
   name: string
   price: number
+  size: PerfumeSize
   category: string
   image: string
   quantity: number
@@ -21,8 +29,8 @@ type CartItem = {
 type CartContextValue = {
   items: CartItem[]
   totalItems: number
-  addToCart: (perfume: Perfume) => void
-  removeFromCart: (id: number) => void
+  addToCart: (perfume: Perfume, size?: PerfumeSize) => void
+  removeFromCart: (key: string) => void
   clearCart: () => void
   openWhatsAppOrder: () => void
 }
@@ -42,20 +50,30 @@ function readInitialCart(): CartItem[] {
     if (!raw) {
       return []
     }
-    const parsed = JSON.parse(raw) as CartItem[]
+    const parsed = JSON.parse(raw) as Array<CartItem | Omit<CartItem, 'key' | 'size'>>
     if (!Array.isArray(parsed)) {
       return []
     }
-    return parsed
+    return parsed.map((item) => {
+      const size = 'size' in item ? item.size : DEFAULT_PERFUME_SIZE
+      return {
+        ...item,
+        size,
+        key: 'key' in item ? item.key : `${item.id}-${size}`,
+      }
+    })
   } catch {
     return []
   }
 }
 
-function buildWhatsAppMessage(items: CartItem[]): string {
+function buildWhatsAppMessage(
+  items: CartItem[],
+  t: (key: string, values?: Record<string, string | number>) => string,
+): string {
   const lines = items.map(
     (item, index) =>
-      `${index + 1}. ${item.name} (x${item.quantity}) - ${item.price} JOD`,
+      `${index + 1}. ${item.name} - ${item.size} (x${item.quantity}) - ${item.price} ${t('common.jod')}`,
   )
   const totalAmount = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -63,16 +81,17 @@ function buildWhatsAppMessage(items: CartItem[]): string {
   )
 
   return [
-    'Hello AVO Perfume, I would like to order:',
+    t('cart.whatsappGreeting'),
     ...lines,
     '',
-    `Total Amount: ${totalAmount.toFixed(2)} JOD`,
+    t('cart.whatsappTotal', { total: totalAmount.toFixed(2) }),
     '',
-    'Thank you.',
+    t('cart.whatsappThanks'),
   ].join('\n')
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
+  const { t } = useI18n()
   const [items, setItems] = useState<CartItem[]>(readInitialCart)
 
   useEffect(() => {
@@ -84,16 +103,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [items],
   )
 
-  function addToCart(perfume: Perfume) {
+  function addToCart(perfume: Perfume, size: PerfumeSize = DEFAULT_PERFUME_SIZE) {
+    const key = `${perfume.id}-${size}`
+    const price = getPerfumeSizePrice(perfume, size)
+
     setItems((currentItems) => {
-      const existing = currentItems.find((item) => item.id === perfume.id)
+      const existing = currentItems.find((item) => item.key === key)
       if (!existing) {
         return [
           ...currentItems,
           {
+            key,
             id: perfume.id,
             name: perfume.name,
-            price: perfume.price,
+            price,
+            size,
             category: perfume.category,
             image: perfume.image,
             quantity: 1,
@@ -102,14 +126,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
 
       return currentItems.map((item) =>
-        item.id === perfume.id ? { ...item, quantity: item.quantity + 1 } : item,
+        item.key === key ? { ...item, quantity: item.quantity + 1 } : item,
       )
     })
-    toast.success(`${perfume.name} added to cart`)
+    toast.success(t('cart.added', { name: perfume.name, size }))
   }
 
-  function removeFromCart(id: number) {
-    setItems((currentItems) => currentItems.filter((item) => item.id !== id))
+  function removeFromCart(key: string) {
+    setItems((currentItems) => currentItems.filter((item) => item.key !== key))
   }
 
   function clearCart() {
@@ -118,16 +142,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   function openWhatsAppOrder() {
     if (items.length === 0) {
-      toast.error('Your cart is empty.')
+      toast.error(t('cart.empty'))
       return
     }
 
-    const message = buildWhatsAppMessage(items)
+    const message = buildWhatsAppMessage(items, t)
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
     const openedWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
 
     if (!openedWindow) {
-      toast.error('Could not open WhatsApp. Please allow popups and try again.')
+      toast.error(t('cart.whatsappError'))
     }
   }
 

@@ -1,24 +1,198 @@
 [
   {
+    "id": 8,
+    "name": "Only one",
+    "description": "",
+    "gender": "unisex",
+    "price": 8,
+    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780172935/avo-perfume/x3uhwanuyhymxkyerjqf.jpg",
+    "categoryId": 1,
+    "category": "Wood",
+    "createdAt": "2026-05-30T20:28:56.852Z",
+    "price30Ml": 6,
+    "price55Ml": 8,
+    "price100Ml": 15,
+    "sizes": [
+      {
+        "size": "30ml",
+        "price": 6
+      },
+      {
+        "size": "55ml",
+        "price": 8
+      },
+      {
+        "size": "100ml",
+        "price": 15
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "test 101",
+    "description": "",
+    "gender": "male",
+    "price": 8,
+    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780170074/avo-perfume/q0x90nxlstl4skblpwfb.png",
+    "categoryId": 7,
+    "category": "Oriental",
+    "createdAt": "2026-05-30T19:41:15.674Z",
+    "price30Ml": 6,
+    "price55Ml": 8,
+    "price100Ml": 15,
+    "sizes": [
+      {
+        "size": "30ml",
+        "price": 6
+      },
+      {
+        "size": "55ml",
+        "price": 8
+      },
+      {
+        "size": "100ml",
+        "price": 15
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Marakoja",
+    "description": "",
+    "gender": "male",
+    "price": 8,
+    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780168593/avo-perfume/viuylhazgbu3dn5ruumx.png",
+    "categoryId": 1,
+    "category": "Wood",
+    "createdAt": "2026-05-30T19:16:35.427Z",
+    "price30Ml": 6,
+    "price55Ml": 8,
+    "price100Ml": 15,
+    "sizes": [
+      {
+        "size": "30ml",
+        "price": 6
+      },
+      {
+        "size": "55ml",
+        "price": 8
+      },
+      {
+        "size": "100ml",
+        "price": 15
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Hi Hi Test",
+    "description": "",
+    "gender": "male",
+    "price": 8,
+    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780167699/avo-perfume/iwsw2rv4iuvcdgz1sjip.png",
+    "categoryId": 7,
+    "category": "Oriental",
+    "createdAt": "2026-05-30T19:01:41.446Z",
+    "price30Ml": 6,
+    "price55Ml": 8,
+    "price100Ml": 15,
+    "sizes": [
+      {
+        "size": "30ml",
+        "price": 6
+      },
+      {
+        "size": "55ml",
+        "price": 8
+      },
+      {
+        "size": "100ml",
+        "price": 15
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Fhernhite",
+    "description": "fresh perfume that will everyone notice you",
+    "gender": "male",
+    "price": 8,
+    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780157799/avo-perfume/gb1ptklkvuo8e5u1ubu6.png",
+    "categoryId": 5,
+    "category": "Fresh",
+    "createdAt": "2026-05-30T16:16:43.365Z",
+    "price30Ml": 6,
+    "price55Ml": 8,
+    "price100Ml": 15,
+    "sizes": [
+      {
+        "size": "30ml",
+        "price": 6
+      },
+      {
+        "size": "55ml",
+        "price": 8
+      },
+      {
+        "size": "100ml",
+        "price": 15
+      }
+    ]
+  },
+  {
     "id": 3,
     "name": "Blue De Chanel",
     "description": "best Perfume on the Earth",
     "gender": "unisex",
-    "price": "30",
+    "price": 8,
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780080707/avo-perfume/t6yveyg18sbottmd7zwg.png",
     "categoryId": 5,
     "category": "Fresh",
-    "createdAt": "2026-05-29T18:51:50.440Z"
+    "createdAt": "2026-05-29T18:51:50.440Z",
+    "price30Ml": 6,
+    "price55Ml": 8,
+    "price100Ml": 15,
+    "sizes": [
+      {
+        "size": "30ml",
+        "price": 6
+      },
+      {
+        "size": "55ml",
+        "price": 8
+      },
+      {
+        "size": "100ml",
+        "price": 15
+      }
+    ]
   },
   {
     "id": 2,
     "name": "perfume 2",
     "description": "the best 2",
     "gender": "unisex",
-    "price": "10",
+    "price": 8,
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780014302/avo-perfume/rsmwgjvhkgwcyiyadnv4.png",
     "categoryId": 1,
     "category": "Wood",
-    "createdAt": "2026-05-29T00:25:03.721Z"
+    "createdAt": "2026-05-29T00:25:03.721Z",
+    "price30Ml": 6,
+    "price55Ml": 8,
+    "price100Ml": 15,
+    "sizes": [
+      {
+        "size": "30ml",
+        "price": 6
+      },
+      {
+        "size": "55ml",
+        "price": 8
+      },
+      {
+        "size": "100ml",
+        "price": 15
+      }
+    ]
   }
 ]

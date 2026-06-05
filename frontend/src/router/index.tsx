@@ -1,21 +1,73 @@
-import type { ReactElement } from 'react'
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import type { AuthResponse } from '../types/auth'
+import { useAdminSession } from '../hooks/useAdminSession'
 import HomePage from '../pages/HomePage'
-import ProductsPage from '../pages/ProductsPage'
 import NotFoundPage from '../pages/NotFoundPage'
-
-const routes: Record<string, ReactElement> = {
-  '/': <HomePage />,
-  '/products': <ProductsPage />,
-}
-
-function normalizePath(pathname: string): string {
-  if (pathname.length > 1 && pathname.endsWith('/')) {
-    return pathname.slice(0, -1)
-  }
-  return pathname
-}
+import OffersPage from '../pages/OffersPage'
+import PerfumeDetailsPage from '../pages/PerfumeDetailsPage'
+import ProductsPage from '../pages/ProductsPage'
+import ShopPage from '../pages/ShopPage'
+import AdminDashboardPage from '../pages/admin/AdminDashboardPage'
+import AdminLoginPage from '../pages/admin/AdminLoginPage'
+import AdminOffersPage from '../pages/admin/AdminOffersPage'
 
 export function AppRouter() {
-  const path = normalizePath(window.location.pathname)
-  return routes[path] ?? <NotFoundPage />
+  const navigate = useNavigate()
+  const { isAdminAuthenticated, login, logout } = useAdminSession()
+
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/shop" element={<ShopPage />} />
+      <Route path="/products" element={<ProductsPage />} />
+      <Route path="/offers" element={<OffersPage />} />
+      <Route path="/perfume/:slug" element={<PerfumeDetailsPage />} />
+      <Route
+        path="/admin/login"
+        element={
+          isAdminAuthenticated ? (
+            <Navigate to="/admin" replace />
+          ) : (
+            <AdminLoginPage
+              onLogin={(auth: AuthResponse) => {
+                login(auth)
+                navigate('/admin', { replace: true })
+              }}
+            />
+          )
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          isAdminAuthenticated ? (
+            <AdminDashboardPage
+              onLogout={() => {
+                logout()
+                navigate('/', { replace: true })
+              }}
+            />
+          ) : (
+            <Navigate to="/admin/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/admin/offers"
+        element={
+          isAdminAuthenticated ? (
+            <AdminOffersPage
+              onLogout={() => {
+                logout()
+                navigate('/', { replace: true })
+              }}
+            />
+          ) : (
+            <Navigate to="/admin/login" replace />
+          )
+        }
+      />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  )
 }

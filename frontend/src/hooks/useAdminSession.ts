@@ -41,7 +41,6 @@ export function useAdminSession() {
     if (!isStoredAdminSessionValid()) {
       window.localStorage.removeItem(ADMIN_AUTH_TOKEN_KEY)
       window.localStorage.removeItem(ADMIN_AUTH_USER_KEY)
-      setIsAdminAuthenticated(false)
     }
   }, [])
 
@@ -63,4 +62,3 @@ export function useAdminSession() {
     logout,
   }
 }
-

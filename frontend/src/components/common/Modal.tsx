@@ -1,6 +1,7 @@
 import { useEffect, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
+import { useI18n } from "../../i18n";
 
 type ModalProps = {
   isOpen: boolean;
@@ -25,6 +26,7 @@ export default function Modal({
   size = "lg",
   children,
 }: ModalProps) {
+  const { t } = useI18n();
   useEffect(() => {
     if (!isOpen) {
       return;
@@ -70,7 +72,7 @@ export default function Modal({
               type="button"
               onClick={onClose}
               className="absolute right-3 top-3 z-30 border border-black bg-white p-1 text-black shadow-sm transition-colors hover:bg-black hover:text-white"
-              aria-label="Close modal"
+              aria-label={t('common.closeModal')}
             >
               <X className="h-4 w-4" />
             </button>

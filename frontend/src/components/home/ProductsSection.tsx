@@ -4,9 +4,19 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Modal from "../common/Modal";
 import { useCart } from "../../context/cart-context";
-import { type CategoryName, type Perfume } from "./catalogData";
+import {
+  DEFAULT_PERFUME_SIZE,
+  filterPerfumes,
+  getPerfumeSizePrice,
+  PERFUME_SIZE_OPTIONS,
+  type CategoryName,
+  type Perfume,
+} from "./catalogData";
+import type { PerfumeSize } from "../../types/product";
+import { useI18n } from "../../i18n";
 
-const VISIBLE_COUNT = 3;
+const MOBILE_VISIBLE_COUNT = 2;
+const DESKTOP_VISIBLE_COUNT = 3;
 
 type ProductsSectionProps = {
   perfumes: Perfume[];
@@ -18,15 +28,15 @@ export default function ProductsSection({
   selectedCategory,
 }: ProductsSectionProps) {
   const { addToCart } = useCart();
+  const { t } = useI18n();
   const [startIndex, setStartIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(MOBILE_VISIBLE_COUNT);
   const [direction, setDirection] = useState<1 | -1>(1);
   const [activePerfume, setActivePerfume] = useState<Perfume | null>(null);
+  const [selectedSize, setSelectedSize] = useState<PerfumeSize>(DEFAULT_PERFUME_SIZE);
 
   const filteredPerfumes = useMemo(
-    () =>
-      selectedCategory === "All"
-        ? perfumes
-        : perfumes.filter((perfume) => perfume.category === selectedCategory),
+    () => filterPerfumes(perfumes, selectedCategory),
     [perfumes, selectedCategory],
   );
 
@@ -35,16 +45,33 @@ export default function ProductsSection({
       return [];
     }
 
-    return filteredPerfumes.slice(startIndex, startIndex + VISIBLE_COUNT);
-  }, [filteredPerfumes, startIndex]);
+    return filteredPerfumes.slice(startIndex, startIndex + visibleCount);
+  }, [filteredPerfumes, startIndex, visibleCount]);
 
-  const maxStartIndex = Math.max(0, filteredPerfumes.length - VISIBLE_COUNT);
+  const maxStartIndex = Math.max(0, filteredPerfumes.length - visibleCount);
   const canGoPrevious = startIndex > 0;
   const canGoNext = startIndex < maxStartIndex;
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 640px)");
+
+    function updateVisibleCount() {
+      setVisibleCount(mediaQuery.matches ? DESKTOP_VISIBLE_COUNT : MOBILE_VISIBLE_COUNT);
+    }
+
+    updateVisibleCount();
+    mediaQuery.addEventListener("change", updateVisibleCount);
+
+    return () => mediaQuery.removeEventListener("change", updateVisibleCount);
+  }, []);
+
+  useEffect(() => {
     setStartIndex(0);
-  }, [selectedCategory, perfumes]);
+  }, [selectedCategory, perfumes, visibleCount]);
+
+  useEffect(() => {
+    setSelectedSize(DEFAULT_PERFUME_SIZE);
+  }, [activePerfume]);
 
   function showNext() {
     if (!canGoNext) {
@@ -53,7 +80,7 @@ export default function ProductsSection({
 
     setDirection(1);
     setStartIndex((current) =>
-      Math.min(maxStartIndex, current + VISIBLE_COUNT),
+      Math.min(maxStartIndex, current + visibleCount),
     );
   }
 
@@ -63,7 +90,7 @@ export default function ProductsSection({
     }
 
     setDirection(-1);
-    setStartIndex((current) => Math.max(0, current - VISIBLE_COUNT));
+    setStartIndex((current) => Math.max(0, current - visibleCount));
   }
 
   return (
@@ -74,10 +101,10 @@ export default function ProductsSection({
       <div className="mb-8 sm:mb-10 ">
         <div className="min-w-0 text-center">
           <h3 className="mb-2 text-2xl tracking-wider sm:text-4xl">
-            FEATURED COLLECTION
+            {t('home.featuredCollection')}
           </h3>
           <p className="text-sm opacity-70 sm:text-lg">
-            {filteredPerfumes.length} perfumes available
+            {t('home.perfumesAvailable', { count: filteredPerfumes.length })}
           </p>
         </div>
       </div>
@@ -87,19 +114,19 @@ export default function ProductsSection({
           type="button"
           onClick={showPrevious}
           disabled={!canGoPrevious}
-          className="absolute left-0 top-1/2 z-10 hidden -translate-y-1/2 border border-black bg-white p-2 transition-all hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-30 sm:block"
-          aria-label="Show previous perfumes"
+          className="absolute left-0 top-1/2 z-10 -translate-y-1/2 border border-black bg-white p-1.5 transition-all hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-30 sm:p-2"
+          aria-label={t('home.previousPerfumes')}
         >
-          <ChevronLeft className="h-5 w-5" />
+          <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
         </button>
         <button
           type="button"
           onClick={showNext}
           disabled={!canGoNext}
-          className="absolute right-0 top-1/2 z-10 hidden -translate-y-1/2 border border-black bg-white p-2 transition-all hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-30 sm:block"
-          aria-label="Show next perfumes"
+          className="absolute right-0 top-1/2 z-10 -translate-y-1/2 border border-black bg-white p-1.5 transition-all hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-30 sm:p-2"
+          aria-label={t('home.nextPerfumes')}
         >
-          <ChevronRight className="h-5 w-5" />
+          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
         </button>
 
         <AnimatePresence mode="wait" custom={direction}>
@@ -121,7 +148,7 @@ export default function ProductsSection({
             animate="center"
             exit="exit"
             transition={{ duration: 0.35, ease: "easeOut" }}
-            className="grid grid-cols-3 gap-2 px-0 sm:gap-3 sm:px-12 md:gap-5"
+            className="grid grid-cols-2 gap-4 px-9 sm:grid-cols-3 sm:gap-3 sm:px-12 md:gap-5"
           >
             {visiblePerfumes.map((perfume, cardIndex) => (
               <div
@@ -148,7 +175,7 @@ export default function ProductsSection({
 
                 <div className="mt-auto flex items-center justify-between">
                   <span className="text-[11px] sm:text-sm md:text-lg">
-                    {perfume.price} JOD
+                    {perfume.price} {t('common.jod')}
                   </span>
                   <button
                     type="button"
@@ -156,12 +183,12 @@ export default function ProductsSection({
                       event.stopPropagation();
                       addToCart(perfume);
                     }}
-                    className="inline-flex h-9 w-12 items-center justify-center rounded-full border border-black bg-white transition-all duration-300 hover:bg-black hover:text-white sm:h-10 sm:w-14"
-                    aria-label={`Add ${perfume.name} to cart`}
+                    className="inline-flex h-8 w-10 items-center justify-center rounded-full border border-black bg-white transition-all duration-300 hover:bg-black hover:text-white sm:h-10 sm:w-14"
+                    aria-label={t('home.addNamedToCart', { name: perfume.name })}
                   >
                     <span className="relative inline-flex">
-                      <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5" />
-                      <Plus className="absolute left-1.5 top-0.5 h-2.5 w-2.5 sm:left-2 sm:top-1 sm:h-3 sm:w-3" />
+                      <ShoppingCart className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
+                      <Plus className="absolute left-1.5 top-0.5 h-2 w-2 sm:left-2 sm:top-1 sm:h-3 sm:w-3" />
                     </span>
                   </button>
                 </div>
@@ -171,41 +198,20 @@ export default function ProductsSection({
         </AnimatePresence>
       </div>
 
-      <div className="mt-3 flex items-center justify-center gap-2 sm:hidden">
-        <button
-          type="button"
-          onClick={showPrevious}
-          disabled={!canGoPrevious}
-          className="border border-black bg-white p-1.5 transition-all hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
-          aria-label="Show previous perfumes"
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </button>
-        <button
-          type="button"
-          onClick={showNext}
-          disabled={!canGoNext}
-          className="border border-black bg-white p-1.5 transition-all hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
-          aria-label="Show next perfumes"
-        >
-          <ChevronRight className="h-4 w-4" />
-        </button>
-      </div>
-
-      <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row">
+      <div className="mt-6 flex flex-row flex-wrap items-center justify-center gap-3 sm:mt-8">
         <Link
           to="/shop"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="border border-black px-6 py-2.5 text-sm font-medium tracking-wide transition-all hover:bg-black hover:text-white sm:text-base"
         >
-          View All Perfumes
+          {t('home.viewAllPerfumes')}
         </Link>
         <Link
           to="/offers"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="border border-black px-6 py-2.5 text-sm font-medium tracking-wide transition-all hover:bg-black hover:text-white sm:text-base"
         >
-          View Offers
+          {t('home.viewOffers')}
         </Link>
       </div>
 
@@ -232,9 +238,32 @@ export default function ProductsSection({
                 <h2 className="mb-4 text-3xl tracking-wide md:text-4xl">
                   {activePerfume.name}
                 </h2>
-                <p className="mb-6 text-2xl tracking-wide md:text-3xl">
-                  {activePerfume.price} JOD
+                <p className="mb-4 text-2xl tracking-wide md:text-3xl">
+                  {getPerfumeSizePrice(activePerfume, selectedSize)} {t('common.jod')}
                 </p>
+                <div className="mb-6 grid grid-cols-3 gap-2">
+                  {PERFUME_SIZE_OPTIONS.map((size) => {
+                    const isActive = selectedSize === size;
+
+                    return (
+                      <button
+                        key={size}
+                        type="button"
+                        onClick={() => setSelectedSize(size)}
+                        className={`border px-2 py-2 text-center transition-colors ${
+                          isActive
+                            ? "border-black bg-black text-white"
+                            : "border-black/20 hover:border-black"
+                        }`}
+                      >
+                        <span className="block text-xs tracking-wide">{size}</span>
+                        <span className="block text-sm font-medium">
+                          {getPerfumeSizePrice(activePerfume, size)} {t('common.jod')}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
                 <p className="text-base leading-relaxed text-black/70 md:text-lg">
                   {activePerfume.description}
                 </p>
@@ -242,10 +271,10 @@ export default function ProductsSection({
               <div className="space-y-3">
                 <button
                   type="button"
-                  onClick={() => addToCart(activePerfume)}
+                  onClick={() => addToCart(activePerfume, selectedSize)}
                   className="w-full bg-black py-4 text-sm font-medium tracking-wide text-white transition-colors hover:bg-black/80 md:text-base"
                 >
-                  Add to Cart
+                  {t('common.addToCart')}
                 </button>
               </div>
             </div>

@@ -12,6 +12,7 @@ import {
   type AdminCreatePerfumePayload,
 } from '../../schema/adminCreatePerfume.schema'
 import type { Category } from '../../types/product'
+import { useI18n } from '../../i18n'
 
 type AddPerfumeSectionProps = {
   categories: Category[]
@@ -23,6 +24,7 @@ export default function AddPerfumeSection({
   isLoadingCategories,
 }: AddPerfumeSectionProps) {
   const queryClient = useQueryClient()
+  const { t } = useI18n()
   const { mutateAsync: createProductMutation } = useCreateProductMutation()
   const {
     register,
@@ -37,14 +39,16 @@ export default function AddPerfumeSection({
       gender: 'unisex',
       categoryId: 0,
       description: '',
-      price: 0,
+      price30Ml: 6,
+      price55Ml: 8,
+      price100Ml: 15,
     },
   })
 
   async function onSubmit(values: AdminCreatePerfumePayload) {
     const image = values.image.item(0)
     if (!image) {
-      setError('image', { message: 'Image is required' })
+      setError('image', { message: t('admin.imageRequired') })
       return
     }
 
@@ -54,14 +58,17 @@ export default function AddPerfumeSection({
         description: values.description.trim(),
         gender: values.gender,
         categoryId: values.categoryId,
-        price: values.price,
+        price: values.price55Ml,
+        price30Ml: values.price30Ml,
+        price55Ml: values.price55Ml,
+        price100Ml: values.price100Ml,
         image,
       })
       await queryClient.invalidateQueries({ queryKey: ['products'] })
-      toast.success('Perfume created successfully.')
+      toast.success(t('admin.perfumeCreated'))
       reset()
     } catch {
-      toast.error('Unable to create perfume right now.')
+      toast.error(t('admin.createError'))
     }
   }
 
@@ -70,10 +77,10 @@ export default function AddPerfumeSection({
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-4 rounded-xl border border-black/10 bg-white/90 p-4 sm:p-5 lg:p-6"
     >
-      <h2 className="text-base font-semibold sm:text-lg">Add Perfume</h2>
+      <h2 className="text-base font-semibold sm:text-lg">{t('admin.addPerfume')}</h2>
       <div className="space-y-2">
         <label htmlFor="perfume-name" className="block text-sm font-medium">
-          Name
+          {t('common.name')}
         </label>
         <Input
           id="perfume-name"
@@ -84,14 +91,14 @@ export default function AddPerfumeSection({
       </div>
       <div className="space-y-2">
         <label htmlFor="perfume-category" className="block text-sm font-medium">
-          Category
+          {t('common.category')}
         </label>
         <Select
           id="perfume-category"
           {...register('categoryId', { valueAsNumber: true })}
           disabled={isLoadingCategories}
         >
-          <option value={0}>Select category</option>
+          <option value={0}>{t('admin.selectCategory')}</option>
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
               {category.name}
@@ -102,34 +109,65 @@ export default function AddPerfumeSection({
       </div>
       <div className="space-y-2">
         <label htmlFor="perfume-gender" className="block text-sm font-medium">
-          Gender
+          {t('common.gender')}
         </label>
         <Select
           id="perfume-gender"
           {...register('gender')}
         >
-          <option value="unisex">Unisex</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
+          <option value="unisex">{t('common.unisex')}</option>
+          <option value="male">{t('common.male')}</option>
+          <option value="female">{t('common.female')}</option>
         </Select>
         {errors.gender && <p className="text-sm text-red-600">{errors.gender.message}</p>}
       </div>
       <div className="space-y-2">
-        <label htmlFor="perfume-price" className="block text-sm font-medium">
-          Price
-        </label>
-        <Input
-          id="perfume-price"
-          type="number"
-          min="0.01"
-          step="0.01"
-          {...register('price', { valueAsNumber: true })}
-        />
-        {errors.price && <p className="text-sm text-red-600">{errors.price.message}</p>}
+        <p className="block text-sm font-medium">{t('admin.sizePrices')}</p>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="space-y-1.5">
+            <label htmlFor="perfume-price-30ml" className="block text-xs text-black/65">
+              30ml
+            </label>
+            <Input
+              id="perfume-price-30ml"
+              type="number"
+              min="0.01"
+              step="0.01"
+              {...register('price30Ml', { valueAsNumber: true })}
+            />
+            {errors.price30Ml && <p className="text-xs text-red-600">{errors.price30Ml.message}</p>}
+          </div>
+          <div className="space-y-1.5">
+            <label htmlFor="perfume-price-55ml" className="block text-xs text-black/65">
+              55ml
+            </label>
+            <Input
+              id="perfume-price-55ml"
+              type="number"
+              min="0.01"
+              step="0.01"
+              {...register('price55Ml', { valueAsNumber: true })}
+            />
+            {errors.price55Ml && <p className="text-xs text-red-600">{errors.price55Ml.message}</p>}
+          </div>
+          <div className="space-y-1.5">
+            <label htmlFor="perfume-price-100ml" className="block text-xs text-black/65">
+              100ml
+            </label>
+            <Input
+              id="perfume-price-100ml"
+              type="number"
+              min="0.01"
+              step="0.01"
+              {...register('price100Ml', { valueAsNumber: true })}
+            />
+            {errors.price100Ml && <p className="text-xs text-red-600">{errors.price100Ml.message}</p>}
+          </div>
+        </div>
       </div>
       <div className="space-y-2">
         <label htmlFor="perfume-description" className="block text-sm font-medium">
-          Description
+          {t('common.description')}
         </label>
         <Textarea
           id="perfume-description"
@@ -140,7 +178,7 @@ export default function AddPerfumeSection({
       </div>
       <div className="space-y-2">
         <label htmlFor="perfume-image" className="block text-sm font-medium">
-          Image
+          {t('common.image')}
         </label>
         <Input
           id="perfume-image"
@@ -156,7 +194,7 @@ export default function AddPerfumeSection({
         disabled={isSubmitting}
         className="w-full sm:w-auto"
       >
-        {isSubmitting ? 'Creating...' : 'Create Perfume'}
+        {isSubmitting ? t('admin.creating') : t('admin.createPerfume')}
       </Button>
     </form>
   )

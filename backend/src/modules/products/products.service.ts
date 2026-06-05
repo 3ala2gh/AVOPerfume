@@ -17,6 +17,9 @@ type CreatePerfumeParams = {
   gender: GenderInput;
   categoryId: number;
   price: number;
+  price30Ml: number;
+  price55Ml: number;
+  price100Ml: number;
   image: UploadedFile;
 };
 
@@ -27,6 +30,9 @@ type UpdatePerfumeParams = {
   gender: GenderInput;
   categoryId: number;
   price: number;
+  price30Ml: number;
+  price55Ml: number;
+  price100Ml: number;
   image?: UploadedFile;
 };
 
@@ -47,6 +53,9 @@ export class ProductsService {
     description: string | null;
     gender: GenderDb;
     price: Prisma.Decimal;
+    price30Ml: Prisma.Decimal;
+    price55Ml: Prisma.Decimal;
+    price100Ml: Prisma.Decimal;
     imageUrl: string | null;
     categoryId: number;
     category: { name: string };
@@ -57,7 +66,15 @@ export class ProductsService {
       name: perfume.name,
       description: perfume.description,
       gender: perfume.gender.toLowerCase(),
-      price: perfume.price,
+      price: perfume.price55Ml,
+      price30Ml: perfume.price30Ml,
+      price55Ml: perfume.price55Ml,
+      price100Ml: perfume.price100Ml,
+      sizes: [
+        { size: '30ml', price: perfume.price30Ml },
+        { size: '55ml', price: perfume.price55Ml },
+        { size: '100ml', price: perfume.price100Ml },
+      ],
       imageUrl: perfume.imageUrl,
       categoryId: perfume.categoryId,
       category: perfume.category.name,
@@ -125,6 +142,9 @@ export class ProductsService {
     gender,
     categoryId,
     price,
+    price30Ml,
+    price55Ml,
+    price100Ml,
     image,
   }: CreatePerfumeParams) {
     const uploadedImage = await this.cloudinaryService.uploadImage(image);
@@ -137,7 +157,10 @@ export class ProductsService {
           description,
           gender: gender.toUpperCase() as GenderDb,
           categoryId,
-          price,
+          price: price55Ml ?? price,
+          price30Ml,
+          price55Ml,
+          price100Ml,
           imageUrl: uploadedImage.secureUrl,
         },
       })
@@ -151,6 +174,9 @@ export class ProductsService {
     gender,
     categoryId,
     price,
+    price30Ml,
+    price55Ml,
+    price100Ml,
     image,
   }: UpdatePerfumeParams) {
     const existingPerfume = await this.prismaService.perfume.findUnique({
@@ -175,7 +201,10 @@ export class ProductsService {
           description,
           gender: gender.toUpperCase() as GenderDb,
           categoryId,
-          price,
+          price: price55Ml ?? price,
+          price30Ml,
+          price55Ml,
+          price100Ml,
           imageUrl,
         },
       })

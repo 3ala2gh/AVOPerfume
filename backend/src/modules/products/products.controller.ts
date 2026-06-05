@@ -70,6 +70,9 @@ export class ProductsController {
       description: body.description ?? '',
       gender: body.gender,
       price: body.price,
+      price30Ml: body.price30Ml,
+      price55Ml: body.price55Ml,
+      price100Ml: body.price100Ml,
       image,
     });
   }
@@ -114,6 +117,9 @@ export class ProductsController {
       gender: body.gender,
       categoryId: body.categoryId,
       price: body.price,
+      price30Ml: body.price30Ml,
+      price55Ml: body.price55Ml,
+      price100Ml: body.price100Ml,
       image,
     });
   }
