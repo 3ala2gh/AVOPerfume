@@ -1,14 +1,15 @@
 import {
-  createContext,
-  useContext,
   useEffect,
   useMemo,
   useState,
   type ReactNode,
 } from "react";
-
-type Language = "en" | "ar";
-type TranslationValues = Record<string, string | number>;
+import {
+  I18nContext,
+  type I18nContextValue,
+  type Language,
+  type TranslationValues,
+} from "./context/i18n-context";
 
 const LANGUAGE_STORAGE_KEY = "avo_language";
 
@@ -48,9 +49,15 @@ const translations = {
       openMenu: "Open menu",
     },
     category: {
-      All: "All",
-      Men: "Men",
-      Women: "Women",
+      all: "All",
+      men: "Men",
+      women: "Women",
+      floral: "Floral",
+      fresh: "Fresh",
+      oriental: "Oriental",
+      uncategorized: "Uncategorized",
+      wood: "Wood",
+      woody: "Woody",
     },
     home: {
       heroAlt: "Luxury perfume",
@@ -177,6 +184,19 @@ const translations = {
       deleting: "Deleting...",
       addCategory: "Add Category",
       categoryName: "Category name",
+      categoryNameEnglish: "English category name",
+      categoryNameArabic: "Arabic category name",
+      categoryNamesRequired: "English and Arabic category names are required.",
+      manageCategories: "Manage Categories",
+      editCategory: "Edit",
+      deleteCategory: "Delete",
+      loadingCategories: "Loading categories...",
+      categoryCreated: "Category created successfully.",
+      categoryUpdated: "Category updated successfully.",
+      categoryDeleted: "Category deleted successfully.",
+      categorySaveError: "Unable to save category. The English name may already exist.",
+      categoryDeleteInUse: "This category cannot be deleted while perfumes use it.",
+      deleteCategoryConfirm: 'Delete category "{{name}}"?',
       add: "Add",
       adding: "Adding...",
       uploadOfferImage: "Upload Offer Image",
@@ -238,9 +258,15 @@ const translations = {
       openMenu: "فتح القائمة",
     },
     category: {
-      All: "الكل",
-      Men: "رجالي",
-      Women: "نسائي",
+      all: "الكل",
+      men: "رجالي",
+      women: "نسائي",
+      floral: "زهري",
+      fresh: "منعش",
+      oriental: "شرقي",
+      uncategorized: "غير مصنف",
+      wood: "خشبي",
+      woody: "خشبي",
     },
     home: {
       heroAlt: "عطر فاخر",
@@ -362,6 +388,19 @@ const translations = {
       deleting: "جاري الحذف...",
       addCategory: "إضافة فئة",
       categoryName: "اسم الفئة",
+      categoryNameEnglish: "اسم الفئة بالإنجليزية",
+      categoryNameArabic: "اسم الفئة بالعربية",
+      categoryNamesRequired: "اسم الفئة بالإنجليزية والعربية مطلوبان.",
+      manageCategories: "إدارة الفئات",
+      editCategory: "تعديل",
+      deleteCategory: "حذف",
+      loadingCategories: "جاري تحميل الفئات...",
+      categoryCreated: "تم إنشاء الفئة بنجاح.",
+      categoryUpdated: "تم تحديث الفئة بنجاح.",
+      categoryDeleted: "تم حذف الفئة بنجاح.",
+      categorySaveError: "تعذر حفظ الفئة. قد يكون الاسم الإنجليزي مستخدماً.",
+      categoryDeleteInUse: "لا يمكن حذف الفئة أثناء استخدامها في عطور.",
+      deleteCategoryConfirm: 'حذف الفئة "{{name}}"؟',
       add: "إضافة",
       adding: "جاري الإضافة...",
       uploadOfferImage: "رفع صورة عرض",
@@ -390,19 +429,6 @@ const translations = {
 } as const;
 
 type TranslationKey = keyof typeof translations.en | string;
-
-type I18nContextValue = {
-  language: Language;
-  direction: "ltr" | "rtl";
-  isArabic: boolean;
-  setLanguage: (language: Language) => void;
-  toggleLanguage: () => void;
-  t: (key: TranslationKey, values?: TranslationValues) => string;
-  categoryLabel: (category: string) => string;
-  genderLabel: (gender: string) => string;
-};
-
-const I18nContext = createContext<I18nContextValue | null>(null);
 
 function getInitialLanguage(): Language {
   if (typeof window === "undefined") {
@@ -454,11 +480,15 @@ export function I18nProvider({ children }: { children: ReactNode }) {
       return interpolate(resolveTranslation(language, key), values);
     }
 
-    function categoryLabel(category: string) {
-      return resolveTranslation(language, `category.${category}`) ===
-        `category.${category}`
+    function categoryLabel(category: string, categoryAr?: string) {
+      if (language === "ar" && categoryAr?.trim()) {
+        return categoryAr;
+      }
+
+      const translationKey = `category.${category.trim().toLowerCase()}`;
+      return resolveTranslation(language, translationKey) === translationKey
         ? category
-        : resolveTranslation(language, `category.${category}`);
+        : resolveTranslation(language, translationKey);
     }
 
     function genderLabel(gender: string) {
@@ -481,14 +511,4 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   }, [direction, language]);
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
-}
-
-// eslint-disable-next-line react-refresh/only-export-components
-export function useI18n() {
-  const context = useContext(I18nContext);
-  if (!context) {
-    throw new Error("useI18n must be used within I18nProvider");
-  }
-
-  return context;
 }

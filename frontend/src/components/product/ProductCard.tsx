@@ -1,5 +1,5 @@
 import type { Product } from '../../types/product'
-import { useI18n } from '../../i18n'
+import { useI18n } from '../../hooks/useI18n'
 
 interface ProductCardProps {
   product: Product

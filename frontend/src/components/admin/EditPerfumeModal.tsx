@@ -5,7 +5,7 @@ import Input from '../common/ui/Input'
 import Select from '../common/ui/Select'
 import Textarea from '../common/ui/Textarea'
 import type { Category, Product } from '../../types/product'
-import { useI18n } from '../../i18n'
+import { useI18n } from '../../hooks/useI18n'
 
 type EditPerfumePayload = {
   name: string

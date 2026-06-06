@@ -3,7 +3,7 @@ import { Home } from 'lucide-react'
 import { useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import AddCategorySection from '../../components/admin/AddCategorySection'
+import CategoryManagementSection from '../../components/admin/CategoryManagementSection'
 import AddPerfumeSection from '../../components/admin/AddPerfumeSection'
 import EditPerfumeModal, {
   type EditPerfumePayload,
@@ -12,11 +12,13 @@ import PerfumeSearchSection from '../../components/admin/PerfumeSearchSection'
 import { useCategoriesQuery } from '../../hooks/useCategoriesQuery'
 import { useCreateCategoryMutation } from '../../hooks/useCreateCategoryMutation'
 import { useDeleteProductMutation } from '../../hooks/useDeleteProductMutation'
+import { useDeleteCategoryMutation } from '../../hooks/useDeleteCategoryMutation'
 import { usePublishWebsiteMutation } from '../../hooks/usePublishWebsiteMutation'
 import { useProductsQuery } from '../../hooks/useProductsQuery'
 import { useUpdateProductMutation } from '../../hooks/useUpdateProductMutation'
-import type { Product } from '../../types/product'
-import { useI18n } from '../../i18n'
+import { useUpdateCategoryMutation } from '../../hooks/useUpdateCategoryMutation'
+import type { Category, CategoryInput, Product } from '../../types/product'
+import { useI18n } from '../../hooks/useI18n'
 
 type AdminDashboardPageProps = {
   onLogout: () => void
@@ -35,6 +37,10 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
 
   const { mutateAsync: createCategoryMutation, isPending: isAddingCategory } =
     useCreateCategoryMutation()
+  const { mutateAsync: updateCategoryMutation, isPending: isUpdatingCategory } =
+    useUpdateCategoryMutation()
+  const { mutateAsync: deleteCategoryMutation, isPending: isDeletingCategory } =
+    useDeleteCategoryMutation()
   const { mutateAsync: updatePerfumeMutation, isPending: isUpdatingPerfume } =
     useUpdateProductMutation()
   const { mutateAsync: deletePerfumeMutation, isPending: isDeletingPerfume } =
@@ -42,9 +48,32 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
   const { mutateAsync: publishWebsiteMutation, isPending: isPublishingWebsite } =
     usePublishWebsiteMutation()
 
-  async function handleCreateCategory(name: string) {
-    await createCategoryMutation(name)
+  async function refreshCategoryData() {
     await queryClient.invalidateQueries({ queryKey: ['categories'] })
+    await queryClient.invalidateQueries({ queryKey: ['products'] })
+  }
+
+  async function handleCreateCategory(payload: CategoryInput) {
+    await createCategoryMutation(payload)
+    await refreshCategoryData()
+    toast.success(t('admin.categoryCreated'))
+  }
+
+  async function handleUpdateCategory(id: number, payload: CategoryInput) {
+    await updateCategoryMutation({ id, ...payload })
+    await refreshCategoryData()
+    toast.success(t('admin.categoryUpdated'))
+  }
+
+  async function handleDeleteCategory(category: Category) {
+    const confirmed = window.confirm(
+      t('admin.deleteCategoryConfirm', { name: category.name }),
+    )
+    if (!confirmed) return
+
+    await deleteCategoryMutation(category.id)
+    await refreshCategoryData()
+    toast.success(t('admin.categoryDeleted'))
   }
 
   function openEditModal(product: Product) {
@@ -149,9 +178,15 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
           />
 
           <div className="space-y-4 lg:space-y-6">
-            <AddCategorySection
-              isAddingCategory={isAddingCategory}
-              onCreateCategory={handleCreateCategory}
+            <CategoryManagementSection
+              categories={categories}
+              isLoading={isLoadingCategories}
+              isCreating={isAddingCategory}
+              isUpdating={isUpdatingCategory}
+              isDeleting={isDeletingCategory}
+              onCreate={handleCreateCategory}
+              onUpdate={handleUpdateCategory}
+              onDelete={handleDeleteCategory}
             />
 
             <PerfumeSearchSection

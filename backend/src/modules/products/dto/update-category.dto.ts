@@ -4,7 +4,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 const trimIfString = (value: unknown): unknown =>
   typeof value === 'string' ? value.trim() : value;
 
-export class CreateCategoryDto {
+export class UpdateCategoryDto {
   @IsString()
   @IsNotEmpty()
   @Transform(({ value }: TransformFnParams) => trimIfString(value as unknown))

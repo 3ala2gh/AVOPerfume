@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
-import { useCart } from '../context/cart-context'
-import { useI18n } from '../i18n'
+import { useCart } from '../hooks/useCart'
+import { useI18n } from '../hooks/useI18n'
+import { getOptimizedCloudinaryUrl } from '../utils/cloudinary'
 
 function CartPage() {
   const { items, removeFromCart, clearCart, openWhatsAppOrder } = useCart()
-  const { t } = useI18n()
+  const { t, categoryLabel } = useI18n()
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
@@ -33,16 +34,20 @@ function CartPage() {
               >
                 {item.image ? (
                   <img
-                    src={item.image}
+                    src={getOptimizedCloudinaryUrl(item.image, { width: 200 })}
                     alt={item.name}
                     className="h-16 w-16 shrink-0 rounded-md object-cover sm:h-20 sm:w-20"
+                    loading="lazy"
+                    decoding="async"
                   />
                 ) : (
                   <div className="h-16 w-16 shrink-0 rounded-md border border-dashed border-black/20 bg-black/[0.03] sm:h-20 sm:w-20" />
                 )}
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-semibold sm:text-base">{item.name}</p>
-                  <p className="text-xs text-black/60 sm:text-sm">{item.category} - {item.size}</p>
+                  <p className="text-xs text-black/60 sm:text-sm">
+                    {categoryLabel(item.category, item.categoryAr)} - {item.size}
+                  </p>
                   <p className="mt-1 text-sm text-black/80 sm:text-base">
                     {t('cart.itemPrice', { price: item.price, quantity: item.quantity })}
                   </p>

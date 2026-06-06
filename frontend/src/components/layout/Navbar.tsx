@@ -3,9 +3,10 @@ import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { findPerfumeByQuery, perfumeToSlug, toPerfumes } from '../home/catalogData'
 import { useProductsQuery } from '../../hooks/useProductsQuery'
-import { useCart } from '../../context/cart-context'
+import { useCart } from '../../hooks/useCart'
 import CartDrawer from './CartDrawer'
-import { useI18n } from '../../i18n'
+import { useI18n } from '../../hooks/useI18n'
+import { getOptimizedCloudinaryUrl } from '../../utils/cloudinary'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -113,9 +114,11 @@ export default function Navbar() {
                       className="flex w-full items-center gap-3 border-b border-black/10 px-3 py-2 text-left text-sm last:border-b-0 hover:bg-black hover:text-white"
                     >
                       <img
-                        src={perfume.image}
+                        src={getOptimizedCloudinaryUrl(perfume.image, { width: 100 })}
                         alt={perfume.name}
                         className="h-10 w-10 flex-shrink-0 rounded-sm object-cover"
+                        loading="lazy"
+                        decoding="async"
                       />
                       <span className="line-clamp-1">{perfume.name}</span>
                     </button>
@@ -185,9 +188,11 @@ export default function Navbar() {
                     className="flex w-full items-center gap-3 border-b border-black/10 px-3 py-2 text-left text-sm last:border-b-0 hover:bg-black hover:text-white"
                   >
                     <img
-                      src={perfume.image}
+                      src={getOptimizedCloudinaryUrl(perfume.image, { width: 100 })}
                       alt={perfume.name}
                       className="h-10 w-10 flex-shrink-0 rounded-sm object-cover"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <span className="line-clamp-1">{perfume.name}</span>
                   </button>

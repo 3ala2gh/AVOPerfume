@@ -58,7 +58,7 @@ export class ProductsService {
     price100Ml: Prisma.Decimal;
     imageUrl: string | null;
     categoryId: number;
-    category: { name: string };
+    category: { name: string; nameAr: string };
     createdAt: Date;
   }) {
     return {
@@ -78,6 +78,7 @@ export class ProductsService {
       imageUrl: perfume.imageUrl,
       categoryId: perfume.categoryId,
       category: perfume.category.name,
+      categoryAr: perfume.category.nameAr,
       createdAt: perfume.createdAt,
     };
   }
@@ -228,7 +229,7 @@ export class ProductsService {
     return { success: true };
   }
 
-  async createCategory(name: string) {
+  async createCategory(name: string, nameAr: string) {
     const existing = await this.prismaService.category.findFirst({
       where: {
         name: {
@@ -243,7 +244,7 @@ export class ProductsService {
 
     try {
       return await this.prismaService.category.create({
-        data: { name },
+        data: { name, nameAr },
       });
     } catch (error) {
       if (
@@ -254,5 +255,72 @@ export class ProductsService {
       }
       throw error;
     }
+  }
+
+  async updateCategory(id: number, name: string, nameAr: string) {
+    const existingCategory = await this.prismaService.category.findUnique({
+      where: { id },
+      select: { id: true },
+    });
+
+    if (!existingCategory) {
+      throw new NotFoundException('Category not found');
+    }
+
+    const duplicateCategory = await this.prismaService.category.findFirst({
+      where: {
+        id: { not: id },
+        name: {
+          equals: name,
+          mode: 'insensitive',
+        },
+      },
+      select: { id: true },
+    });
+
+    if (duplicateCategory) {
+      throw new ConflictException('Category already exists');
+    }
+
+    try {
+      return await this.prismaService.category.update({
+        where: { id },
+        data: { name, nameAr },
+      });
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
+        throw new ConflictException('Category already exists');
+      }
+      throw error;
+    }
+  }
+
+  async deleteCategory(id: number) {
+    const category = await this.prismaService.category.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        _count: {
+          select: { perfumes: true },
+        },
+      },
+    });
+
+    if (!category) {
+      throw new NotFoundException('Category not found');
+    }
+
+    if (category._count.perfumes > 0) {
+      throw new ConflictException(
+        'Category cannot be deleted while it is used by perfumes',
+      );
+    }
+
+    await this.prismaService.category.delete({ where: { id } });
+
+    return { success: true };
   }
 }

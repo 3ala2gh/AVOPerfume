@@ -1,7 +1,7 @@
 import { useEffect, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
-import { useI18n } from "../../i18n";
+import { useI18n } from "../../hooks/useI18n";
 
 type ModalProps = {
   isOpen: boolean;

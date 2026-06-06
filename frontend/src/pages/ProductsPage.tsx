@@ -1,6 +1,6 @@
 import { ProductCard } from '../components/product/ProductCard'
 import { useProductsQuery } from '../hooks/useProductsQuery'
-import { useI18n } from '../i18n'
+import { useI18n } from '../hooks/useI18n'
 
 function ProductsPage() {
   const { data: products = [], isLoading } = useProductsQuery()

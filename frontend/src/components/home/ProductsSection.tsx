@@ -3,17 +3,19 @@ import { ChevronLeft, ChevronRight, Plus, ShoppingCart } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Modal from "../common/Modal";
-import { useCart } from "../../context/cart-context";
+import PerfumeDetails from "../product/PerfumeDetails";
+import { useCart } from "../../hooks/useCart";
+import { usePerfumeModal } from "../../hooks/usePerfumeModal";
 import {
-  DEFAULT_PERFUME_SIZE,
   filterPerfumes,
-  getPerfumeSizePrice,
-  PERFUME_SIZE_OPTIONS,
   type CategoryName,
   type Perfume,
 } from "./catalogData";
-import type { PerfumeSize } from "../../types/product";
-import { useI18n } from "../../i18n";
+import { useI18n } from "../../hooks/useI18n";
+import {
+  getCloudinarySrcSet,
+  getOptimizedCloudinaryUrl,
+} from "../../utils/cloudinary";
 
 const MOBILE_VISIBLE_COUNT = 2;
 const DESKTOP_VISIBLE_COUNT = 3;
@@ -30,27 +32,38 @@ export default function ProductsSection({
   const { addToCart } = useCart();
   const { t } = useI18n();
   const [startIndex, setStartIndex] = useState(0);
-  const [visibleCount, setVisibleCount] = useState(MOBILE_VISIBLE_COUNT);
+  const [visibleCount, setVisibleCount] = useState(() =>
+    window.matchMedia("(min-width: 640px)").matches
+      ? DESKTOP_VISIBLE_COUNT
+      : MOBILE_VISIBLE_COUNT,
+  );
   const [direction, setDirection] = useState<1 | -1>(1);
-  const [activePerfume, setActivePerfume] = useState<Perfume | null>(null);
-  const [selectedSize, setSelectedSize] = useState<PerfumeSize>(DEFAULT_PERFUME_SIZE);
+  const {
+    activePerfume,
+    selectedSize,
+    setSelectedSize,
+    openPerfume,
+    closePerfume,
+  } = usePerfumeModal();
 
   const filteredPerfumes = useMemo(
     () => filterPerfumes(perfumes, selectedCategory),
     [perfumes, selectedCategory],
   );
 
+  const maxStartIndex = Math.max(0, filteredPerfumes.length - visibleCount);
+  const safeStartIndex = Math.min(startIndex, maxStartIndex);
+
   const visiblePerfumes = useMemo(() => {
     if (filteredPerfumes.length === 0) {
       return [];
     }
 
-    return filteredPerfumes.slice(startIndex, startIndex + visibleCount);
-  }, [filteredPerfumes, startIndex, visibleCount]);
+    return filteredPerfumes.slice(safeStartIndex, safeStartIndex + visibleCount);
+  }, [filteredPerfumes, safeStartIndex, visibleCount]);
 
-  const maxStartIndex = Math.max(0, filteredPerfumes.length - visibleCount);
-  const canGoPrevious = startIndex > 0;
-  const canGoNext = startIndex < maxStartIndex;
+  const canGoPrevious = safeStartIndex > 0;
+  const canGoNext = safeStartIndex < maxStartIndex;
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 640px)");
@@ -59,19 +72,10 @@ export default function ProductsSection({
       setVisibleCount(mediaQuery.matches ? DESKTOP_VISIBLE_COUNT : MOBILE_VISIBLE_COUNT);
     }
 
-    updateVisibleCount();
     mediaQuery.addEventListener("change", updateVisibleCount);
 
     return () => mediaQuery.removeEventListener("change", updateVisibleCount);
   }, []);
-
-  useEffect(() => {
-    setStartIndex(0);
-  }, [selectedCategory, perfumes, visibleCount]);
-
-  useEffect(() => {
-    setSelectedSize(DEFAULT_PERFUME_SIZE);
-  }, [activePerfume]);
 
   function showNext() {
     if (!canGoNext) {
@@ -80,7 +84,7 @@ export default function ProductsSection({
 
     setDirection(1);
     setStartIndex((current) =>
-      Math.min(maxStartIndex, current + visibleCount),
+      Math.min(maxStartIndex, Math.min(current, maxStartIndex) + visibleCount),
     );
   }
 
@@ -90,7 +94,9 @@ export default function ProductsSection({
     }
 
     setDirection(-1);
-    setStartIndex((current) => Math.max(0, current - visibleCount));
+    setStartIndex((current) =>
+      Math.max(0, Math.min(current, maxStartIndex) - visibleCount),
+    );
   }
 
   return (
@@ -131,7 +137,7 @@ export default function ProductsSection({
 
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
-            key={`${selectedCategory}-${startIndex}`}
+            key={`${selectedCategory}-${safeStartIndex}`}
             custom={direction}
             variants={{
               enter: (slideDirection: 1 | -1) => ({
@@ -154,13 +160,17 @@ export default function ProductsSection({
               <div
                 key={`${perfume.name}-${cardIndex}`}
                 className="group flex h-full flex-col w-full cursor-pointer"
-                onClick={() => setActivePerfume(perfume)}
+                onClick={() => openPerfume(perfume)}
               >
-                <div className="relative mb-2 aspect-[3/4] overflow-hidden bg-gray-100 p-2">
+                <div className="relative mb-2 aspect-[9/16] overflow-hidden bg-gray-100">
                   <img
-                    src={perfume.image}
+                    src={getOptimizedCloudinaryUrl(perfume.image, { width: 600 })}
+                    srcSet={getCloudinarySrcSet(perfume.image, [300, 450, 600])}
+                    sizes="(min-width: 640px) 30vw, 42vw"
                     alt={perfume.name}
-                    className="h-full w-full object-contain transition-transform duration-500"
+                    className="h-full w-full object-cover transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
                   />
 
                   <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
@@ -217,68 +227,17 @@ export default function ProductsSection({
 
       <Modal
         isOpen={activePerfume !== null}
-        onClose={() => setActivePerfume(null)}
+        onClose={closePerfume}
         title={activePerfume?.name}
         size="lg"
       >
         {activePerfume ? (
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="relative flex min-h-[170px] items-center justify-center bg-gray-100 p-1 sm:min-h-[210px] md:min-h-[420px]">
-              <img
-                src={activePerfume.image}
-                alt={activePerfume.name}
-                className="max-h-[160px] w-full object-contain sm:max-h-[200px] md:max-h-[390px]"
-              />
-            </div>
-            <div className="p-6 md:p-10">
-              <div className="mb-6">
-                <p className="mb-2 text-xs tracking-[0.18em] uppercase text-black/50">
-                  {activePerfume.category}
-                </p>
-                <h2 className="mb-4 text-3xl tracking-wide md:text-4xl">
-                  {activePerfume.name}
-                </h2>
-                <p className="mb-4 text-2xl tracking-wide md:text-3xl">
-                  {getPerfumeSizePrice(activePerfume, selectedSize)} {t('common.jod')}
-                </p>
-                <div className="mb-6 grid grid-cols-3 gap-2">
-                  {PERFUME_SIZE_OPTIONS.map((size) => {
-                    const isActive = selectedSize === size;
-
-                    return (
-                      <button
-                        key={size}
-                        type="button"
-                        onClick={() => setSelectedSize(size)}
-                        className={`border px-2 py-2 text-center transition-colors ${
-                          isActive
-                            ? "border-black bg-black text-white"
-                            : "border-black/20 hover:border-black"
-                        }`}
-                      >
-                        <span className="block text-xs tracking-wide">{size}</span>
-                        <span className="block text-sm font-medium">
-                          {getPerfumeSizePrice(activePerfume, size)} {t('common.jod')}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-                <p className="text-base leading-relaxed text-black/70 md:text-lg">
-                  {activePerfume.description}
-                </p>
-              </div>
-              <div className="space-y-3">
-                <button
-                  type="button"
-                  onClick={() => addToCart(activePerfume, selectedSize)}
-                  className="w-full bg-black py-4 text-sm font-medium tracking-wide text-white transition-colors hover:bg-black/80 md:text-base"
-                >
-                  {t('common.addToCart')}
-                </button>
-              </div>
-            </div>
-          </div>
+          <PerfumeDetails
+            perfume={activePerfume}
+            selectedSize={selectedSize}
+            onSelectSize={setSelectedSize}
+            onAddToCart={() => addToCart(activePerfume, selectedSize)}
+          />
         ) : null}
       </Modal>
     </section>

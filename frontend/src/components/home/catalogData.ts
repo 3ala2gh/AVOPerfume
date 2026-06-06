@@ -12,6 +12,7 @@ export type Perfume = {
   sizes: ProductSizePrice[]
   description: string
   category: string
+  categoryAr: string
   gender: 'male' | 'female' | 'unisex'
   image: string
 }
@@ -25,7 +26,10 @@ export const DEFAULT_PERFUME_SIZE_PRICES: Record<PerfumeSize, number> = {
 
 export const PERFUME_SIZE_OPTIONS: PerfumeSize[] = ['30ml', '55ml', '100ml']
 
-export function getPerfumeSizePrice(perfume: Perfume, size: PerfumeSize): number {
+export function getPerfumeSizePrice(
+  perfume: Pick<Perfume, 'sizes'>,
+  size: PerfumeSize,
+): number {
   return perfume.sizes.find((item) => item.size === size)?.price ?? DEFAULT_PERFUME_SIZE_PRICES[size]
 }
 
@@ -42,18 +46,19 @@ function normalizeProductSizes(product: Product): ProductSizePrice[] {
 
 export function toPerfume(product: Product): Perfume {
   const sizes = normalizeProductSizes(product)
-  const price55Ml = getPerfumeSizePrice({ sizes } as Perfume, DEFAULT_PERFUME_SIZE)
+  const price55Ml = getPerfumeSizePrice({ sizes }, DEFAULT_PERFUME_SIZE)
 
   return {
     id: product.id,
     name: product.name,
     price: price55Ml,
-    price30Ml: getPerfumeSizePrice({ sizes } as Perfume, '30ml'),
+    price30Ml: getPerfumeSizePrice({ sizes }, '30ml'),
     price55Ml,
-    price100Ml: getPerfumeSizePrice({ sizes } as Perfume, '100ml'),
+    price100Ml: getPerfumeSizePrice({ sizes }, '100ml'),
     sizes,
     description: product.description ?? 'No description available.',
     category: product.category,
+    categoryAr: product.categoryAr ?? product.category,
     gender: product.gender ?? 'unisex',
     image: product.imageUrl ?? '',
   }

@@ -5,7 +5,7 @@ import Input from '../../components/common/ui/Input'
 import { useAdminLoginSubmit } from '../../hooks/useAdminLoginSubmit'
 import { adminLoginSchema } from '../../schema/adminLogin.schema'
 import type { AuthResponse, LoginPayload } from '../../types/auth'
-import { useI18n } from '../../i18n'
+import { useI18n } from '../../hooks/useI18n'
 
 type AdminLoginPageProps = {
   onLogin: (auth: AuthResponse) => void

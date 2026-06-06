@@ -1,6 +1,4 @@
 import {
-  createContext,
-  useContext,
   useEffect,
   useMemo,
   useState,
@@ -13,32 +11,11 @@ import {
   type Perfume,
 } from '../components/home/catalogData'
 import type { PerfumeSize } from '../types/product'
-import { useI18n } from '../i18n'
-
-type CartItem = {
-  key: string
-  id: number
-  name: string
-  price: number
-  size: PerfumeSize
-  category: string
-  image: string
-  quantity: number
-}
-
-type CartContextValue = {
-  items: CartItem[]
-  totalItems: number
-  addToCart: (perfume: Perfume, size?: PerfumeSize) => void
-  removeFromCart: (key: string) => void
-  clearCart: () => void
-  openWhatsAppOrder: () => void
-}
+import { useI18n } from '../hooks/useI18n'
+import { CartContext, type CartItem } from './cart'
 
 const CART_STORAGE_KEY = 'avo_cart_items'
 const WHATSAPP_NUMBER = '962799463217'
-
-const CartContext = createContext<CartContextValue | null>(null)
 
 function readInitialCart(): CartItem[] {
   if (typeof window === 'undefined') {
@@ -50,7 +27,9 @@ function readInitialCart(): CartItem[] {
     if (!raw) {
       return []
     }
-    const parsed = JSON.parse(raw) as Array<CartItem | Omit<CartItem, 'key' | 'size'>>
+    const parsed = JSON.parse(raw) as Array<
+      CartItem | Omit<CartItem, 'key' | 'size' | 'categoryAr'>
+    >
     if (!Array.isArray(parsed)) {
       return []
     }
@@ -59,6 +38,7 @@ function readInitialCart(): CartItem[] {
       return {
         ...item,
         size,
+        categoryAr: 'categoryAr' in item ? item.categoryAr : item.category,
         key: 'key' in item ? item.key : `${item.id}-${size}`,
       }
     })
@@ -119,6 +99,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
             price,
             size,
             category: perfume.category,
+            categoryAr: perfume.categoryAr,
             image: perfume.image,
             quantity: 1,
           },
@@ -170,13 +151,3 @@ export function CartProvider({ children }: { children: ReactNode }) {
     </CartContext.Provider>
   )
 }
-
-export function useCart() {
-  const context = useContext(CartContext)
-  if (!context) {
-    throw new Error('useCart must be used within CartProvider')
-  }
-  return context
-}
-
-export type { CartItem }

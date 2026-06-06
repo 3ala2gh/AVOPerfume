@@ -12,7 +12,7 @@ import {
   type AdminCreatePerfumePayload,
 } from '../../schema/adminCreatePerfume.schema'
 import type { Category } from '../../types/product'
-import { useI18n } from '../../i18n'
+import { useI18n } from '../../hooks/useI18n'
 
 type AddPerfumeSectionProps = {
   categories: Category[]

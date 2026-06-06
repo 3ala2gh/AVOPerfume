@@ -7,7 +7,8 @@ import { useCreateOfferMutation } from '../../hooks/useCreateOfferMutation'
 import { useDeleteOfferMutation } from '../../hooks/useDeleteOfferMutation'
 import { useOffersQuery } from '../../hooks/useOffersQuery'
 import { usePublishWebsiteMutation } from '../../hooks/usePublishWebsiteMutation'
-import { useI18n } from '../../i18n'
+import { useI18n } from '../../hooks/useI18n'
+import { getOptimizedCloudinaryUrl } from '../../utils/cloudinary'
 
 type AdminOffersPageProps = {
   onLogout: () => void
@@ -138,9 +139,11 @@ function AdminOffersPage({ onLogout }: AdminOffersPageProps) {
             {offers.map((offer) => (
               <article key={offer.id} className="border border-black/10 p-3">
                 <img
-                  src={offer.imageUrl}
+                  src={getOptimizedCloudinaryUrl(offer.imageUrl, { width: 600 })}
                   alt={t('offers.imageAlt', { number: offer.id })}
                   className="mb-3 h-56 w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <button
                   type="button"

@@ -1,7 +1,11 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useState } from 'react'
 import { useOffersQuery } from '../hooks/useOffersQuery'
-import { useI18n } from '../i18n'
+import { useI18n } from '../hooks/useI18n'
+import {
+  getCloudinarySrcSet,
+  getOptimizedCloudinaryUrl,
+} from '../utils/cloudinary'
 
 function OffersPage() {
   const { data: offers = [] } = useOffersQuery()
@@ -35,9 +39,17 @@ function OffersPage() {
         ) : (
           <div className="relative mx-auto w-full max-w-[1500px] overflow-hidden bg-black/5 shadow-sm">
             <img
-              src={offers[activeIndex]?.imageUrl}
+              src={getOptimizedCloudinaryUrl(offers[activeIndex]?.imageUrl ?? '', {
+                width: 1600,
+              })}
+              srcSet={getCloudinarySrcSet(
+                offers[activeIndex]?.imageUrl ?? '',
+                [600, 900, 1200, 1600],
+              )}
+              sizes="100vw"
               alt={t('offers.imageAlt', { number: activeIndex + 1 })}
               className="h-[56vh] w-full object-cover sm:h-[66vh] lg:h-[78vh] lg:object-contain"
+              decoding="async"
             />
 
             {offers.length > 1 && (

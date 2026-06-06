@@ -1,7 +1,8 @@
 import { X } from 'lucide-react'
 import Button from '../common/ui/Button'
-import { useCart } from '../../context/cart-context'
-import { useI18n } from '../../i18n'
+import { useCart } from '../../hooks/useCart'
+import { useI18n } from '../../hooks/useI18n'
+import { getOptimizedCloudinaryUrl } from '../../utils/cloudinary'
 
 type CartDrawerProps = {
   isOpen: boolean
@@ -10,7 +11,7 @@ type CartDrawerProps = {
 
 export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const { items, removeFromCart, clearCart, openWhatsAppOrder } = useCart()
-  const { t } = useI18n()
+  const { t, categoryLabel } = useI18n()
 
   return (
     <>
@@ -52,16 +53,20 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   >
                     {item.image ? (
                       <img
-                        src={item.image}
+                        src={getOptimizedCloudinaryUrl(item.image, { width: 160 })}
                         alt={item.name}
                         className="h-14 w-14 shrink-0 rounded object-cover"
+                        loading="lazy"
+                        decoding="async"
                       />
                     ) : (
                       <div className="h-14 w-14 shrink-0 rounded border border-dashed border-black/20 bg-black/[0.03]" />
                     )}
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium">{item.name}</p>
-                      <p className="text-xs text-black/65">{item.category} - {item.size}</p>
+                      <p className="text-xs text-black/65">
+                        {categoryLabel(item.category, item.categoryAr)} - {item.size}
+                      </p>
                       <p className="mt-1 text-sm text-black/80">
                         {t('cart.itemPrice', { price: item.price, quantity: item.quantity })}
                       </p>

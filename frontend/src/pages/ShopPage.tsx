@@ -1,83 +1,57 @@
 import { Filter, Plus, Search, ShoppingCart } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useMemo, useState } from 'react'
+import { motion } from 'framer-motion'
 import Modal from '../components/common/Modal'
 import Button from '../components/common/ui/Button'
 import Input from '../components/common/ui/Input'
 import Select from '../components/common/ui/Select'
 import FooterSection from '../components/home/FooterSection'
 import {
-  DEFAULT_PERFUME_SIZE,
   getCategoryOrder,
-  getPerfumeSizePrice,
-  PERFUME_SIZE_OPTIONS,
   toPerfumes,
-  type Perfume,
 } from '../components/home/catalogData'
-import { useCart } from '../context/cart-context'
+import PerfumeDetails from '../components/product/PerfumeDetails'
+import { useCart } from '../hooks/useCart'
+import { usePerfumeModal } from '../hooks/usePerfumeModal'
 import { useProductsQuery } from '../hooks/useProductsQuery'
-import type { PerfumeSize } from '../types/product'
-import { useI18n } from '../i18n'
-
-type SortOption = 'name' | 'price-low' | 'price-high'
-type GenderFilter = 'all' | 'male' | 'female' | 'unisex'
+import {
+  useShopFilters,
+  type ShopGenderFilter,
+  type ShopSortOption,
+} from '../hooks/useShopFilters'
+import { useI18n } from '../hooks/useI18n'
+import {
+  getCloudinarySrcSet,
+  getOptimizedCloudinaryUrl,
+} from '../utils/cloudinary'
 
 function ShopPage() {
   const { data: products = [] } = useProductsQuery()
-  const perfumes = toPerfumes(products)
+  const perfumes = useMemo(() => toPerfumes(products), [products])
   const categories = getCategoryOrder(perfumes)
   const { addToCart } = useCart()
-  const { t, categoryLabel, genderLabel } = useI18n()
+  const { t, categoryLabel } = useI18n()
 
-  const [search, setSearch] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<string>('All')
-  const [selectedGender, setSelectedGender] = useState<GenderFilter>('all')
-  const [sortBy, setSortBy] = useState<SortOption>('name')
   const [showFiltersOnMobile, setShowFiltersOnMobile] = useState(true)
-  const [activePerfume, setActivePerfume] = useState<Perfume | null>(null)
-  const [selectedSize, setSelectedSize] = useState<PerfumeSize>(DEFAULT_PERFUME_SIZE)
-
-  useEffect(() => {
-    setSelectedSize(DEFAULT_PERFUME_SIZE)
-  }, [activePerfume])
-
-  const filteredPerfumes = (() => {
-    const normalizedSearch = search.trim().toLowerCase()
-    let result = perfumes
-
-    if (selectedCategory !== 'All') {
-      result = result.filter((perfume) => perfume.category === selectedCategory)
-    }
-
-    if (selectedGender !== 'all') {
-      result = result.filter((perfume) => perfume.gender === selectedGender)
-    }
-
-    if (normalizedSearch) {
-      result = result.filter((perfume) => {
-        const haystack = `${perfume.name} ${perfume.description} ${perfume.category} ${perfume.gender}`.toLowerCase()
-        return haystack.includes(normalizedSearch)
-      })
-    }
-
-    const sorted = [...result]
-    if (sortBy === 'name') {
-      sorted.sort((a, b) => a.name.localeCompare(b.name))
-    } else if (sortBy === 'price-low') {
-      sorted.sort((a, b) => a.price - b.price)
-    } else {
-      sorted.sort((a, b) => b.price - a.price)
-    }
-
-    return sorted
-  })()
-
-  function resetFilters() {
-    setSearch('')
-    setSelectedCategory('All')
-    setSelectedGender('all')
-    setSortBy('name')
-  }
+  const {
+    search,
+    setSearch,
+    category: selectedCategory,
+    setCategory: setSelectedCategory,
+    gender,
+    setGender,
+    sort,
+    setSort,
+    filteredPerfumes,
+    resetFilters,
+  } = useShopFilters(perfumes)
+  const {
+    activePerfume,
+    selectedSize,
+    setSelectedSize,
+    openPerfume,
+    closePerfume,
+  } = usePerfumeModal()
 
   return (
     <div className="min-h-screen bg-white text-black">
@@ -137,7 +111,10 @@ function ShopPage() {
                             : 'border-black/20 hover:border-black'
                         }`}
                       >
-                        {categoryLabel(category)}
+                        {categoryLabel(
+                          category,
+                          perfumes.find((perfume) => perfume.category === category)?.categoryAr,
+                        )}
                       </button>
                     ))}
                   </div>
@@ -146,8 +123,8 @@ function ShopPage() {
                 <div>
                   <label className="mb-3 block text-sm tracking-wide opacity-60">{t('common.gender')}</label>
                   <Select
-                    value={selectedGender}
-                    onChange={(event) => setSelectedGender(event.target.value as GenderFilter)}
+                    value={gender}
+                    onChange={(event) => setGender(event.target.value as ShopGenderFilter)}
                     className="rounded-none border px-4 py-2.5"
                   >
                     <option value="all">{categoryLabel('All')}</option>
@@ -160,8 +137,8 @@ function ShopPage() {
                 <div>
                   <label className="mb-3 block text-sm tracking-wide opacity-60">{t('shop.sortBy')}</label>
                   <Select
-                    value={sortBy}
-                    onChange={(event) => setSortBy(event.target.value as SortOption)}
+                    value={sort}
+                    onChange={(event) => setSort(event.target.value as ShopSortOption)}
                     className="rounded-none border px-4 py-2.5"
                   >
                     <option value="name">{t('shop.sortName')}</option>
@@ -196,21 +173,25 @@ function ShopPage() {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="group cursor-pointer text-left"
-                  onClick={() => setActivePerfume(perfume)}
+                  onClick={() => openPerfume(perfume)}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter' || event.key === ' ') {
                       event.preventDefault()
-                      setActivePerfume(perfume)
+                      openPerfume(perfume)
                     }
                   }}
                 >
-                  <div className="relative mb-2 aspect-[3/4] overflow-hidden bg-gray-100 p-1 sm:mb-4">
+                  <div className="relative mb-2 aspect-[9/16] overflow-hidden bg-gray-100 sm:mb-4">
                     <img
-                      src={perfume.image}
+                      src={getOptimizedCloudinaryUrl(perfume.image, { width: 600 })}
+                      srcSet={getCloudinarySrcSet(perfume.image, [300, 450, 600])}
+                      sizes="(min-width: 1024px) 24vw, (min-width: 640px) 45vw, 46vw"
                       alt={perfume.name}
-                      className="h-full w-full object-contain transition-transform duration-500"
+                      className="h-full w-full object-cover transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
                   </div>
@@ -220,7 +201,9 @@ function ShopPage() {
                   </div>
                   <p className="mb-2 line-clamp-2 text-xs opacity-70 sm:mb-3 sm:text-sm">{perfume.description}</p>
                   <div className="flex items-center justify-between gap-3">
-                    <p className="text-xs tracking-wider opacity-50">{perfume.category}</p>
+                    <p className="text-xs tracking-wider opacity-50">
+                      {categoryLabel(perfume.category, perfume.categoryAr)}
+                    </p>
                     <button
                       type="button"
                       onClick={(event) => {
@@ -252,73 +235,18 @@ function ShopPage() {
 
       <Modal
         isOpen={activePerfume !== null}
-        onClose={() => setActivePerfume(null)}
+        onClose={closePerfume}
         title={activePerfume?.name}
         size="lg"
       >
         {activePerfume ? (
-          <AnimatePresence>
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="relative flex min-h-[170px] items-center justify-center bg-gray-100 p-1 sm:min-h-[210px] md:min-h-[360px]">
-                <img
-                  src={activePerfume.image}
-                  alt={activePerfume.name}
-                  className="max-h-[160px] w-full object-contain sm:max-h-[200px] md:max-h-[340px]"
-                />
-              </div>
-              <div className="p-6 md:p-10">
-                <div className="mb-6">
-                  <p className="mb-2 text-xs tracking-[0.18em] uppercase text-black/50">
-                    {activePerfume.category}
-                  </p>
-                  <p className="mb-3 text-xs tracking-[0.16em] uppercase text-black/45">
-                    {genderLabel(activePerfume.gender)}
-                  </p>
-                  <h2 className="mb-4 text-3xl tracking-wide md:text-4xl">
-                    {activePerfume.name}
-                  </h2>
-                  <p className="mb-4 text-2xl tracking-wide md:text-3xl">
-                    {getPerfumeSizePrice(activePerfume, selectedSize)} {t('common.jod')}
-                  </p>
-                  <div className="mb-6 grid grid-cols-3 gap-2">
-                    {PERFUME_SIZE_OPTIONS.map((size) => {
-                      const isActive = selectedSize === size
-
-                      return (
-                        <button
-                          key={size}
-                          type="button"
-                          onClick={() => setSelectedSize(size)}
-                          className={`border px-2 py-2 text-center transition-colors ${
-                            isActive
-                              ? 'border-black bg-black text-white'
-                              : 'border-black/20 hover:border-black'
-                          }`}
-                        >
-                          <span className="block text-xs tracking-wide">{size}</span>
-                          <span className="block text-sm font-medium">
-                            {getPerfumeSizePrice(activePerfume, size)} {t('common.jod')}
-                          </span>
-                        </button>
-                      )
-                    })}
-                  </div>
-                  <p className="text-base leading-relaxed text-black/70 md:text-lg">
-                    {activePerfume.description}
-                  </p>
-                </div>
-                <div className="space-y-3">
-                <Button
-                  type="button"
-                  onClick={() => addToCart(activePerfume, selectedSize)}
-                  className="w-full rounded-none py-4 tracking-wide"
-                >
-                  {t('common.addToCart')}
-                </Button>
-                </div>
-              </div>
-            </div>
-          </AnimatePresence>
+          <PerfumeDetails
+            perfume={activePerfume}
+            selectedSize={selectedSize}
+            onSelectSize={setSelectedSize}
+            onAddToCart={() => addToCart(activePerfume, selectedSize)}
+            showGender
+          />
         ) : null}
       </Modal>
     </div>

@@ -17,6 +17,7 @@ export interface Product {
   sizes: ProductSizePrice[]
   categoryId: number
   category: string
+  categoryAr: string
   imageUrl: string | null
   createdAt?: string
 }
@@ -55,5 +56,11 @@ export interface UpdateProductInput {
 export interface Category {
   id: number
   name: string
+  nameAr: string
   createdAt?: string
+}
+
+export type CategoryInput = {
+  name: string
+  nameAr: string
 }

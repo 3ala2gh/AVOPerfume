@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import Input from "../common/ui/Input";
 import type { Product } from "../../types/product";
-import { useI18n } from "../../i18n";
+import { useI18n } from "../../hooks/useI18n";
+import { getOptimizedCloudinaryUrl } from "../../utils/cloudinary";
 
 type PerfumeSearchSectionProps = {
   products: Product[];
@@ -63,9 +64,11 @@ export default function PerfumeSearchSection({
           >
             {product.imageUrl ? (
               <img
-                src={product.imageUrl}
+                src={getOptimizedCloudinaryUrl(product.imageUrl, { width: 160 })}
                 alt={product.name}
                 className="h-12 w-12 shrink-0 rounded-md border border-black/10 object-cover"
+                loading="lazy"
+                decoding="async"
               />
             ) : (
               <div className="h-12 w-12 shrink-0 rounded-md border border-dashed border-black/20 bg-black/[0.03]" />

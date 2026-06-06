@@ -18,6 +18,7 @@ import type { UploadedFile as UploadedFileType } from '../../common/types/upload
 import { CreateCategoryDto } from './dto/create-category.dto.js';
 import { CreatePerfumeDto } from './dto/create-perfume.dto.js';
 import { UpdatePerfumeDto } from './dto/update-perfume.dto.js';
+import { UpdateCategoryDto } from './dto/update-category.dto.js';
 import { ProductsService } from './products.service.js';
 
 @Controller('products')
@@ -80,7 +81,22 @@ export class ProductsController {
   @Post('categories')
   @UseGuards(AdminJwtGuard)
   async createCategory(@Body() body: CreateCategoryDto) {
-    return this.productsService.createCategory(body.name);
+    return this.productsService.createCategory(body.name, body.nameAr);
+  }
+
+  @Put('categories/:id')
+  @UseGuards(AdminJwtGuard)
+  async updateCategory(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: UpdateCategoryDto,
+  ) {
+    return this.productsService.updateCategory(id, body.name, body.nameAr);
+  }
+
+  @Delete('categories/:id')
+  @UseGuards(AdminJwtGuard)
+  async deleteCategory(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.deleteCategory(id);
   }
 
   @Post('offers')

@@ -1,5 +1,11 @@
 import { api } from './api'
-import type { Category, CreateProductInput, Product, UpdateProductInput } from '../types/product'
+import type {
+  Category,
+  CategoryInput,
+  CreateProductInput,
+  Product,
+  UpdateProductInput,
+} from '../types/product'
 
 export async function listProductsFromApi(): Promise<Product[]> {
   const { data } = await api.get<Product[]>('/products')
@@ -68,8 +74,21 @@ export async function listCategoriesFromApi(): Promise<Category[]> {
   return data
 }
 
-export async function createCategory(name: string): Promise<Category> {
-  const { data } = await api.post<Category>('/products/categories', { name })
+export async function createCategory(payload: CategoryInput): Promise<Category> {
+  const { data } = await api.post<Category>('/products/categories', payload)
 
   return data
+}
+
+export async function updateCategory(
+  id: number,
+  payload: CategoryInput,
+): Promise<Category> {
+  const { data } = await api.put<Category>(`/products/categories/${id}`, payload)
+
+  return data
+}
+
+export async function deleteCategory(id: number): Promise<void> {
+  await api.delete(`/products/categories/${id}`)
 }

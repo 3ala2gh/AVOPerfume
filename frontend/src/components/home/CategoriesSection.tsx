@@ -1,5 +1,5 @@
 import { getCategoryOrder, type CategoryName, type Perfume } from './catalogData'
-import { useI18n } from '../../i18n'
+import { useI18n } from '../../hooks/useI18n'
 
 type CategoriesSectionProps = {
   perfumes: Perfume[]
@@ -56,7 +56,10 @@ export default function CategoriesSection({
                 }`}
               >
                 <h4 className="mb-2 text-base tracking-wide sm:text-xl">
-                  {categoryLabel(category.name)}
+                  {categoryLabel(
+                    category.name,
+                    perfumes.find((perfume) => perfume.category === category.name)?.categoryAr,
+                  )}
                 </h4>
 
                 <p className="text-xs opacity-60 sm:text-sm">
