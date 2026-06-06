@@ -98,6 +98,7 @@ export const PerfumeScalarFieldEnum = {
   name: 'name',
   gender: 'gender',
   price: 'price',
+  price10Ml: 'price10Ml',
   price30Ml: 'price30Ml',
   price55Ml: 'price55Ml',
   price100Ml: 'price100Ml',

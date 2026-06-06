@@ -6,6 +6,7 @@ export type Perfume = {
   id: number
   name: string
   price: number
+  price10Ml: number
   price30Ml: number
   price55Ml: number
   price100Ml: number
@@ -19,12 +20,13 @@ export type Perfume = {
 
 export const DEFAULT_PERFUME_SIZE: PerfumeSize = '55ml'
 export const DEFAULT_PERFUME_SIZE_PRICES: Record<PerfumeSize, number> = {
+  '10ml': 2,
   '30ml': 6,
   '55ml': 8,
   '100ml': 15,
 }
 
-export const PERFUME_SIZE_OPTIONS: PerfumeSize[] = ['30ml', '55ml', '100ml']
+export const PERFUME_SIZE_OPTIONS: PerfumeSize[] = ['10ml', '30ml', '55ml', '100ml']
 
 export function getPerfumeSizePrice(
   perfume: Pick<Perfume, 'sizes'>,
@@ -38,7 +40,13 @@ function normalizeProductSizes(product: Product): ProductSizePrice[] {
     size,
     price: Number(
       product.sizes?.find((item) => item.size === size)?.price ??
-        (size === '30ml' ? product.price30Ml : size === '55ml' ? product.price55Ml : product.price100Ml) ??
+        (size === '10ml'
+          ? product.price10Ml
+          : size === '30ml'
+            ? product.price30Ml
+            : size === '55ml'
+              ? product.price55Ml
+              : product.price100Ml) ??
         DEFAULT_PERFUME_SIZE_PRICES[size],
     ),
   }))
@@ -52,6 +60,7 @@ export function toPerfume(product: Product): Perfume {
     id: product.id,
     name: product.name,
     price: price55Ml,
+    price10Ml: getPerfumeSizePrice({ sizes }, '10ml'),
     price30Ml: getPerfumeSizePrice({ sizes }, '30ml'),
     price55Ml,
     price100Ml: getPerfumeSizePrice({ sizes }, '100ml'),

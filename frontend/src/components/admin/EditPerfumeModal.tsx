@@ -13,6 +13,7 @@ type EditPerfumePayload = {
   gender: 'male' | 'female' | 'unisex'
   categoryId: number
   price: number
+  price10Ml: number
   price30Ml: number
   price55Ml: number
   price100Ml: number
@@ -47,6 +48,7 @@ export default function EditPerfumeModal({
     perfume?.gender ?? 'unisex',
   )
   const [categoryId, setCategoryId] = useState(perfume?.categoryId ?? 0)
+  const [price10Ml, setPrice10Ml] = useState(perfume ? String(perfume.price10Ml) : '2')
   const [price30Ml, setPrice30Ml] = useState(perfume ? String(perfume.price30Ml) : '6')
   const [price55Ml, setPrice55Ml] = useState(perfume ? String(perfume.price55Ml) : '8')
   const [price100Ml, setPrice100Ml] = useState(perfume ? String(perfume.price100Ml) : '15')
@@ -59,6 +61,7 @@ export default function EditPerfumeModal({
 
     const normalizedName = name.trim()
     const normalizedDescription = description.trim()
+    const normalizedPrice10Ml = Number(price10Ml)
     const normalizedPrice30Ml = Number(price30Ml)
     const normalizedPrice55Ml = Number(price55Ml)
     const normalizedPrice100Ml = Number(price100Ml)
@@ -74,9 +77,11 @@ export default function EditPerfumeModal({
     }
 
     if (
+      !Number.isFinite(normalizedPrice10Ml) ||
       !Number.isFinite(normalizedPrice30Ml) ||
       !Number.isFinite(normalizedPrice55Ml) ||
       !Number.isFinite(normalizedPrice100Ml) ||
+      normalizedPrice10Ml <= 0 ||
       normalizedPrice30Ml <= 0 ||
       normalizedPrice55Ml <= 0 ||
       normalizedPrice100Ml <= 0
@@ -91,6 +96,7 @@ export default function EditPerfumeModal({
       gender,
       categoryId,
       price: normalizedPrice55Ml,
+      price10Ml: normalizedPrice10Ml,
       price30Ml: normalizedPrice30Ml,
       price55Ml: normalizedPrice55Ml,
       price100Ml: normalizedPrice100Ml,
@@ -154,7 +160,20 @@ export default function EditPerfumeModal({
         </div>
         <div className="space-y-2">
           <p className="block text-sm font-medium">{t('admin.sizePrices')}</p>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="space-y-1.5">
+              <label htmlFor="edit-perfume-price-10ml" className="block text-xs text-black/65">
+                10ml
+              </label>
+              <Input
+                id="edit-perfume-price-10ml"
+                type="number"
+                min="0.01"
+                step="0.01"
+                value={price10Ml}
+                onChange={(event) => setPrice10Ml(event.target.value)}
+              />
+            </div>
             <div className="space-y-1.5">
               <label htmlFor="edit-perfume-price-30ml" className="block text-xs text-black/65">
                 30ml

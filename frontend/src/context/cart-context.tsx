@@ -13,9 +13,9 @@ import {
 import type { PerfumeSize } from '../types/product'
 import { useI18n } from '../hooks/useI18n'
 import { CartContext, type CartItem } from './cart'
+import { WHATSAPP_URL } from '../config/contact'
 
 const CART_STORAGE_KEY = 'avo_cart_items'
-const WHATSAPP_NUMBER = '962799463217'
 
 function readInitialCart(): CartItem[] {
   if (typeof window === 'undefined') {
@@ -128,7 +128,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
 
     const message = buildWhatsAppMessage(items, t)
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+    const whatsappUrl = `${WHATSAPP_URL}?text=${encodeURIComponent(message)}`
     const openedWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
 
     if (!openedWindow) {

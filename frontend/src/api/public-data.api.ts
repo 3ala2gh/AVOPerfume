@@ -3,6 +3,7 @@ import { listOffersFromApi } from './offers.api'
 import { listCategoriesFromApi, listProductsFromApi } from './products.api'
 
 function normalizeProduct(item: Product): Product {
+  const price10Ml = Number(item.price10Ml ?? item.sizes?.find((size) => size.size === '10ml')?.price ?? 2)
   const price30Ml = Number(item.price30Ml ?? item.sizes?.find((size) => size.size === '30ml')?.price ?? 6)
   const price55Ml = Number(item.price55Ml ?? item.sizes?.find((size) => size.size === '55ml')?.price ?? item.price)
   const price100Ml = Number(item.price100Ml ?? item.sizes?.find((size) => size.size === '100ml')?.price ?? 15)
@@ -10,10 +11,12 @@ function normalizeProduct(item: Product): Product {
   return {
     ...item,
     price: price55Ml,
+    price10Ml,
     price30Ml,
     price55Ml,
     price100Ml,
     sizes: [
+      { size: '10ml', price: price10Ml },
       { size: '30ml', price: price30Ml },
       { size: '55ml', price: price55Ml },
       { size: '100ml', price: price100Ml },

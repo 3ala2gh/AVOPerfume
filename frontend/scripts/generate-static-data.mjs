@@ -4,6 +4,7 @@ import { loadEnv } from "vite";
 
 const FETCH_TIMEOUT_MS = 60000;
 const DEFAULT_SIZE_PRICES = {
+  "10ml": 2,
   "30ml": 6,
   "55ml": 8,
   "100ml": 15,
@@ -50,6 +51,11 @@ async function writeStaticJson(fileName, payload) {
 }
 
 function normalizeProduct(product) {
+  const price10Ml = Number(
+    product.price10Ml ??
+      product.sizes?.find((item) => item.size === "10ml")?.price ??
+      DEFAULT_SIZE_PRICES["10ml"],
+  );
   const price30Ml = Number(
     product.price30Ml ??
       product.sizes?.find((item) => item.size === "30ml")?.price ??
@@ -70,10 +76,12 @@ function normalizeProduct(product) {
   return {
     ...product,
     price: price55Ml,
+    price10Ml,
     price30Ml,
     price55Ml,
     price100Ml,
     sizes: [
+      { size: "10ml", price: price10Ml },
       { size: "30ml", price: price30Ml },
       { size: "55ml", price: price55Ml },
       { size: "100ml", price: price100Ml },

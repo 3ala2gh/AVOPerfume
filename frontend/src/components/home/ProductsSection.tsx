@@ -229,7 +229,7 @@ export default function ProductsSection({
         isOpen={activePerfume !== null}
         onClose={closePerfume}
         title={activePerfume?.name}
-        size="lg"
+        size="xl"
       >
         {activePerfume ? (
           <PerfumeDetails

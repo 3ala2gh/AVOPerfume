@@ -12,10 +12,12 @@ export async function listProductsFromApi(): Promise<Product[]> {
   return data.map((item) => ({
     ...item,
     price: Number(item.price),
+    price10Ml: Number(item.price10Ml ?? item.sizes?.find((size) => size.size === '10ml')?.price ?? 2),
     price30Ml: Number(item.price30Ml ?? item.sizes?.find((size) => size.size === '30ml')?.price ?? 6),
     price55Ml: Number(item.price55Ml ?? item.sizes?.find((size) => size.size === '55ml')?.price ?? item.price),
     price100Ml: Number(item.price100Ml ?? item.sizes?.find((size) => size.size === '100ml')?.price ?? 15),
     sizes: [
+      { size: '10ml', price: Number(item.price10Ml ?? item.sizes?.find((size) => size.size === '10ml')?.price ?? 2) },
       { size: '30ml', price: Number(item.price30Ml ?? item.sizes?.find((size) => size.size === '30ml')?.price ?? 6) },
       { size: '55ml', price: Number(item.price55Ml ?? item.sizes?.find((size) => size.size === '55ml')?.price ?? item.price) },
       { size: '100ml', price: Number(item.price100Ml ?? item.sizes?.find((size) => size.size === '100ml')?.price ?? 15) },
@@ -31,6 +33,7 @@ export async function createProduct(payload: CreateProductInput): Promise<Produc
   formData.append('gender', payload.gender)
   formData.append('categoryId', String(payload.categoryId))
   formData.append('price', String(payload.price))
+  formData.append('price10Ml', String(payload.price10Ml))
   formData.append('price30Ml', String(payload.price30Ml))
   formData.append('price55Ml', String(payload.price55Ml))
   formData.append('price100Ml', String(payload.price100Ml))
@@ -49,6 +52,7 @@ export async function updateProduct(payload: UpdateProductInput): Promise<Produc
   formData.append('gender', payload.gender)
   formData.append('categoryId', String(payload.categoryId))
   formData.append('price', String(payload.price))
+  formData.append('price10Ml', String(payload.price10Ml))
   formData.append('price30Ml', String(payload.price30Ml))
   formData.append('price55Ml', String(payload.price55Ml))
   formData.append('price100Ml', String(payload.price100Ml))

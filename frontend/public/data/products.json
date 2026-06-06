@@ -1,14 +1,97 @@
 [
   {
-    "id": 8,
-    "name": "Only one",
-    "description": "",
+    "id": 12,
+    "name": "Bois Impérial",
+    "description": "The nose behind this fragrance is Quentin Bisch. The fragrance features Akigalawood, Woodsy Notes, Basil, Vetiver, Timur, Ambroxan and Patchouli",
+    "gender": "male",
+    "price": 8,
+    "price30Ml": 6,
+    "price55Ml": 8,
+    "price100Ml": 15,
+    "sizes": [
+      {
+        "size": "30ml",
+        "price": 6
+      },
+      {
+        "size": "55ml",
+        "price": 8
+      },
+      {
+        "size": "100ml",
+        "price": 15
+      }
+    ],
+    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780766145/avo-perfume/ouoadlwkpfsf6finfufe.jpg",
+    "categoryId": 6,
+    "category": "Woody",
+    "categoryAr": "خشبي",
+    "createdAt": "2026-06-06T17:15:47.418Z"
+  },
+  {
+    "id": 11,
+    "name": "Eros Versace",
+    "description": "Top notes are Mint, Green Apple and Lemon; middle notes are Tonka Bean, Ambroxan and Geranium; base notes are Madagascar Vanilla, Virginian Cedar, Atlas Cedar, Vetiver and Oakmoss",
+    "gender": "male",
+    "price": 8,
+    "price30Ml": 6,
+    "price55Ml": 8,
+    "price100Ml": 15,
+    "sizes": [
+      {
+        "size": "30ml",
+        "price": 6
+      },
+      {
+        "size": "55ml",
+        "price": 8
+      },
+      {
+        "size": "100ml",
+        "price": 15
+      }
+    ],
+    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780765730/avo-perfume/ugprhztbafmkayfx2qja.jpg",
+    "categoryId": 11,
+    "category": "vanilla",
+    "categoryAr": "فانيلا",
+    "createdAt": "2026-06-06T17:08:52.076Z"
+  },
+  {
+    "id": 10,
+    "name": "Le Male Elixir",
+    "description": "Top notes are Lavender and Mint; middle notes are Vanilla and Benzoin; base notes are Honey, Tonka Bean and Tobacco",
+    "gender": "male",
+    "price": 8,
+    "price30Ml": 6,
+    "price55Ml": 8,
+    "price100Ml": 15,
+    "sizes": [
+      {
+        "size": "30ml",
+        "price": 6
+      },
+      {
+        "size": "55ml",
+        "price": 8
+      },
+      {
+        "size": "100ml",
+        "price": 15
+      }
+    ],
+    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780765419/avo-perfume/wsm5a1xyjige1ud7cxb2.jpg",
+    "categoryId": 11,
+    "category": "vanilla",
+    "categoryAr": "فانيلا",
+    "createdAt": "2026-06-06T17:03:41.444Z"
+  },
+  {
+    "id": 9,
+    "name": "LOST IN PARIS",
+    "description": "The opening of the fragrance is red orange, bitter orange, rum and mandarin (tangerine); the heart of the fragrance is sugar, butter and caramel; the base of the fragrance consists of musk, pink pepper, cashmere wood, carnation, cedarwood, cinnamon, vanilla and amberry",
     "gender": "unisex",
     "price": 8,
-    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780172935/avo-perfume/x3uhwanuyhymxkyerjqf.jpg",
-    "categoryId": 1,
-    "category": "Wood",
-    "createdAt": "2026-05-30T20:28:56.852Z",
     "price30Ml": 6,
     "price55Ml": 8,
     "price100Ml": 15,
@@ -25,174 +108,11 @@
         "size": "100ml",
         "price": 15
       }
-    ]
-  },
-  {
-    "id": 7,
-    "name": "test 101",
-    "description": "",
-    "gender": "male",
-    "price": 8,
-    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780170074/avo-perfume/q0x90nxlstl4skblpwfb.png",
-    "categoryId": 7,
-    "category": "Oriental",
-    "createdAt": "2026-05-30T19:41:15.674Z",
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
-    "sizes": [
-      {
-        "size": "30ml",
-        "price": 6
-      },
-      {
-        "size": "55ml",
-        "price": 8
-      },
-      {
-        "size": "100ml",
-        "price": 15
-      }
-    ]
-  },
-  {
-    "id": 6,
-    "name": "Marakoja",
-    "description": "",
-    "gender": "male",
-    "price": 8,
-    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780168593/avo-perfume/viuylhazgbu3dn5ruumx.png",
-    "categoryId": 1,
-    "category": "Wood",
-    "createdAt": "2026-05-30T19:16:35.427Z",
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
-    "sizes": [
-      {
-        "size": "30ml",
-        "price": 6
-      },
-      {
-        "size": "55ml",
-        "price": 8
-      },
-      {
-        "size": "100ml",
-        "price": 15
-      }
-    ]
-  },
-  {
-    "id": 5,
-    "name": "Hi Hi Test",
-    "description": "",
-    "gender": "male",
-    "price": 8,
-    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780167699/avo-perfume/iwsw2rv4iuvcdgz1sjip.png",
-    "categoryId": 7,
-    "category": "Oriental",
-    "createdAt": "2026-05-30T19:01:41.446Z",
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
-    "sizes": [
-      {
-        "size": "30ml",
-        "price": 6
-      },
-      {
-        "size": "55ml",
-        "price": 8
-      },
-      {
-        "size": "100ml",
-        "price": 15
-      }
-    ]
-  },
-  {
-    "id": 4,
-    "name": "Fhernhite",
-    "description": "fresh perfume that will everyone notice you",
-    "gender": "male",
-    "price": 8,
-    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780157799/avo-perfume/gb1ptklkvuo8e5u1ubu6.png",
-    "categoryId": 5,
-    "category": "Fresh",
-    "createdAt": "2026-05-30T16:16:43.365Z",
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
-    "sizes": [
-      {
-        "size": "30ml",
-        "price": 6
-      },
-      {
-        "size": "55ml",
-        "price": 8
-      },
-      {
-        "size": "100ml",
-        "price": 15
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "name": "Blue De Chanel",
-    "description": "best Perfume on the Earth",
-    "gender": "unisex",
-    "price": 8,
-    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780080707/avo-perfume/t6yveyg18sbottmd7zwg.png",
-    "categoryId": 5,
-    "category": "Fresh",
-    "createdAt": "2026-05-29T18:51:50.440Z",
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
-    "sizes": [
-      {
-        "size": "30ml",
-        "price": 6
-      },
-      {
-        "size": "55ml",
-        "price": 8
-      },
-      {
-        "size": "100ml",
-        "price": 15
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "name": "perfume 2",
-    "description": "the best 2",
-    "gender": "unisex",
-    "price": 8,
-    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780014302/avo-perfume/rsmwgjvhkgwcyiyadnv4.png",
-    "categoryId": 1,
-    "category": "Wood",
-    "createdAt": "2026-05-29T00:25:03.721Z",
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
-    "sizes": [
-      {
-        "size": "30ml",
-        "price": 6
-      },
-      {
-        "size": "55ml",
-        "price": 8
-      },
-      {
-        "size": "100ml",
-        "price": 15
-      }
-    ]
+    ],
+    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780765298/avo-perfume/ogocj8pgld6qdljl6z2p.jpg",
+    "categoryId": 10,
+    "category": "Musky",
+    "categoryAr": "مسكي",
+    "createdAt": "2026-06-06T16:51:19.857Z"
   }
 ]

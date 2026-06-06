@@ -43,6 +43,11 @@ export class CreatePerfumeDto {
   @Transform(({ value }) => Number(value))
   @IsNumber()
   @Min(0.01)
+  price10Ml!: number;
+
+  @Transform(({ value }) => Number(value))
+  @IsNumber()
+  @Min(0.01)
   price30Ml!: number;
 
   @Transform(({ value }) => Number(value))

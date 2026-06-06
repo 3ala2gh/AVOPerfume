@@ -97,6 +97,7 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
         gender: values.gender,
         categoryId: values.categoryId,
         price: values.price,
+        price10Ml: values.price10Ml,
         price30Ml: values.price30Ml,
         price55Ml: values.price55Ml,
         price100Ml: values.price100Ml,

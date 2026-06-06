@@ -17,6 +17,7 @@ type CreatePerfumeParams = {
   gender: GenderInput;
   categoryId: number;
   price: number;
+  price10Ml: number;
   price30Ml: number;
   price55Ml: number;
   price100Ml: number;
@@ -30,6 +31,7 @@ type UpdatePerfumeParams = {
   gender: GenderInput;
   categoryId: number;
   price: number;
+  price10Ml: number;
   price30Ml: number;
   price55Ml: number;
   price100Ml: number;
@@ -53,6 +55,7 @@ export class ProductsService {
     description: string | null;
     gender: GenderDb;
     price: Prisma.Decimal;
+    price10Ml: Prisma.Decimal;
     price30Ml: Prisma.Decimal;
     price55Ml: Prisma.Decimal;
     price100Ml: Prisma.Decimal;
@@ -67,10 +70,12 @@ export class ProductsService {
       description: perfume.description,
       gender: perfume.gender.toLowerCase(),
       price: perfume.price55Ml,
+      price10Ml: perfume.price10Ml,
       price30Ml: perfume.price30Ml,
       price55Ml: perfume.price55Ml,
       price100Ml: perfume.price100Ml,
       sizes: [
+        { size: '10ml', price: perfume.price10Ml },
         { size: '30ml', price: perfume.price30Ml },
         { size: '55ml', price: perfume.price55Ml },
         { size: '100ml', price: perfume.price100Ml },
@@ -143,6 +148,7 @@ export class ProductsService {
     gender,
     categoryId,
     price,
+    price10Ml,
     price30Ml,
     price55Ml,
     price100Ml,
@@ -159,6 +165,7 @@ export class ProductsService {
           gender: gender.toUpperCase() as GenderDb,
           categoryId,
           price: price55Ml ?? price,
+          price10Ml,
           price30Ml,
           price55Ml,
           price100Ml,
@@ -175,6 +182,7 @@ export class ProductsService {
     gender,
     categoryId,
     price,
+    price10Ml,
     price30Ml,
     price55Ml,
     price100Ml,
@@ -203,6 +211,7 @@ export class ProductsService {
           gender: gender.toUpperCase() as GenderDb,
           categoryId,
           price: price55Ml ?? price,
+          price10Ml,
           price30Ml,
           price55Ml,
           price100Ml,

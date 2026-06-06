@@ -1,4 +1,4 @@
-export type PerfumeSize = '30ml' | '55ml' | '100ml'
+export type PerfumeSize = '10ml' | '30ml' | '55ml' | '100ml'
 
 export interface ProductSizePrice {
   size: PerfumeSize
@@ -11,6 +11,7 @@ export interface Product {
   description: string | null
   gender: 'male' | 'female' | 'unisex'
   price: number
+  price10Ml: number
   price30Ml: number
   price55Ml: number
   price100Ml: number
@@ -34,6 +35,7 @@ export interface CreateProductInput {
   gender: 'male' | 'female' | 'unisex'
   categoryId: number
   price: number
+  price10Ml: number
   price30Ml: number
   price55Ml: number
   price100Ml: number
@@ -47,6 +49,7 @@ export interface UpdateProductInput {
   gender: 'male' | 'female' | 'unisex'
   categoryId: number
   price: number
+  price10Ml: number
   price30Ml: number
   price55Ml: number
   price100Ml: number

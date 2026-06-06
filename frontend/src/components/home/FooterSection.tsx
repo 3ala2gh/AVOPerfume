@@ -1,4 +1,8 @@
 import { useI18n } from '../../hooks/useI18n'
+import {
+  WHATSAPP_DISPLAY_NUMBER,
+  WHATSAPP_URL,
+} from '../../config/contact'
 
 export default function FooterSection() {
   const { t } = useI18n()
@@ -25,7 +29,16 @@ export default function FooterSection() {
           <div>
             <h6 className="mb-4 tracking-wide">{t('home.footerSupport')}</h6>
             <ul className="space-y-2 text-sm opacity-60">
-              <li><a href="#" className="transition-opacity hover:opacity-100">{t('home.contactUs')}</a></li>
+              <li>
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="transition-opacity hover:opacity-100"
+                >
+                  {t('home.contactUs')}: {WHATSAPP_DISPLAY_NUMBER}
+                </a>
+              </li>
               <li><a href="#" className="transition-opacity hover:opacity-100">{t('home.shippingInfo')}</a></li>
               <li><a href="#" className="transition-opacity hover:opacity-100">{t('home.returns')}</a></li>
               <li><a href="#" className="transition-opacity hover:opacity-100">{t('home.faq')}</a></li>

@@ -29,6 +29,7 @@ export type AggregatePerfume = {
 export type PerfumeAvgAggregateOutputType = {
   id: number | null
   price: runtime.Decimal | null
+  price10Ml: runtime.Decimal | null
   price30Ml: runtime.Decimal | null
   price55Ml: runtime.Decimal | null
   price100Ml: runtime.Decimal | null
@@ -38,6 +39,7 @@ export type PerfumeAvgAggregateOutputType = {
 export type PerfumeSumAggregateOutputType = {
   id: number | null
   price: runtime.Decimal | null
+  price10Ml: runtime.Decimal | null
   price30Ml: runtime.Decimal | null
   price55Ml: runtime.Decimal | null
   price100Ml: runtime.Decimal | null
@@ -49,6 +51,7 @@ export type PerfumeMinAggregateOutputType = {
   name: string | null
   gender: $Enums.Gender | null
   price: runtime.Decimal | null
+  price10Ml: runtime.Decimal | null
   price30Ml: runtime.Decimal | null
   price55Ml: runtime.Decimal | null
   price100Ml: runtime.Decimal | null
@@ -63,6 +66,7 @@ export type PerfumeMaxAggregateOutputType = {
   name: string | null
   gender: $Enums.Gender | null
   price: runtime.Decimal | null
+  price10Ml: runtime.Decimal | null
   price30Ml: runtime.Decimal | null
   price55Ml: runtime.Decimal | null
   price100Ml: runtime.Decimal | null
@@ -77,6 +81,7 @@ export type PerfumeCountAggregateOutputType = {
   name: number
   gender: number
   price: number
+  price10Ml: number
   price30Ml: number
   price55Ml: number
   price100Ml: number
@@ -91,6 +96,7 @@ export type PerfumeCountAggregateOutputType = {
 export type PerfumeAvgAggregateInputType = {
   id?: true
   price?: true
+  price10Ml?: true
   price30Ml?: true
   price55Ml?: true
   price100Ml?: true
@@ -100,6 +106,7 @@ export type PerfumeAvgAggregateInputType = {
 export type PerfumeSumAggregateInputType = {
   id?: true
   price?: true
+  price10Ml?: true
   price30Ml?: true
   price55Ml?: true
   price100Ml?: true
@@ -111,6 +118,7 @@ export type PerfumeMinAggregateInputType = {
   name?: true
   gender?: true
   price?: true
+  price10Ml?: true
   price30Ml?: true
   price55Ml?: true
   price100Ml?: true
@@ -125,6 +133,7 @@ export type PerfumeMaxAggregateInputType = {
   name?: true
   gender?: true
   price?: true
+  price10Ml?: true
   price30Ml?: true
   price55Ml?: true
   price100Ml?: true
@@ -139,6 +148,7 @@ export type PerfumeCountAggregateInputType = {
   name?: true
   gender?: true
   price?: true
+  price10Ml?: true
   price30Ml?: true
   price55Ml?: true
   price100Ml?: true
@@ -240,6 +250,7 @@ export type PerfumeGroupByOutputType = {
   name: string
   gender: $Enums.Gender
   price: runtime.Decimal
+  price10Ml: runtime.Decimal
   price30Ml: runtime.Decimal
   price55Ml: runtime.Decimal
   price100Ml: runtime.Decimal
@@ -277,6 +288,7 @@ export type PerfumeWhereInput = {
   name?: Prisma.StringFilter<"Perfume"> | string
   gender?: Prisma.EnumGenderFilter<"Perfume"> | $Enums.Gender
   price?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -292,6 +304,7 @@ export type PerfumeOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  price10Ml?: Prisma.SortOrder
   price30Ml?: Prisma.SortOrder
   price55Ml?: Prisma.SortOrder
   price100Ml?: Prisma.SortOrder
@@ -310,6 +323,7 @@ export type PerfumeWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Perfume"> | string
   gender?: Prisma.EnumGenderFilter<"Perfume"> | $Enums.Gender
   price?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -325,6 +339,7 @@ export type PerfumeOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  price10Ml?: Prisma.SortOrder
   price30Ml?: Prisma.SortOrder
   price55Ml?: Prisma.SortOrder
   price100Ml?: Prisma.SortOrder
@@ -347,6 +362,7 @@ export type PerfumeScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Perfume"> | string
   gender?: Prisma.EnumGenderWithAggregatesFilter<"Perfume"> | $Enums.Gender
   price?: Prisma.DecimalWithAggregatesFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: Prisma.DecimalWithAggregatesFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: Prisma.DecimalWithAggregatesFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalWithAggregatesFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalWithAggregatesFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -360,6 +376,7 @@ export type PerfumeCreateInput = {
   name: string
   gender?: $Enums.Gender
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -374,6 +391,7 @@ export type PerfumeUncheckedCreateInput = {
   name: string
   gender?: $Enums.Gender
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -387,6 +405,7 @@ export type PerfumeUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -401,6 +420,7 @@ export type PerfumeUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -415,6 +435,7 @@ export type PerfumeCreateManyInput = {
   name: string
   gender?: $Enums.Gender
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -428,6 +449,7 @@ export type PerfumeUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -441,6 +463,7 @@ export type PerfumeUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -465,6 +488,7 @@ export type PerfumeCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  price10Ml?: Prisma.SortOrder
   price30Ml?: Prisma.SortOrder
   price55Ml?: Prisma.SortOrder
   price100Ml?: Prisma.SortOrder
@@ -477,6 +501,7 @@ export type PerfumeCountOrderByAggregateInput = {
 export type PerfumeAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  price10Ml?: Prisma.SortOrder
   price30Ml?: Prisma.SortOrder
   price55Ml?: Prisma.SortOrder
   price100Ml?: Prisma.SortOrder
@@ -488,6 +513,7 @@ export type PerfumeMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  price10Ml?: Prisma.SortOrder
   price30Ml?: Prisma.SortOrder
   price55Ml?: Prisma.SortOrder
   price100Ml?: Prisma.SortOrder
@@ -502,6 +528,7 @@ export type PerfumeMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  price10Ml?: Prisma.SortOrder
   price30Ml?: Prisma.SortOrder
   price55Ml?: Prisma.SortOrder
   price100Ml?: Prisma.SortOrder
@@ -514,6 +541,7 @@ export type PerfumeMinOrderByAggregateInput = {
 export type PerfumeSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  price10Ml?: Prisma.SortOrder
   price30Ml?: Prisma.SortOrder
   price55Ml?: Prisma.SortOrder
   price100Ml?: Prisma.SortOrder
@@ -582,6 +610,7 @@ export type PerfumeCreateWithoutCategoryInput = {
   name: string
   gender?: $Enums.Gender
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -595,6 +624,7 @@ export type PerfumeUncheckedCreateWithoutCategoryInput = {
   name: string
   gender?: $Enums.Gender
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -637,6 +667,7 @@ export type PerfumeScalarWhereInput = {
   name?: Prisma.StringFilter<"Perfume"> | string
   gender?: Prisma.EnumGenderFilter<"Perfume"> | $Enums.Gender
   price?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -651,6 +682,7 @@ export type PerfumeCreateManyCategoryInput = {
   name: string
   gender?: $Enums.Gender
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -663,6 +695,7 @@ export type PerfumeUpdateWithoutCategoryInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -676,6 +709,7 @@ export type PerfumeUncheckedUpdateWithoutCategoryInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -689,6 +723,7 @@ export type PerfumeUncheckedUpdateManyWithoutCategoryInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price10Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price30Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -704,6 +739,7 @@ export type PerfumeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name?: boolean
   gender?: boolean
   price?: boolean
+  price10Ml?: boolean
   price30Ml?: boolean
   price55Ml?: boolean
   price100Ml?: boolean
@@ -719,6 +755,7 @@ export type PerfumeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   name?: boolean
   gender?: boolean
   price?: boolean
+  price10Ml?: boolean
   price30Ml?: boolean
   price55Ml?: boolean
   price100Ml?: boolean
@@ -734,6 +771,7 @@ export type PerfumeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   name?: boolean
   gender?: boolean
   price?: boolean
+  price10Ml?: boolean
   price30Ml?: boolean
   price55Ml?: boolean
   price100Ml?: boolean
@@ -749,6 +787,7 @@ export type PerfumeSelectScalar = {
   name?: boolean
   gender?: boolean
   price?: boolean
+  price10Ml?: boolean
   price30Ml?: boolean
   price55Ml?: boolean
   price100Ml?: boolean
@@ -758,7 +797,7 @@ export type PerfumeSelectScalar = {
   createdAt?: boolean
 }
 
-export type PerfumeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "gender" | "price" | "price30Ml" | "price55Ml" | "price100Ml" | "description" | "imageUrl" | "categoryId" | "createdAt", ExtArgs["result"]["perfume"]>
+export type PerfumeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "gender" | "price" | "price10Ml" | "price30Ml" | "price55Ml" | "price100Ml" | "description" | "imageUrl" | "categoryId" | "createdAt", ExtArgs["result"]["perfume"]>
 export type PerfumeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
 }
@@ -779,6 +818,7 @@ export type $PerfumePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     name: string
     gender: $Enums.Gender
     price: runtime.Decimal
+    price10Ml: runtime.Decimal
     price30Ml: runtime.Decimal
     price55Ml: runtime.Decimal
     price100Ml: runtime.Decimal
@@ -1214,6 +1254,7 @@ export interface PerfumeFieldRefs {
   readonly name: Prisma.FieldRef<"Perfume", 'String'>
   readonly gender: Prisma.FieldRef<"Perfume", 'Gender'>
   readonly price: Prisma.FieldRef<"Perfume", 'Decimal'>
+  readonly price10Ml: Prisma.FieldRef<"Perfume", 'Decimal'>
   readonly price30Ml: Prisma.FieldRef<"Perfume", 'Decimal'>
   readonly price55Ml: Prisma.FieldRef<"Perfume", 'Decimal'>
   readonly price100Ml: Prisma.FieldRef<"Perfume", 'Decimal'>

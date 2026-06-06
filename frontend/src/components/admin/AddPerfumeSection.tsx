@@ -39,6 +39,7 @@ export default function AddPerfumeSection({
       gender: 'unisex',
       categoryId: 0,
       description: '',
+      price10Ml: 2,
       price30Ml: 6,
       price55Ml: 8,
       price100Ml: 15,
@@ -59,6 +60,7 @@ export default function AddPerfumeSection({
         gender: values.gender,
         categoryId: values.categoryId,
         price: values.price55Ml,
+        price10Ml: values.price10Ml,
         price30Ml: values.price30Ml,
         price55Ml: values.price55Ml,
         price100Ml: values.price100Ml,
@@ -123,7 +125,20 @@ export default function AddPerfumeSection({
       </div>
       <div className="space-y-2">
         <p className="block text-sm font-medium">{t('admin.sizePrices')}</p>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="space-y-1.5">
+            <label htmlFor="perfume-price-10ml" className="block text-xs text-black/65">
+              10ml
+            </label>
+            <Input
+              id="perfume-price-10ml"
+              type="number"
+              min="0.01"
+              step="0.01"
+              {...register('price10Ml', { valueAsNumber: true })}
+            />
+            {errors.price10Ml && <p className="text-xs text-red-600">{errors.price10Ml.message}</p>}
+          </div>
           <div className="space-y-1.5">
             <label htmlFor="perfume-price-30ml" className="block text-xs text-black/65">
               30ml
