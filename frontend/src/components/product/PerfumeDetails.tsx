@@ -39,14 +39,14 @@ export default function PerfumeDetails({
       className={
         isPage
           ? 'grid grid-cols-1 md:grid-cols-2'
-          : 'grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] items-start'
+          : 'perfume-modal-details grid grid-cols-1 items-start sm:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]'
       }
     >
       <div
         className={
           isPage
             ? 'relative aspect-square'
-            : 'relative aspect-[9/16] w-full overflow-hidden bg-gray-100'
+            : 'perfume-modal-details__image relative aspect-square w-full overflow-hidden sm:aspect-[9/16]'
         }
       >
         <img
@@ -57,7 +57,7 @@ export default function PerfumeDetails({
           className={
             isPage
               ? 'h-full w-full object-contain'
-              : 'h-full w-full object-cover'
+              : 'h-full w-full object-contain sm:object-cover'
           }
           decoding="async"
         />
@@ -154,7 +154,7 @@ export default function PerfumeDetails({
             className={
               isPage
                 ? 'text-base leading-relaxed text-black/70 md:text-lg'
-                : 'line-clamp-4 text-xs leading-relaxed text-black/70 sm:line-clamp-none sm:text-base md:text-lg'
+                : 'perfume-modal-details__description line-clamp-4 text-xs leading-relaxed text-black/70 sm:line-clamp-none sm:text-base md:text-lg'
             }
           >
             {perfume.description}

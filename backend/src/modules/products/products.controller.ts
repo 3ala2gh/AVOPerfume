@@ -1,156 +1,132 @@
 import {
-  BadRequestException,
-  Controller,
   Body,
+  Controller,
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
-  ParseIntPipe,
   UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AdminJwtGuard } from '../../common/auth/admin-jwt.guard.js';
+import { ImageFilePipe } from '../../common/files/image-file.pipe.js';
+import { IMAGE_UPLOAD_OPTIONS } from '../../common/files/image-upload.constants.js';
 import type { UploadedFile as UploadedFileType } from '../../common/types/uploaded-file.type.js';
 import { CreateCategoryDto } from './dto/create-category.dto.js';
 import { CreatePerfumeDto } from './dto/create-perfume.dto.js';
-import { UpdatePerfumeDto } from './dto/update-perfume.dto.js';
 import { UpdateCategoryDto } from './dto/update-category.dto.js';
-import { ProductsService } from './products.service.js';
+import { UpdatePerfumeDto } from './dto/update-perfume.dto.js';
+import { CategoriesService } from './services/categories.service.js';
+import { OffersService } from './services/offers.service.js';
+import { PerfumesService } from './services/perfumes.service.js';
 
 @Controller('products')
 export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(
+    private readonly categoriesService: CategoriesService,
+    private readonly offersService: OffersService,
+    private readonly perfumesService: PerfumesService,
+  ) {}
 
   @Get()
-  findAll() {
-    return this.productsService.findAllPerfumes();
+  findAllPerfumes() {
+    return this.perfumesService.findAll();
   }
 
   @Get('categories')
   findCategories() {
-    return this.productsService.findAllCategories();
+    return this.categoriesService.findAll();
   }
 
   @Get('offers')
   findOffers() {
-    return this.productsService.findAllOffers();
+    return this.offersService.findAll();
   }
 
   @Post('upload-image')
-  @UseInterceptors(FileInterceptor('file'))
-  async uploadImage(@UploadedFile() file: UploadedFileType) {
-    if (!file) {
-      throw new BadRequestException('File is required');
-    }
-
-    return this.productsService.uploadProductImage(file);
+  @UseGuards(AdminJwtGuard)
+  @UseInterceptors(FileInterceptor('file', IMAGE_UPLOAD_OPTIONS))
+  uploadImage(
+    @UploadedFile(new ImageFilePipe({ required: true }))
+    file: UploadedFileType,
+  ) {
+    return this.perfumesService.uploadImage(file);
   }
 
   @Post()
   @UseGuards(AdminJwtGuard)
-  @UseInterceptors(FileInterceptor('image'))
-  async createPerfume(
+  @UseInterceptors(FileInterceptor('image', IMAGE_UPLOAD_OPTIONS))
+  createPerfume(
     @Body() body: CreatePerfumeDto,
-    @UploadedFile() image: UploadedFileType,
+    @UploadedFile(new ImageFilePipe({ required: true }))
+    image: UploadedFileType,
   ) {
-    if (!image) {
-      throw new BadRequestException('image is required');
-    }
-
-    if (!image.mimetype?.startsWith('image/')) {
-      throw new BadRequestException('Only image files are allowed');
-    }
-
-    return this.productsService.createPerfume({
-      name: body.name,
-      categoryId: body.categoryId,
+    return this.perfumesService.create({
+      ...body,
       description: body.description ?? '',
-      gender: body.gender,
-      price: body.price,
-      price10Ml: body.price10Ml,
-      price30Ml: body.price30Ml,
-      price55Ml: body.price55Ml,
-      price100Ml: body.price100Ml,
       image,
     });
   }
 
   @Post('categories')
   @UseGuards(AdminJwtGuard)
-  async createCategory(@Body() body: CreateCategoryDto) {
-    return this.productsService.createCategory(body.name, body.nameAr);
+  createCategory(@Body() body: CreateCategoryDto) {
+    return this.categoriesService.create(body.name, body.nameAr);
   }
 
   @Put('categories/:id')
   @UseGuards(AdminJwtGuard)
-  async updateCategory(
+  updateCategory(
     @Param('id', ParseIntPipe) id: number,
     @Body() body: UpdateCategoryDto,
   ) {
-    return this.productsService.updateCategory(id, body.name, body.nameAr);
+    return this.categoriesService.update(id, body.name, body.nameAr);
   }
 
   @Delete('categories/:id')
   @UseGuards(AdminJwtGuard)
-  async deleteCategory(@Param('id', ParseIntPipe) id: number) {
-    return this.productsService.deleteCategory(id);
+  deleteCategory(@Param('id', ParseIntPipe) id: number) {
+    return this.categoriesService.delete(id);
   }
 
   @Post('offers')
   @UseGuards(AdminJwtGuard)
-  @UseInterceptors(FileInterceptor('image'))
-  async createOffer(@UploadedFile() image: UploadedFileType) {
-    if (!image) {
-      throw new BadRequestException('image is required');
-    }
-
-    if (!image.mimetype?.startsWith('image/')) {
-      throw new BadRequestException('Only image files are allowed');
-    }
-
-    return this.productsService.createOffer({ image });
+  @UseInterceptors(FileInterceptor('image', IMAGE_UPLOAD_OPTIONS))
+  createOffer(
+    @UploadedFile(new ImageFilePipe({ required: true }))
+    image: UploadedFileType,
+  ) {
+    return this.offersService.create(image);
   }
 
   @Put(':id')
   @UseGuards(AdminJwtGuard)
-  @UseInterceptors(FileInterceptor('image'))
-  async updatePerfume(
+  @UseInterceptors(FileInterceptor('image', IMAGE_UPLOAD_OPTIONS))
+  updatePerfume(
     @Param('id', ParseIntPipe) id: number,
     @Body() body: UpdatePerfumeDto,
-    @UploadedFile() image?: UploadedFileType,
+    @UploadedFile(new ImageFilePipe()) image?: UploadedFileType,
   ) {
-    if (image && !image.mimetype?.startsWith('image/')) {
-      throw new BadRequestException('Only image files are allowed');
-    }
-
-    return this.productsService.updatePerfume({
+    return this.perfumesService.update({
       id,
-      name: body.name,
-      description: body.description,
-      gender: body.gender,
-      categoryId: body.categoryId,
-      price: body.price,
-      price10Ml: body.price10Ml,
-      price30Ml: body.price30Ml,
-      price55Ml: body.price55Ml,
-      price100Ml: body.price100Ml,
+      ...body,
       image,
     });
   }
 
   @Delete(':id')
   @UseGuards(AdminJwtGuard)
-  async deletePerfume(@Param('id', ParseIntPipe) id: number) {
-    return this.productsService.deletePerfume(id);
+  deletePerfume(@Param('id', ParseIntPipe) id: number) {
+    return this.perfumesService.delete(id);
   }
 
   @Delete('offers/:id')
   @UseGuards(AdminJwtGuard)
-  async deleteOffer(@Param('id', ParseIntPipe) id: number) {
-    return this.productsService.deleteOffer(id);
+  deleteOffer(@Param('id', ParseIntPipe) id: number) {
+    return this.offersService.delete(id);
   }
 }

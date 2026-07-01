@@ -99,25 +99,26 @@ function ShopPage() {
 
                 <div>
                   <label className="mb-3 block text-sm tracking-wide opacity-60">{t('common.category')}</label>
-                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-1">
+                  <Select
+                    value={selectedCategory}
+                    onChange={(event) => setSelectedCategory(event.target.value)}
+                    className="rounded-none border px-4 py-2.5"
+                    aria-label={t('shop.chooseCategory')}
+                  >
                     {categories.map((category) => (
-                      <button
-                        key={category}
-                        type="button"
-                        onClick={() => setSelectedCategory(category)}
-                        className={`w-full border px-3 py-2 text-left text-sm transition-all sm:px-4 sm:text-base ${
-                          selectedCategory === category
-                            ? 'border-black bg-black text-white'
-                            : 'border-black/20 hover:border-black'
-                        }`}
-                      >
+                      <option key={category} value={category}>
                         {categoryLabel(
                           category,
                           perfumes.find((perfume) => perfume.category === category)?.categoryAr,
-                        )}
-                      </button>
+                        )}{' '}
+                        (
+                        {category === 'All'
+                          ? perfumes.length
+                          : perfumes.filter((perfume) => perfume.category === category).length}
+                        )
+                      </option>
                     ))}
-                  </div>
+                  </Select>
                 </div>
 
                 <div>

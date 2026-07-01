@@ -5,25 +5,19 @@ import {
   InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
-import bcrypt from 'bcrypt';
+import { AuthTokenService } from '../../common/auth/auth-token.service.js';
+import { PasswordService } from '../../common/auth/password.service.js';
+import { isPrismaUniqueConstraintError } from '../../common/prisma/prisma-errors.js';
 import { PrismaService } from '../../common/prisma/prisma.service.js';
-import { TokenService } from './token.service.js';
-
-export type AuthResponse = {
-  token: string;
-  user: {
-    id: number;
-    name: string;
-    email: string;
-    role: string;
-  };
-};
+import { mapAuthResponse } from './mappers/auth-response.mapper.js';
+import type { AuthResponse } from './types/auth-response.type.js';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly prismaService: PrismaService,
-    private readonly tokenService: TokenService,
+    private readonly tokenService: AuthTokenService,
+    private readonly passwordService: PasswordService,
   ) {}
 
   async login(email: string, password: string): Promise<AuthResponse> {
@@ -32,29 +26,14 @@ export class AuthService {
       include: { role: true },
     });
 
-    if (!user) {
+    if (
+      !user ||
+      !(await this.passwordService.verify(password, user.password))
+    ) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    if (!(await this.verifyPassword(password, user.password))) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
-
-    const token = this.tokenService.sign({
-      sub: user.id,
-      email: user.email,
-      role: user.role.name,
-    });
-
-    return {
-      token,
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role.name,
-      },
-    };
+    return mapAuthResponse(user, this.tokenService);
   }
 
   async register(
@@ -68,12 +47,9 @@ export class AuthService {
       );
     }
 
-    if (password.length < 8) {
-      throw new BadRequestException('Password must be at least 8 characters');
-    }
-
     const existingUser = await this.prismaService.user.findUnique({
       where: { email },
+      select: { id: true },
     });
 
     if (existingUser) {
@@ -82,6 +58,7 @@ export class AuthService {
 
     const userRole = await this.prismaService.role.findUnique({
       where: { name: 'user' },
+      select: { id: true },
     });
 
     if (!userRole) {
@@ -90,43 +67,40 @@ export class AuthService {
       );
     }
 
-    const derivedName = email.split('@')[0] ?? 'User';
-    const user = await this.prismaService.user.create({
-      data: {
-        name: derivedName,
-        email,
-        password: await this.hashPassword(password),
-        roleId: userRole.id,
-      },
-      include: { role: true },
+    const user = await this.createUser({
+      email,
+      password,
+      roleId: userRole.id,
     });
 
-    const token = this.tokenService.sign({
-      sub: user.id,
-      email: user.email,
-      role: user.role.name,
-    });
-
-    return {
-      token,
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role.name,
-      },
-    };
+    return mapAuthResponse(user, this.tokenService);
   }
 
-  private hashPassword(password: string): Promise<string> {
-    const saltRounds = 12;
-    return bcrypt.hash(password, saltRounds);
+  private async createUser(input: {
+    email: string;
+    password: string;
+    roleId: number;
+  }) {
+    try {
+      return await this.prismaService.user.create({
+        data: {
+          name: this.deriveName(input.email),
+          email: input.email,
+          password: await this.passwordService.hash(input.password),
+          roleId: input.roleId,
+        },
+        include: { role: true },
+      });
+    } catch (error) {
+      if (isPrismaUniqueConstraintError(error)) {
+        throw new ConflictException('Email is already registered');
+      }
+
+      throw error;
+    }
   }
 
-  private verifyPassword(
-    plainPassword: string,
-    storedPassword: string,
-  ): Promise<boolean> {
-    return bcrypt.compare(plainPassword, storedPassword);
+  private deriveName(email: string): string {
+    return email.split('@')[0] || 'User';
   }
 }

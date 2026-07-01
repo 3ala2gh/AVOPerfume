@@ -1,4 +1,4 @@
-import { Menu, Search, ShoppingCart } from 'lucide-react'
+import { Languages, Menu, Search, ShoppingCart } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { findPerfumeByQuery, perfumeToSlug, toPerfumes } from '../home/catalogData'
@@ -129,10 +129,14 @@ export default function Navbar() {
             <button
               type="button"
               onClick={toggleLanguage}
-              className="border border-black/20 px-2 py-1 text-xs transition-colors hover:bg-black hover:text-white sm:px-3 sm:text-sm"
+              className="group inline-flex h-9 items-center gap-1.5 rounded-full border border-black/15 bg-black/[0.03] px-2.5 text-xs font-medium tracking-wide text-[#111] transition-all duration-200 hover:-translate-y-0.5 hover:border-black hover:bg-black hover:text-white hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 sm:h-10 sm:gap-2 sm:px-3.5 sm:text-sm"
               aria-label={t('language.label')}
             >
-              {t('language.switchTo')}
+              <Languages className="h-4 w-4" aria-hidden="true" />
+              <span className="hidden sm:inline">{t('language.switchTo')}</span>
+              <span className="sm:hidden">
+                {t('language.switchTo') === 'English' ? 'EN' : 'العربية'}
+              </span>
             </button>
 
             <button

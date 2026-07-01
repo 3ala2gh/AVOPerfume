@@ -2,6 +2,7 @@ import 'dotenv/config';
 import process from 'node:process';
 import bcrypt from 'bcrypt';
 import { PrismaPg } from '@prisma/adapter-pg';
+import { PASSWORD_SALT_ROUNDS } from '../src/common/auth/password.constants.js';
 import { PrismaClient } from '../src/generated/prisma/client.js';
 import type { Prisma } from '../src/generated/prisma/client.js';
 
@@ -24,8 +25,7 @@ const adapter = new PrismaPg({ connectionString: databaseUrl });
 const prisma = new PrismaClient({ adapter });
 
 function hashPassword(password: string): string {
-  const saltRounds = 12;
-  return bcrypt.hashSync(password, saltRounds);
+  return bcrypt.hashSync(password, PASSWORD_SALT_ROUNDS);
 }
 
 async function main() {

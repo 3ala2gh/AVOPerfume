@@ -100,11 +100,8 @@ export default function ProductsSection({
   }
 
   return (
-    <section
-      id="products"
-      className="mx-auto max-w-7xl scroll-mt-20 px-4 py-20 sm:px-6 lg:px-8"
-    >
-      <div className="mb-8 sm:mb-10 ">
+    <section className="featured-products mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <div id="products" className="featured-products__heading mb-8 scroll-mt-20 sm:mb-10">
         <div className="min-w-0 text-center">
           <h3 className="mb-2 text-2xl tracking-wider sm:text-4xl">
             {t('home.featuredCollection')}
@@ -162,13 +159,13 @@ export default function ProductsSection({
                 className="group flex h-full flex-col w-full cursor-pointer"
                 onClick={() => openPerfume(perfume)}
               >
-                <div className="relative mb-2 aspect-[9/16] overflow-hidden bg-gray-100">
+                <div className="featured-products__image relative mb-2 aspect-[9/16] overflow-hidden sm:aspect-auto sm:h-[clamp(18rem,44vh,27.5rem)]">
                   <img
                     src={getOptimizedCloudinaryUrl(perfume.image, { width: 600 })}
                     srcSet={getCloudinarySrcSet(perfume.image, [300, 450, 600])}
                     sizes="(min-width: 640px) 30vw, 42vw"
                     alt={perfume.name}
-                    className="h-full w-full object-cover transition-transform duration-500"
+                    className="h-full w-full object-cover transition-transform duration-500 sm:object-contain"
                     loading="lazy"
                     decoding="async"
                   />
@@ -179,7 +176,7 @@ export default function ProductsSection({
                 <h4 className="mb-1 line-clamp-2 text-[11px] tracking-wide sm:mb-2 sm:text-base md:text-xl">
                   {perfume.name}
                 </h4>
-                <p className="mb-2 hidden min-h-[40px] text-sm opacity-60 md:block">
+                <p className="featured-products__description mb-2 hidden min-h-[40px] text-sm opacity-60 md:block">
                   {perfume.description}
                 </p>
 

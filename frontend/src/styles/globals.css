@@ -20,6 +20,38 @@ body {
   margin: 0;
 }
 
+@media (min-width: 640px) and (max-height: 850px) {
+  .featured-products {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .featured-products__heading {
+    margin-bottom: 1.5rem;
+  }
+
+  .featured-products__image {
+    height: 16rem;
+  }
+
+  .featured-products__description {
+    display: none !important;
+  }
+
+  .perfume-modal-details__image {
+    aspect-ratio: auto;
+    height: min(68vh, 32rem);
+  }
+
+  .perfume-modal-details__image img {
+    object-fit: contain;
+  }
+
+  .perfume-modal-details__description {
+    display: none;
+  }
+}
+
 html[dir='rtl'] {
   font-family: 'Tajawal', 'Cairo', 'Noto Kufi Arabic', 'Segoe UI', sans-serif;
 }

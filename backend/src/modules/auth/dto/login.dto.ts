@@ -1,15 +1,13 @@
 import { Transform, type TransformFnParams } from 'class-transformer';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { trimString } from '../../../common/transformers/request-value.transformers.js';
 
-export class CreateCategoryDto {
-  @IsString()
-  @IsNotEmpty()
+export class LoginDto {
+  @IsEmail()
   @Transform(({ value }: TransformFnParams) => trimString(value))
-  name!: string;
+  email!: string;
 
   @IsString()
   @IsNotEmpty()
-  @Transform(({ value }: TransformFnParams) => trimString(value))
-  nameAr!: string;
+  password!: string;
 }
