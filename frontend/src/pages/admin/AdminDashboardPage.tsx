@@ -4,12 +4,14 @@ import { useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import CategoryManagementSection from '../../components/admin/CategoryManagementSection'
+import DiscountManagementSection from '../../components/admin/DiscountManagementSection'
 import AddPerfumeSection from '../../components/admin/AddPerfumeSection'
 import EditPerfumeModal, {
   type EditPerfumePayload,
 } from '../../components/admin/EditPerfumeModal'
 import PerfumeSearchSection from '../../components/admin/PerfumeSearchSection'
 import { useCategoriesQuery } from '../../hooks/useCategoriesQuery'
+import { useApplyDiscountMutation } from '../../hooks/useApplyDiscountMutation'
 import { useCreateCategoryMutation } from '../../hooks/useCreateCategoryMutation'
 import { useDeleteProductMutation } from '../../hooks/useDeleteProductMutation'
 import { useDeleteCategoryMutation } from '../../hooks/useDeleteCategoryMutation'
@@ -47,6 +49,7 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
     useDeleteProductMutation()
   const { mutateAsync: publishWebsiteMutation, isPending: isPublishingWebsite } =
     usePublishWebsiteMutation()
+  const { mutateAsync: applyDiscountMutation, isPending: isApplyingDiscount } = useApplyDiscountMutation()
 
   async function refreshCategoryData() {
     await queryClient.invalidateQueries({ queryKey: ['categories'] })
@@ -143,6 +146,12 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
     }
   }
 
+  async function handleApplyDiscount(discountPercent: number, applyToAll: boolean, perfumeIds: number[]) {
+    const result = await applyDiscountMutation({ discountPercent, applyToAll, perfumeIds })
+    await queryClient.invalidateQueries({ queryKey: ['products'] })
+    toast.success(`Discount updated for ${result.updatedCount} perfume${result.updatedCount === 1 ? '' : 's'}. Publish the website when ready.`)
+  }
+
   return (
     <div className="min-h-screen bg-white">
       <header className="border-b border-white/10 bg-black text-white">
@@ -189,6 +198,8 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
               onUpdate={handleUpdateCategory}
               onDelete={handleDeleteCategory}
             />
+
+            <DiscountManagementSection products={products} isLoading={isLoadingProducts} isSaving={isApplyingDiscount} onSave={handleApplyDiscount} />
 
             <PerfumeSearchSection
               products={products}

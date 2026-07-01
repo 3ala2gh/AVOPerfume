@@ -17,10 +17,10 @@ export async function listProductsFromApi(): Promise<Product[]> {
     price55Ml: Number(item.price55Ml ?? item.sizes?.find((size) => size.size === '55ml')?.price ?? item.price),
     price100Ml: Number(item.price100Ml ?? item.sizes?.find((size) => size.size === '100ml')?.price ?? 15),
     sizes: [
-      { size: '10ml', price: Number(item.price10Ml ?? item.sizes?.find((size) => size.size === '10ml')?.price ?? 2) },
-      { size: '30ml', price: Number(item.price30Ml ?? item.sizes?.find((size) => size.size === '30ml')?.price ?? 6) },
-      { size: '55ml', price: Number(item.price55Ml ?? item.sizes?.find((size) => size.size === '55ml')?.price ?? item.price) },
-      { size: '100ml', price: Number(item.price100Ml ?? item.sizes?.find((size) => size.size === '100ml')?.price ?? 15) },
+      { size: '10ml', price: Number(item.price10Ml ?? 2), originalPrice: Number(item.originalPrice10Ml ?? item.price10Ml ?? 2) },
+      { size: '30ml', price: Number(item.price30Ml ?? 6), originalPrice: Number(item.originalPrice30Ml ?? item.price30Ml ?? 6) },
+      { size: '55ml', price: Number(item.price55Ml ?? item.price), originalPrice: Number(item.originalPrice55Ml ?? item.originalPrice ?? item.price55Ml ?? item.price) },
+      { size: '100ml', price: Number(item.price100Ml ?? 15), originalPrice: Number(item.originalPrice100Ml ?? item.price100Ml ?? 15) },
     ],
   }))
 }

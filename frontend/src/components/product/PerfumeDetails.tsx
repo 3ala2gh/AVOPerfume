@@ -7,6 +7,7 @@ import {
   type Perfume,
 } from '../home/catalogData'
 import Button from '../common/ui/Button'
+import SalePrice from './SalePrice'
 import {
   getCloudinarySrcSet,
   getOptimizedCloudinaryUrl,
@@ -101,7 +102,7 @@ export default function PerfumeDetails({
                 : 'mb-3 text-base tracking-wide sm:mb-4 sm:text-2xl md:text-3xl'
             }
           >
-            {getPerfumeSizePrice(perfume, selectedSize)} {t('common.jod')}
+            <SalePrice price={getPerfumeSizePrice(perfume, selectedSize)} originalPrice={perfume.sizes.find((item) => item.size === selectedSize)?.originalPrice} />
           </p>
 
           <div
@@ -143,7 +144,7 @@ export default function PerfumeDetails({
                         : 'block text-[10px] font-medium sm:text-sm'
                     }
                   >
-                    {getPerfumeSizePrice(perfume, size)} {t('common.jod')}
+                    <SalePrice price={getPerfumeSizePrice(perfume, size)} originalPrice={perfume.sizes.find((item) => item.size === size)?.originalPrice} />
                   </span>
                 </button>
               )

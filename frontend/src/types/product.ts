@@ -3,6 +3,7 @@ export type PerfumeSize = '10ml' | '30ml' | '55ml' | '100ml'
 export interface ProductSizePrice {
   size: PerfumeSize
   price: number
+  originalPrice?: number
 }
 
 export interface Product {
@@ -15,6 +16,12 @@ export interface Product {
   price30Ml: number
   price55Ml: number
   price100Ml: number
+  originalPrice?: number
+  originalPrice10Ml?: number
+  originalPrice30Ml?: number
+  originalPrice55Ml?: number
+  originalPrice100Ml?: number
+  discountPercent?: number | null
   sizes: ProductSizePrice[]
   categoryId: number
   category: string

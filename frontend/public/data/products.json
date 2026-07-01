@@ -4,27 +4,37 @@
     "name": "Olympéa",
     "description": "Top notes are Water Jasmine, Green Mandarin and Ginger flower; middle notes are Vanilla and Salt; base notes are Cashmere Wood, Ambergris and Sandalwood",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1782572842/avo-perfume/k9r2gpxfmdwjmyatyiat.jpg",
@@ -38,27 +48,37 @@
     "name": "Scandal w",
     "description": "Top notes are Blood Orange and Mandarin Orange; middle notes are Honey, Gardenia, Orange Blossom, Jasmine and Peach; base notes are Beeswax, Caramel, Patchouli and Licorice",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1782572617/avo-perfume/m5dsj882rbecf5kujwqp.jpg",
@@ -72,27 +92,37 @@
     "name": "Accento Xerjoff",
     "description": "Top notes are Pineapple and Hyacinth; middle notes are Iris, Pink Pepper and Jasmine; base notes are Musk, Amber, Vetiver, Vanilla and Patchouli",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780830577/avo-perfume/z8hyz9fu6cdfkjp5djiq.jpg",
@@ -106,27 +136,37 @@
     "name": "Erba Pura Xerjoff",
     "description": "Top notes are Sicilian Orange, Calabrian bergamot and Sicilian Lemon; middle note is Fruits; base notes are White Musk, Madagascar Vanilla and Amber",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780830356/avo-perfume/cxoorszvlyjwt7ahwinc.jpg",
@@ -140,27 +180,37 @@
     "name": "Alexandria II Xerjoff",
     "description": "Top notes are Palisander Rosewood, Lavender, Apple and Cinnamon; middle notes are Rose, Cedar and Lily-of-the-Valley; base notes are Agarwood (Oud), Sandalwood, Amber, Vanilla and Musk",
     "gender": "unisex",
-    "price": 10,
-    "price10Ml": 3,
-    "price30Ml": 8,
-    "price55Ml": 10,
-    "price100Ml": 17,
+    "price": 8,
+    "price10Ml": 2.4,
+    "price30Ml": 6.4,
+    "price55Ml": 8,
+    "price100Ml": 13.6,
+    "originalPrice": 10,
+    "originalPrice10Ml": 3,
+    "originalPrice30Ml": 8,
+    "originalPrice55Ml": 10,
+    "originalPrice100Ml": 17,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 3
+        "price": 2.4,
+        "originalPrice": 3
       },
       {
         "size": "30ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "55ml",
-        "price": 10
+        "price": 8,
+        "originalPrice": 10
       },
       {
         "size": "100ml",
-        "price": 17
+        "price": 13.6,
+        "originalPrice": 17
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780830218/avo-perfume/vgx54goddhjekm2aohd6.jpg",
@@ -174,27 +224,37 @@
     "name": "Oud Cadenza",
     "description": "Top notes are Saffron, Cinnamon, Cardamom, Nutmeg, Ginger and Pink Pepper; middle notes are Dates, Agarwood (Oud), Caramel, Sugar Cane, Incense, Amberwood, Myrrh and Davana; base notes are Madagascar Vanilla, Cacao Butter, Tonka, Leather, Benzoin, Musk, Patchouli, Labdanum and Mate",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780829958/avo-perfume/i8we2vod6wxpuud5kjrw.jpg",
@@ -208,27 +268,37 @@
     "name": "Flora by Gucci",
     "description": "Top notes are Peony, Citruses and Mandarin Orange; middle notes are Osmanthus and Rose; base notes are Sandalwood and Patchouli",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780829730/avo-perfume/dgjgq1oaedz5ppklsyv7.jpg",
@@ -242,27 +312,37 @@
     "name": "Guilty Elixir",
     "description": "Top notes are Orange Blossom, Nutmeg and Pimento Seeds; middle notes are Orange Blossom, Orris and Osmanthus; base notes are Vanilla, Ambrofix™, Benzoin and Patchouli",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780829543/avo-perfume/lbpbxuq0tlj5ozquercb.jpg",
@@ -276,27 +356,37 @@
     "name": "Bleu de Chanel",
     "description": "Top notes are Grapefruit, Lemon, Mint, Bergamot, Pink Pepper, Aldehydes and Coriander; middle notes are Ginger, Nutmeg, Jasmine and Melon; base notes are Incense, Amber, Cedar, Sandalwood, Amberwood, Patchouli and Labdanum",
     "gender": "male",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780829329/avo-perfume/tiqus5t7g0t18fwsjktl.jpg",
@@ -310,27 +400,37 @@
     "name": "J'adore",
     "description": "Top notes are Pear, Melon, Magnolia, Peach, Mandarin Orange and Bergamot; middle notes are Jasmine, Lily-of-the-Valley, Tuberose, Freesia, Rose, Orchid, Violet and Plum; base notes are Musk, Vanilla, Cedar and Blackberry",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780829118/avo-perfume/lilbxczi9jxzyuzacnyg.jpg",
@@ -344,27 +444,37 @@
     "name": "Sauvage",
     "description": "Top note is Bergamot; middle notes are Sichuan Pepper, Lavender, Star Anise and Nutmeg; base notes are Ambroxan and Vanilla",
     "gender": "male",
-    "price": 10,
-    "price10Ml": 3,
-    "price30Ml": 8,
-    "price55Ml": 10,
-    "price100Ml": 17,
+    "price": 8,
+    "price10Ml": 2.4,
+    "price30Ml": 6.4,
+    "price55Ml": 8,
+    "price100Ml": 13.6,
+    "originalPrice": 10,
+    "originalPrice10Ml": 3,
+    "originalPrice30Ml": 8,
+    "originalPrice55Ml": 10,
+    "originalPrice100Ml": 17,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 3
+        "price": 2.4,
+        "originalPrice": 3
       },
       {
         "size": "30ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "55ml",
-        "price": 10
+        "price": 8,
+        "originalPrice": 10
       },
       {
         "size": "100ml",
-        "price": 17
+        "price": 13.6,
+        "originalPrice": 17
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780828923/avo-perfume/pd4ktxref8ygvqyavwsm.jpg",
@@ -378,27 +488,37 @@
     "name": "Dior Homme Intense",
     "description": "Top note is Lavender; middle notes are Iris, Ambrette (Musk Mallow) and Pear; base notes are Virginia Cedar and Vetiver",
     "gender": "male",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780828654/avo-perfume/nyg61vn3grqelihm1hti.jpg",
@@ -412,27 +532,37 @@
     "name": "Side Effect",
     "description": "The fragrance features Rum, Tobacco, Cinnamon, Saffron, Sandalwood and Hedione",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780828373/avo-perfume/gyiuz9fr3zur2loppshj.jpg",
@@ -446,27 +576,37 @@
     "name": "Oud for Greatness",
     "description": "Top notes are Saffron, Nutmeg and Lavender; middle note is Agarwood (Oud); base notes are Patchouli and Musk",
     "gender": "male",
-    "price": 10,
-    "price10Ml": 3,
-    "price30Ml": 8,
-    "price55Ml": 10,
-    "price100Ml": 17,
+    "price": 8,
+    "price10Ml": 2.4,
+    "price30Ml": 6.4,
+    "price55Ml": 8,
+    "price100Ml": 13.6,
+    "originalPrice": 10,
+    "originalPrice10Ml": 3,
+    "originalPrice30Ml": 8,
+    "originalPrice55Ml": 10,
+    "originalPrice100Ml": 17,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 3
+        "price": 2.4,
+        "originalPrice": 3
       },
       {
         "size": "30ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "55ml",
-        "price": 10
+        "price": 8,
+        "originalPrice": 10
       },
       {
         "size": "100ml",
-        "price": 17
+        "price": 13.6,
+        "originalPrice": 17
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780828209/avo-perfume/ep4fp1wtd3kqsz8lamp9.jpg",
@@ -480,27 +620,37 @@
     "name": "Ruby Kajal",
     "description": "Top notes are Cherry, Red Berries, Pineapple, Coconut and Almond; middle notes are Whipped Cream, Brown sugar and Ice cream; base notes are Vanilla, Musk, Tonka Bean, Amber and Benzoin",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780828021/avo-perfume/lc9yyfpt4xpdfxzyq8wo.jpg",
@@ -514,27 +664,37 @@
     "name": "Interlude Man Amouage",
     "description": "Top notes are Oregano, Pepper and Bergamot; middle notes are Incense, Opoponax, Amber and Labdanum; base notes are Agarwood (Oud), Leather, Sandalwood and Patchouli",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780826758/avo-perfume/nggdkiqsxechk64tupwn.jpg",
@@ -548,27 +708,37 @@
     "name": "Sindbad Amouage",
     "description": "Top notes are Honey, Apricot, Pomegranate, Cardamom, Tangerine, Ginger, Mango, Pink Pepper and Grapefruit; middle notes are Cappuccino, Black Tea and Davana; base notes are Cedarwood, Cypriol, Vetiver, Tonka Bean, Patchouli, Vanilla and Labdanum",
     "gender": "unisex",
-    "price": 10,
-    "price10Ml": 3,
-    "price30Ml": 8,
-    "price55Ml": 10,
-    "price100Ml": 17,
+    "price": 8,
+    "price10Ml": 2.4,
+    "price30Ml": 6.4,
+    "price55Ml": 8,
+    "price100Ml": 13.6,
+    "originalPrice": 10,
+    "originalPrice10Ml": 3,
+    "originalPrice30Ml": 8,
+    "originalPrice55Ml": 10,
+    "originalPrice100Ml": 17,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 3
+        "price": 2.4,
+        "originalPrice": 3
       },
       {
         "size": "30ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "55ml",
-        "price": 10
+        "price": 8,
+        "originalPrice": 10
       },
       {
         "size": "100ml",
-        "price": 17
+        "price": 13.6,
+        "originalPrice": 17
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780826393/avo-perfume/ctxlmvo76kn1zje5ti81.jpg",
@@ -582,27 +752,37 @@
     "name": "Outlands Amouage",
     "description": "Top notes are Frankincense, Cardamom, elemi, Lemon, Bergamot and Sichuan Pepper; middle notes are Patchouli, Anise, Coriander, Cumin, Saffron, Orange Blossom, Wormwood, Geranium and Rose; base notes are Frankincense, Vanilla, Amber, Benzoin, Oud, Opoponax, Birch, Ambergris, Maltol, Labdanum and Musk",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780825608/avo-perfume/kppv1kio9btze1f6yghu.jpg",
@@ -616,27 +796,37 @@
     "name": "Lilac Love Amouage",
     "description": "Top notes are Heliotrope, Lilac, Gardenia, Jasmine, Peony and Rose; middle notes are Cacao, Tonka Bean and Orris; base notes are Vanilla, Sandalwood and Patchouli",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780825429/avo-perfume/xt3rby3fli7pr4pps8kl.jpg",
@@ -650,27 +840,37 @@
     "name": "Guidance 46 Amouage",
     "description": "Top notes are Rose Water, Pear, Hazelnut, Bitter Almond, Frankincense and Pink Pepper; middle notes are Rose, Osmanthus, Saffron and Jasmine Sambac; base notes are Sandalwood, Akigalawood, Vanilla, Ambrette, Labdanum, Ambergris, Georgywood and Cypriol",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780824358/avo-perfume/lj16ssp6wvnkl7jvt0zd.jpg",
@@ -684,27 +884,37 @@
     "name": "Hudson Valley Gissah",
     "description": "Top notes are Black Currant and Saffron; middle note is Rose; base notes are Amber and Patchouli",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780823275/avo-perfume/z27askk8e8airxkeoqt6.jpg",
@@ -718,27 +928,37 @@
     "name": "La Luna Gissah",
     "description": "Top notes are Incense, Raspberry and Apricot; middle notes are Gaiac Wood, Cotton Candy and Sandalwood; base notes are Amberwood, Tonka and Patchouli",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780823101/avo-perfume/cqf1bvs1cqokowrbw52b.jpg",
@@ -752,27 +972,37 @@
     "name": "One & Only Gissah",
     "description": "Top notes are Passionfruit, Bergamot and Peach; middle notes are Caramel, Jasmine and Geranium; base notes are White Musk, Patchouli and Amber",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780822910/avo-perfume/i9u097aeywsqo4su2up9.jpg",
@@ -786,27 +1016,37 @@
     "name": "Imperial Valley Gissah",
     "description": "Top notes are Sicilian Bergamot, Pink Pepper and Davana; middle notes are Agarwood (Oud), White Amber and Rosemary; base notes are Leather, Musk and Haitian Vetiver",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780822740/avo-perfume/wl50behr8ezgyyb7mtqk.jpg",
@@ -820,27 +1060,37 @@
     "name": "Acne Studios",
     "description": "Top notes are Aldehydes, Mandarin and Bergamot; middle notes are Peach, Orange Blossom, Violet, Rose, Lily of the Valley and Jasmine; base notes are Musk, Iso E Super, Sandalwood, Frankincense, Vanilla and Heliotrope",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780784881/avo-perfume/dsgfremubiljxqi73mql.jpg",
@@ -854,27 +1104,37 @@
     "name": "Fleur du Désert",
     "description": "Top notes are Honey and Cinnamon; middle notes are Jasmine, Orange Blossom and Rose; base notes are Agarwood (Oud), Ambroxan and Ambrette",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780784564/avo-perfume/pkixnkfvoreq5rlt2is0.jpg",
@@ -888,27 +1148,37 @@
     "name": "Ombre Nomade",
     "description": "The fragrance features Agarwood (Oud), Rose, Incense, Raspberry, Saffron, Amberwood, Benzoin, Birch and Geranium",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780784393/avo-perfume/pqyxs9trgeh4twtggpuh.jpg",
@@ -922,27 +1192,37 @@
     "name": "Afternoon Swim",
     "description": "The fragrance features Mandarin Orange, Sicilian Orange, Bergamot, Ambergris and Ginger",
     "gender": "male",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780784231/avo-perfume/gpvmgibhucjvsddcnnf5.jpg",
@@ -956,27 +1236,37 @@
     "name": "Imagination",
     "description": "Top notes are Citron, Calabrian bergamot and Sicilian Orange; middle notes are Tunisian Neroli, Nigerian Ginger and Ceylon Cinnamon; base notes are Chinese Black Tea, Ambroxan, Guaiac Wood and Olibanum",
     "gender": "male",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780784063/avo-perfume/ixi6x8ne1ejml5scxanw.jpg",
@@ -990,27 +1280,37 @@
     "name": "Hacivat Nishane",
     "description": "Top notes are Pineapple, Grapefruit and Bergamot; middle notes are Cedar, Patchouli and Jasmine; base notes are Oakmoss and Woody Notes",
     "gender": "male",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780783722/avo-perfume/n4h1krhsjdqc3dwcvxan.jpg",
@@ -1024,27 +1324,37 @@
     "name": "VALORA",
     "description": "notes are Mango, Lemon,Musk and Amber",
     "gender": "male",
-    "price": 10,
-    "price10Ml": 3,
-    "price30Ml": 8,
-    "price55Ml": 10,
-    "price100Ml": 17,
+    "price": 8,
+    "price10Ml": 2.4,
+    "price30Ml": 6.4,
+    "price55Ml": 8,
+    "price100Ml": 13.6,
+    "originalPrice": 10,
+    "originalPrice10Ml": 3,
+    "originalPrice30Ml": 8,
+    "originalPrice55Ml": 10,
+    "originalPrice100Ml": 17,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 3
+        "price": 2.4,
+        "originalPrice": 3
       },
       {
         "size": "30ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "55ml",
-        "price": 10
+        "price": 8,
+        "originalPrice": 10
       },
       {
         "size": "100ml",
-        "price": 17
+        "price": 13.6,
+        "originalPrice": 17
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780783344/avo-perfume/vn265vanbloqjfxjn5xr.jpg",
@@ -1058,27 +1368,37 @@
     "name": "Velvet Haze",
     "description": "Top notes are Coconut, Hibiscus and Bergamot; middle notes are Patchouli, Tuberose and Osmanthus; base notes are Patchouli, Musk, Cacao Pod, Ambrette (Musk Mallow) and Cashmeran",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780783121/avo-perfume/mbxmz23jszgspxyoy7hg.jpg",
@@ -1092,27 +1412,37 @@
     "name": "Mixed Emotions",
     "description": "Top notes are Black Currant and Mate; middle notes are Tea and Violet Leaf; base notes are Birch and Papyrus",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780782438/avo-perfume/ikvzwm391ft5takpjpda.jpg",
@@ -1126,27 +1456,37 @@
     "name": "Baccarat Rouge 540",
     "description": "Top notes are Saffron and Jasmine; middle notes are Amberwood, Ambergris and Hedione; base notes are Fir Resin, Cedar, Sugar, Ambroxan and Oakmoss",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780782186/avo-perfume/non9n41f251oz5rngxfp.jpg",
@@ -1160,27 +1500,37 @@
     "name": "Oud Satin Mood",
     "description": "Top notes are Bulgarian Rose, Violet and Strawberry; middle note is Turkish Rose; base notes are Agarwood (Oud), Vanilla, Amber, Benzoin, Caramel and Cedar",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780782045/avo-perfume/xxlkgohqfhqljls7wo5p.jpg",
@@ -1194,27 +1544,37 @@
     "name": "Hibiscus Mahajád",
     "description": "The fragrance features Hibiscus, Damask Rose, Vanilla, Cassis, Leather, Peppermint, Ambrette (Musk Mallow) and Cinnamon",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780781866/avo-perfume/hstnmmnfl6mmsqbzqm4y.jpg",
@@ -1228,27 +1588,37 @@
     "name": "Oud Maracujá",
     "description": "Top notes are Passionfruit, Fruity Notes, Saffron and Turkish Rose; middle notes are Agarwood (Oud), Benzoin and Indonesian Patchouli Leaf; base notes are Leather, Akigalawood, Amber, Vanilla and Labdanum",
     "gender": "male",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780781683/avo-perfume/hboeda4fg0wifyxikac.jpg",
@@ -1262,27 +1632,37 @@
     "name": "Tubéreuse Astrale",
     "description": "Top note is Cinnamon; middle notes are Tuberose and Osmanthus; base notes are Musk and Vanilla",
     "gender": "unisex",
-    "price": 10,
-    "price10Ml": 3,
-    "price30Ml": 8,
-    "price55Ml": 10,
-    "price100Ml": 17,
+    "price": 8,
+    "price10Ml": 2.4,
+    "price30Ml": 6.4,
+    "price55Ml": 8,
+    "price100Ml": 13.6,
+    "originalPrice": 10,
+    "originalPrice10Ml": 3,
+    "originalPrice30Ml": 8,
+    "originalPrice55Ml": 10,
+    "originalPrice100Ml": 17,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 3
+        "price": 2.4,
+        "originalPrice": 3
       },
       {
         "size": "30ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "55ml",
-        "price": 10
+        "price": 8,
+        "originalPrice": 10
       },
       {
         "size": "100ml",
-        "price": 17
+        "price": 13.6,
+        "originalPrice": 17
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780781469/avo-perfume/s8guw0aagsvoqb89r4as.jpg",
@@ -1296,27 +1676,37 @@
     "name": "Bianco Latte",
     "description": "Top note is Caramel; middle notes are Coumarin and Honey; base notes are Vanilla and White Musk",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780781146/avo-perfume/n0t2c7ivmpwfzqf7ryxo.jpg",
@@ -1330,27 +1720,37 @@
     "name": "La Belle",
     "description": "Top note is Pear; middle notes are Tonka Bean and Jasmine; base note is Vanilla",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780780925/avo-perfume/lyhbfvvfjmkdlrxu98rk.jpg",
@@ -1364,27 +1764,37 @@
     "name": "Vanilla Candy",
     "description": "Top notes are Vanilla, Pear, Marshmallow, Rum, Violet Leaves and Ylang-Ylang; middle notes are Bubble Gum, Jellybean, Caramel, Jasmine and Labdanum; base notes are Sugar, Patchouli, Tonka, Cashmere Wood, Sandalwood and Vetiver",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780780781/avo-perfume/tm5fmjwkbvqst9itdbrn.jpg",
@@ -1398,27 +1808,37 @@
     "name": "Yum Boujee Marshmallow",
     "description": "Top notes are Freesia, Italian Lemon, Nectarine blossom and Apple; middle notes are Marshmallow, Strawberry, Coconut and Orange Blossom; base notes are Whipped Cream, Sugar, Vanilla, Musk, Raspberry and Ambroxan",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780780618/avo-perfume/bhxzalkywebubftndbzp.jpg",
@@ -1432,27 +1852,37 @@
     "name": "Vanilla | 28 Kayali",
     "description": "Top notes are Vanilla Orchid and Jasmine; middle notes are Brown sugar and Tonka Bean; base notes are Amber, Amberwood, Musk and Patchouli",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780780450/avo-perfume/ccjtyqpaztmzwwy8q1fa.jpg",
@@ -1466,27 +1896,37 @@
     "name": "Devotion",
     "description": "The nose behind this fragrance is Olivier Cresp. Top note is Candied Lemon; middle notes are Panacotta, Orange Blossom and Rum; base note is Vanilla",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780778556/avo-perfume/w6xkanzxkdgyo4hevrfi.jpg",
@@ -1500,27 +1940,37 @@
     "name": "Goddess Burberry",
     "description": "Top notes are Vanilla, Lavender, Cacao and Ginger; middle note is Vanilla Caviar; base note is Vanilla Absolute",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780778410/avo-perfume/bjgqzkjbako6fb72guia.jpg",
@@ -1534,27 +1984,37 @@
     "name": "Burberry Her",
     "description": "Top notes are Strawberry, Raspberry, Blackberry, Sour Cherry, Black Currant, Mandarin Orange and Lemon; middle notes are Violet and Jasmine; base notes are Musk, Vanilla, Cashmeran, Woody Notes, Amber, Oakmoss and Patchouli",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780778289/avo-perfume/wzgykaqftwzjuvmwntj2.jpg",
@@ -1568,27 +2028,37 @@
     "name": "Valentino Donna",
     "description": "Top notes are Black Currant, Pink Pepper and Bergamot; middle notes are Jasmine, Jasmine Sambac and Jasmine Tea; base notes are Bourbon Vanilla, Cashmeran and Guaiac Wood",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780778141/avo-perfume/wodzcx68vdxclqiq1mws.jpg",
@@ -1602,27 +2072,37 @@
     "name": "Prada Paradoxe",
     "description": "Top notes are Pear, Tangerine and Bergamot; middle notes are Orange Blossom, Neroli Essence, Neroli and Jasmine Sambac; base notes are Bourbon Vanilla, Amber, White Musk and Benzoin",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780777947/avo-perfume/hmuxdiygkdgev2ivmksp.jpg",
@@ -1636,27 +2116,37 @@
     "name": "My Way",
     "description": "Top notes are Orange Blossom and Bergamot; middle notes are Tuberose and Indian Jasmine; base notes are Madagascar Vanilla, White Musk and Virginian Cedar",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780777817/avo-perfume/cdoecaeitswiehxtev1t.jpg",
@@ -1670,27 +2160,37 @@
     "name": "Libre",
     "description": "Top notes are Lavender, Mandarin Orange, Black Currant and Petitgrain; middle notes are Lavender, Orange Blossom and Jasmine; base notes are Madagascar Vanilla, Musk, Cedar and Ambergris",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780777591/avo-perfume/dhlk0bgipehbgqlwhnoe.jpg",
@@ -1704,27 +2204,37 @@
     "name": "Black Opium",
     "description": "Top notes are Pear, Pink Pepper and Orange Blossom; middle notes are Coffee, Jasmine, Bitter Almond and Licorice; base notes are Vanilla, Patchouli, Cashmere Wood and Cedar",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780777422/avo-perfume/aidsaov7fptkedsdez2p.jpg",
@@ -1738,27 +2248,37 @@
     "name": "Alien Mugler",
     "description": "Top note is Jasmine Sambac; middle note is Cashmeran; base note is Amber",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780777281/avo-perfume/n2mwhauyz55xk35zilne.jpg",
@@ -1772,27 +2292,37 @@
     "name": "Hypnotic Poison",
     "description": "Top notes are Coconut, Plum and Apricot; middle notes are Brazilian Rosewood, Jasmine, Tuberose, Caraway, Rose and Lily-of-the-Valley; base notes are Vanilla, Almond, Sandalwood and Musk",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780777132/avo-perfume/ehgnx2jnxihovsumzgwp.jpg",
@@ -1806,27 +2336,37 @@
     "name": "Delina Exclusif",
     "description": "Top notes are Litchi, Pear, Bergamot, Pink Pepper and Grapefruit; middle notes are Turkish Rose, Agarwood (Oud) and Incense; base notes are Vanilla, Amber, Woody Notes, Musk, Vetiver and Evernyl",
     "gender": "female",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780776741/avo-perfume/wge6vbqy2kszjkcjagol.jpg",
@@ -1840,27 +2380,37 @@
     "name": "Althaïr",
     "description": "Top notes are Cinnamon, Orange Blossom, Cardamom and Bergamot; middle notes are Bourbon Vanilla and elemi; base notes are Praline, Musk, Ambroxan, Guaiac Wood, Tonka and Candied Almond",
     "gender": "male",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780776515/avo-perfume/okkwpwqxlcnycnnv2t7q.jpg",
@@ -1874,27 +2424,37 @@
     "name": "Layton",
     "description": "Top notes are Apple, Lavender, Bergamot and Mandarin Orange; middle notes are Geranium, Violet and Jasmine; base notes are Vanilla, Cardamom, Sandalwood, Pepper, Guaiac Wood, Patchouli, Ambermax™ and Coumarin",
     "gender": "male",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780776312/avo-perfume/rskr2wawcmydbk8zqlyr.jpg",
@@ -1908,27 +2468,37 @@
     "name": "The One",
     "description": "Top notes are Grapefruit, Coriander and Basil; middle notes are Cardamom, Ginger and Orange Blossom; base notes are Amber, Tobacco and Cedar",
     "gender": "male",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780776106/avo-perfume/kwosrb6t29qjmidufabv.jpg",
@@ -1942,27 +2512,37 @@
     "name": "Y Yves",
     "description": "Top notes are Apple, Ginger and Bergamot; middle notes are Sage, Juniper Berries and Geranium; base notes are Amberwood, Tonka Bean, Cedar, Vetiver and Olibanum",
     "gender": "male",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780766949/avo-perfume/ng5c89k8v2d5niw0outn.jpg",
@@ -1976,27 +2556,37 @@
     "name": "Ombré Leather",
     "description": "Top note is Cardamom; middle notes are Leather and Jasmine Sambac; base notes are Amber, Moss and Patchouli",
     "gender": "male",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780766675/avo-perfume/ky57f1dalvkt74jftlsk.jpg",
@@ -2010,27 +2600,37 @@
     "name": "Bois Impérial",
     "description": "The nose behind this fragrance is Quentin Bisch. The fragrance features Akigalawood, Woodsy Notes, Basil, Vetiver, Timur, Ambroxan and Patchouli",
     "gender": "male",
-    "price": 10,
-    "price10Ml": 3,
-    "price30Ml": 8,
-    "price55Ml": 10,
-    "price100Ml": 17,
+    "price": 8,
+    "price10Ml": 2.4,
+    "price30Ml": 6.4,
+    "price55Ml": 8,
+    "price100Ml": 13.6,
+    "originalPrice": 10,
+    "originalPrice10Ml": 3,
+    "originalPrice30Ml": 8,
+    "originalPrice55Ml": 10,
+    "originalPrice100Ml": 17,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 3
+        "price": 2.4,
+        "originalPrice": 3
       },
       {
         "size": "30ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "55ml",
-        "price": 10
+        "price": 8,
+        "originalPrice": 10
       },
       {
         "size": "100ml",
-        "price": 17
+        "price": 13.6,
+        "originalPrice": 17
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780766145/avo-perfume/ouoadlwkpfsf6finfufe.jpg",
@@ -2044,27 +2644,37 @@
     "name": "Eros Versace",
     "description": "Top notes are Mint, Green Apple and Lemon; middle notes are Tonka Bean, Ambroxan and Geranium; base notes are Madagascar Vanilla, Virginian Cedar, Atlas Cedar, Vetiver and Oakmoss",
     "gender": "male",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780765730/avo-perfume/ugprhztbafmkayfx2qja.jpg",
@@ -2078,27 +2688,37 @@
     "name": "Le Male Elixir",
     "description": "Top notes are Lavender and Mint; middle notes are Vanilla and Benzoin; base notes are Honey, Tonka Bean and Tobacco",
     "gender": "male",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780765419/avo-perfume/wsm5a1xyjige1ud7cxb2.jpg",
@@ -2112,27 +2732,37 @@
     "name": "LOST IN PARIS",
     "description": "The opening of the fragrance is red orange, bitter orange, rum and mandarin (tangerine); the heart of the fragrance is sugar, butter and caramel; the base of the fragrance consists of musk, pink pepper, cashmere wood, carnation, cedarwood, cinnamon, vanilla and amberry",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 6.4,
+    "price10Ml": 1.6,
+    "price30Ml": 4.8,
+    "price55Ml": 6.4,
+    "price100Ml": 12,
+    "originalPrice": 8,
+    "originalPrice10Ml": 2,
+    "originalPrice30Ml": 6,
+    "originalPrice55Ml": 8,
+    "originalPrice100Ml": 15,
+    "discountPercent": 20,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 1.6,
+        "originalPrice": 2
       },
       {
         "size": "30ml",
-        "price": 6
+        "price": 4.8,
+        "originalPrice": 6
       },
       {
         "size": "55ml",
-        "price": 8
+        "price": 6.4,
+        "originalPrice": 8
       },
       {
         "size": "100ml",
-        "price": 15
+        "price": 12,
+        "originalPrice": 15
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780765298/avo-perfume/ogocj8pgld6qdljl6z2p.jpg",

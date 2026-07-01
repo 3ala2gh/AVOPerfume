@@ -80,11 +80,16 @@ function normalizeProduct(product) {
     price30Ml,
     price55Ml,
     price100Ml,
+    originalPrice: Number(product.originalPrice ?? product.originalPrice55Ml ?? price55Ml),
+    originalPrice10Ml: Number(product.originalPrice10Ml ?? price10Ml),
+    originalPrice30Ml: Number(product.originalPrice30Ml ?? price30Ml),
+    originalPrice55Ml: Number(product.originalPrice55Ml ?? product.originalPrice ?? price55Ml),
+    originalPrice100Ml: Number(product.originalPrice100Ml ?? price100Ml),
     sizes: [
-      { size: "10ml", price: price10Ml },
-      { size: "30ml", price: price30Ml },
-      { size: "55ml", price: price55Ml },
-      { size: "100ml", price: price100Ml },
+      { size: "10ml", price: price10Ml, originalPrice: Number(product.originalPrice10Ml ?? price10Ml) },
+      { size: "30ml", price: price30Ml, originalPrice: Number(product.originalPrice30Ml ?? price30Ml) },
+      { size: "55ml", price: price55Ml, originalPrice: Number(product.originalPrice55Ml ?? product.originalPrice ?? price55Ml) },
+      { size: "100ml", price: price100Ml, originalPrice: Number(product.originalPrice100Ml ?? price100Ml) },
     ],
   };
 }

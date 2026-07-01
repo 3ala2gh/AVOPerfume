@@ -11,6 +11,8 @@ export type Perfume = {
   price55Ml: number
   price100Ml: number
   sizes: ProductSizePrice[]
+  discountPercent: number | null
+  originalPrice: number
   description: string
   category: string
   categoryAr: string
@@ -49,6 +51,12 @@ function normalizeProductSizes(product: Product): ProductSizePrice[] {
               : product.price100Ml) ??
         DEFAULT_PERFUME_SIZE_PRICES[size],
     ),
+    originalPrice: Number(
+      product.sizes?.find((item) => item.size === size)?.originalPrice ??
+        (size === '10ml' ? product.originalPrice10Ml : size === '30ml' ? product.originalPrice30Ml : size === '55ml' ? product.originalPrice55Ml : product.originalPrice100Ml) ??
+        product.sizes?.find((item) => item.size === size)?.price ??
+        DEFAULT_PERFUME_SIZE_PRICES[size],
+    ),
   }))
 }
 
@@ -65,6 +73,8 @@ export function toPerfume(product: Product): Perfume {
     price55Ml,
     price100Ml: getPerfumeSizePrice({ sizes }, '100ml'),
     sizes,
+    discountPercent: product.discountPercent ?? null,
+    originalPrice: product.originalPrice55Ml ?? product.originalPrice ?? price55Ml,
     description: product.description ?? 'No description available.',
     category: product.category,
     categoryAr: product.categoryAr ?? product.category,

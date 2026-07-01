@@ -16,10 +16,10 @@ function normalizeProduct(item: Product): Product {
     price55Ml,
     price100Ml,
     sizes: [
-      { size: '10ml', price: price10Ml },
-      { size: '30ml', price: price30Ml },
-      { size: '55ml', price: price55Ml },
-      { size: '100ml', price: price100Ml },
+      { size: '10ml', price: price10Ml, originalPrice: Number(item.originalPrice10Ml ?? price10Ml) },
+      { size: '30ml', price: price30Ml, originalPrice: Number(item.originalPrice30Ml ?? price30Ml) },
+      { size: '55ml', price: price55Ml, originalPrice: Number(item.originalPrice55Ml ?? item.originalPrice ?? price55Ml) },
+      { size: '100ml', price: price100Ml, originalPrice: Number(item.originalPrice100Ml ?? price100Ml) },
     ],
   }
 }

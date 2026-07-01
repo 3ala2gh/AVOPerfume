@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Modal from "../common/Modal";
 import PerfumeDetails from "../product/PerfumeDetails";
+import SalePrice from "../product/SalePrice";
 import { useCart } from "../../hooks/useCart";
 import { usePerfumeModal } from "../../hooks/usePerfumeModal";
 import {
@@ -160,6 +161,7 @@ export default function ProductsSection({
                 onClick={() => openPerfume(perfume)}
               >
                 <div className="featured-products__image relative mb-2 aspect-[9/16] overflow-hidden sm:aspect-auto sm:h-[clamp(18rem,44vh,27.5rem)]">
+                  {perfume.discountPercent ? <span className="absolute bottom-2 left-2 z-10 rounded-full bg-black px-3 py-1 text-xs text-white sm:bottom-auto sm:top-2">{t('common.sale')}</span> : null}
                   <img
                     src={getOptimizedCloudinaryUrl(perfume.image, { width: 600 })}
                     srcSet={getCloudinarySrcSet(perfume.image, [300, 450, 600])}
@@ -181,9 +183,7 @@ export default function ProductsSection({
                 </p>
 
                 <div className="mt-auto flex items-center justify-between">
-                  <span className="text-[11px] sm:text-sm md:text-lg">
-                    {perfume.price} {t('common.jod')}
-                  </span>
+                  <SalePrice price={perfume.price} originalPrice={perfume.originalPrice} className="text-[11px] sm:text-sm md:text-lg" />
                   <button
                     type="button"
                     onClick={(event) => {

@@ -3,9 +3,23 @@ import {
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
+import { PrismaService } from '../../common/prisma/prisma.service.js';
+import type { ApplyDiscountDto } from './dto/apply-discount.dto.js';
 
 @Injectable()
 export class AdminService {
+  constructor(private readonly prismaService: PrismaService) {}
+
+  async applyDiscount(input: ApplyDiscountDto) {
+    const where = input.applyToAll ? {} : { id: { in: input.perfumeIds } };
+    const result = await this.prismaService.perfume.updateMany({
+      where,
+      data: { discountPercent: input.discountPercent || null },
+    });
+
+    return { success: true, updatedCount: result.count };
+  }
+
   async publishWebsite() {
     const deployHookUrl = process.env.FRONTEND_DEPLOY_HOOK_URL?.trim();
 

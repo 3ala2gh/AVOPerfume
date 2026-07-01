@@ -20,3 +20,14 @@ export async function publishWebsite(): Promise<{ success: boolean; message: str
     throw new Error('Unable to trigger website publish right now.', { cause: error })
   }
 }
+
+export type ApplyDiscountInput = {
+  discountPercent: number
+  applyToAll: boolean
+  perfumeIds: number[]
+}
+
+export async function applyDiscount(payload: ApplyDiscountInput) {
+  const { data } = await api.put<{ success: boolean; updatedCount: number }>('/admin/discount', payload)
+  return data
+}

@@ -8,6 +8,7 @@ import Select from "../components/common/ui/Select";
 // import FooterSection from "../components/home/FooterSection";
 import { getCategoryOrder, toPerfumes } from "../components/home/catalogData";
 import PerfumeDetails from "../components/product/PerfumeDetails";
+import SalePrice from "../components/product/SalePrice";
 import { useCart } from "../hooks/useCart";
 import { usePerfumeModal } from "../hooks/usePerfumeModal";
 import { useProductsQuery } from "../hooks/useProductsQuery";
@@ -206,6 +207,7 @@ function ShopPage() {
                   }}
                 >
                   <div className="relative mb-2 aspect-[9/16] overflow-hidden bg-gray-100 sm:mb-4">
+                    {perfume.discountPercent ? <span className="absolute bottom-2 left-2 z-10 rounded-full bg-black px-3 py-1 text-xs text-white sm:bottom-auto sm:top-2">{t("common.sale")}</span> : null}
                     <img
                       src={getOptimizedCloudinaryUrl(perfume.image, {
                         width: 600,
@@ -226,9 +228,7 @@ function ShopPage() {
                     <h4 className="line-clamp-2 text-sm tracking-wide sm:text-lg">
                       {perfume.name}
                     </h4>
-                    <span className="shrink-0 text-sm sm:text-lg">
-                      {perfume.price} {t("common.jod")}
-                    </span>
+                    <SalePrice price={perfume.price} originalPrice={perfume.originalPrice} className="shrink-0 text-sm sm:text-lg" />
                   </div>
                   <p className="mb-2 line-clamp-2 text-xs opacity-70 sm:mb-3 sm:text-sm">
                     {perfume.description}
