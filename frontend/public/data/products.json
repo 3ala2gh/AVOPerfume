@@ -1,5 +1,73 @@
 [
   {
+    "id": 71,
+    "name": "Olympéa",
+    "description": "Top notes are Water Jasmine, Green Mandarin and Ginger flower; middle notes are Vanilla and Salt; base notes are Cashmere Wood, Ambergris and Sandalwood",
+    "gender": "female",
+    "price": 8,
+    "price10Ml": 2,
+    "price30Ml": 6,
+    "price55Ml": 8,
+    "price100Ml": 15,
+    "sizes": [
+      {
+        "size": "10ml",
+        "price": 2
+      },
+      {
+        "size": "30ml",
+        "price": 6
+      },
+      {
+        "size": "55ml",
+        "price": 8
+      },
+      {
+        "size": "100ml",
+        "price": 15
+      }
+    ],
+    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1782572842/avo-perfume/k9r2gpxfmdwjmyatyiat.jpg",
+    "categoryId": 11,
+    "category": "Sweet",
+    "categoryAr": "حلو",
+    "createdAt": "2026-06-27T15:07:24.450Z"
+  },
+  {
+    "id": 70,
+    "name": "Scandal w",
+    "description": "Top notes are Blood Orange and Mandarin Orange; middle notes are Honey, Gardenia, Orange Blossom, Jasmine and Peach; base notes are Beeswax, Caramel, Patchouli and Licorice",
+    "gender": "female",
+    "price": 8,
+    "price10Ml": 2,
+    "price30Ml": 6,
+    "price55Ml": 8,
+    "price100Ml": 15,
+    "sizes": [
+      {
+        "size": "10ml",
+        "price": 2
+      },
+      {
+        "size": "30ml",
+        "price": 6
+      },
+      {
+        "size": "55ml",
+        "price": 8
+      },
+      {
+        "size": "100ml",
+        "price": 15
+      }
+    ],
+    "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1782572617/avo-perfume/m5dsj882rbecf5kujwqp.jpg",
+    "categoryId": 11,
+    "category": "Sweet",
+    "categoryAr": "حلو",
+    "createdAt": "2026-06-27T15:03:39.896Z"
+  },
+  {
     "id": 69,
     "name": "Accento Xerjoff",
     "description": "Top notes are Pineapple and Hyacinth; middle notes are Iris, Pink Pepper and Jasmine; base notes are Musk, Amber, Vetiver, Vanilla and Patchouli",
@@ -1194,27 +1262,27 @@
     "name": "Tubéreuse Astrale",
     "description": "Top note is Cinnamon; middle notes are Tuberose and Osmanthus; base notes are Musk and Vanilla",
     "gender": "unisex",
-    "price": 8,
-    "price10Ml": 2,
-    "price30Ml": 6,
-    "price55Ml": 8,
-    "price100Ml": 15,
+    "price": 10,
+    "price10Ml": 3,
+    "price30Ml": 8,
+    "price55Ml": 10,
+    "price100Ml": 17,
     "sizes": [
       {
         "size": "10ml",
-        "price": 2
+        "price": 3
       },
       {
         "size": "30ml",
-        "price": 6
-      },
-      {
-        "size": "55ml",
         "price": 8
       },
       {
+        "size": "55ml",
+        "price": 10
+      },
+      {
         "size": "100ml",
-        "price": 15
+        "price": 17
       }
     ],
     "imageUrl": "https://res.cloudinary.com/dp65oyvig/image/upload/v1780781469/avo-perfume/s8guw0aagsvoqb89r4as.jpg",
@@ -1907,7 +1975,7 @@
     "id": 13,
     "name": "Ombré Leather",
     "description": "Top note is Cardamom; middle notes are Leather and Jasmine Sambac; base notes are Amber, Moss and Patchouli",
-    "gender": "female",
+    "gender": "male",
     "price": 8,
     "price10Ml": 2,
     "price30Ml": 6,

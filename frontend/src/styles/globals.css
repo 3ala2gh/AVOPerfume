@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-family: "Poppins", "Segoe UI", sans-serif;
   color: #2f2a25;
-  background: #ffffff;
+  background: #fcfbf9;
 }
 
 * {
@@ -52,19 +52,19 @@ body {
   }
 }
 
-html[dir='rtl'] {
-  font-family: 'Tajawal', 'Cairo', 'Noto Kufi Arabic', 'Segoe UI', sans-serif;
+html[dir="rtl"] {
+  font-family: "Tajawal", "Cairo", "Noto Kufi Arabic", "Segoe UI", sans-serif;
 }
 
-html[dir='rtl'] body {
+html[dir="rtl"] body {
   text-align: right;
 }
 
-html[dir='rtl'] .text-left {
+html[dir="rtl"] .text-left {
   text-align: right;
 }
 
-html[dir='rtl'] .text-right {
+html[dir="rtl"] .text-right {
   text-align: left;
 }
 
