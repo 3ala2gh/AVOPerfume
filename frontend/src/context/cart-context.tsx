@@ -16,6 +16,7 @@ import { CartContext, type CartItem } from './cart'
 import { WHATSAPP_URL } from '../config/contact'
 
 const CART_STORAGE_KEY = 'avo_cart_items'
+const DELIVERY_FEE = 2
 
 function readInitialCart(): CartItem[] {
   if (typeof window === 'undefined') {
@@ -55,15 +56,17 @@ function buildWhatsAppMessage(
     (item, index) =>
       `${index + 1}. ${item.name} - ${item.size} (x${item.quantity}) - ${item.price} ${t('common.jod')}`,
   )
-  const totalAmount = items.reduce(
+  const cartAmount = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
   )
+  const totalAmount = cartAmount + DELIVERY_FEE
 
   return [
     t('cart.whatsappGreeting'),
     ...lines,
     '',
+    t('cart.whatsappDelivery', { fee: DELIVERY_FEE.toFixed(2) }),
     t('cart.whatsappTotal', { total: totalAmount.toFixed(2) }),
     '',
     t('cart.whatsappThanks'),

@@ -1,4 +1,4 @@
-import { Plus, ShoppingCart } from 'lucide-react'
+import { ArrowRight, Plus, ShoppingCart } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import Modal from '../common/Modal'
@@ -117,9 +117,10 @@ export default function BestSellersSection({ perfumes }: Props) {
         <Link
           to="/shop"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="mt-5 inline-block border-b border-black pb-1 text-sm font-medium sm:hidden"
+          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-black px-6 py-3.5 text-sm font-semibold tracking-wide text-white shadow-sm transition-all active:scale-[0.98] sm:hidden"
         >
           {t('home.viewAllPerfumes')}
+          <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
         </Link>
       </div>
 

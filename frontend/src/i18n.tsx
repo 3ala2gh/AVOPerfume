@@ -142,6 +142,7 @@ const translations = {
       itemPrice: "{{price}} JOD x {{quantity}}",
       added: "{{name}} {{size}} added to cart",
       whatsappGreeting: "Hello AVO Perfume, I would like to order:",
+      whatsappDelivery: "Delivery: {{fee}} JOD",
       whatsappTotal: "Total Amount: {{total}} JOD",
       whatsappThanks: "Thank you.",
       whatsappError:
@@ -354,6 +355,7 @@ const translations = {
       itemPrice: "{{price}} د.أ × {{quantity}}",
       added: "تمت إضافة {{name}} {{size}} إلى السلة",
       whatsappGreeting: "مرحباً AVO Perfume، أود طلب:",
+      whatsappDelivery: "توصيل: {{fee}} د.أ",
       whatsappTotal: "المجموع: {{total}} د.أ",
       whatsappThanks: "شكراً لكم.",
       whatsappError:
