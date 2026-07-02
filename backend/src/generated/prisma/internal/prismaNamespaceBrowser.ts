@@ -103,6 +103,8 @@ export const PerfumeScalarFieldEnum = {
   price55Ml: 'price55Ml',
   price100Ml: 'price100Ml',
   discountPercent: 'discountPercent',
+  isBestSeller: 'isBestSeller',
+  bestSellerRank: 'bestSellerRank',
   description: 'description',
   imageUrl: 'imageUrl',
   categoryId: 'categoryId',

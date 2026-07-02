@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom'
 import { useCart } from '../hooks/useCart'
 import { useI18n } from '../hooks/useI18n'
 import { getOptimizedCloudinaryUrl } from '../utils/cloudinary'
+import QuantityStepper from '../components/cart/QuantityStepper'
 
 function CartPage() {
-  const { items, removeFromCart, clearCart, openWhatsAppOrder } = useCart()
+  const { items, changeQuantity, removeFromCart, clearCart, openWhatsAppOrder } = useCart()
   const { t, categoryLabel } = useI18n()
 
   return (
@@ -48,17 +49,25 @@ function CartPage() {
                   <p className="text-xs text-black/60 sm:text-sm">
                     {categoryLabel(item.category, item.categoryAr)} - {item.size}
                   </p>
-                  <p className="mt-1 text-sm text-black/80 sm:text-base">
-                    {t('cart.itemPrice', { price: item.price, quantity: item.quantity })}
+                  <p className="mt-1 text-sm font-medium text-black/80 sm:text-base">
+                    {(item.price * item.quantity).toFixed(3)} {t('common.jod')}
                   </p>
+                  <div className="mt-3 flex items-center gap-3">
+                    <QuantityStepper
+                      quantity={item.quantity}
+                      itemName={item.name}
+                      onDecrease={() => changeQuantity(item.key, -1)}
+                      onIncrease={() => changeQuantity(item.key, 1)}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeFromCart(item.key)}
+                      className="text-xs text-black/55 underline-offset-4 transition-colors hover:text-black hover:underline sm:text-sm"
+                    >
+                      {t('common.remove')}
+                    </button>
+                  </div>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => removeFromCart(item.key)}
-                  className="border border-black/20 px-3 py-1.5 text-xs transition-colors hover:bg-black hover:text-white sm:text-sm"
-                >
-                  {t('common.remove')}
-                </button>
               </article>
             ))}
           </section>

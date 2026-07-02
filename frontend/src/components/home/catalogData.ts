@@ -12,6 +12,8 @@ export type Perfume = {
   price100Ml: number
   sizes: ProductSizePrice[]
   discountPercent: number | null
+  isBestSeller: boolean
+  bestSellerRank: number | null
   originalPrice: number
   description: string
   category: string
@@ -74,6 +76,8 @@ export function toPerfume(product: Product): Perfume {
     price100Ml: getPerfumeSizePrice({ sizes }, '100ml'),
     sizes,
     discountPercent: product.discountPercent ?? null,
+    isBestSeller: product.isBestSeller ?? false,
+    bestSellerRank: product.bestSellerRank ?? null,
     originalPrice: product.originalPrice55Ml ?? product.originalPrice ?? price55Ml,
     description: product.description ?? 'No description available.',
     category: product.category,

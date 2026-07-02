@@ -22,6 +22,8 @@ export interface Product {
   originalPrice55Ml?: number
   originalPrice100Ml?: number
   discountPercent?: number | null
+  isBestSeller?: boolean
+  bestSellerRank?: number | null
   sizes: ProductSizePrice[]
   categoryId: number
   category: string

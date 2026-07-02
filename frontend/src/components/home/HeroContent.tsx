@@ -24,7 +24,7 @@ export default function HeroContent() {
             {t("home.heroSubtitle")}
           </p>
           <a
-            href="#products"
+            href="#best-sellers"
             className="inline-block border-2 border-white bg-white px-8 py-3 text-black transition-all duration-300 hover:bg-black hover:text-white"
           >
             {t("home.heroCta")}

@@ -18,6 +18,7 @@ export type CartContextValue = {
   items: CartItem[]
   totalItems: number
   addToCart: (perfume: Perfume, size?: PerfumeSize) => void
+  changeQuantity: (key: string, amount: number) => void
   removeFromCart: (key: string) => void
   clearCart: () => void
   openWhatsAppOrder: () => void

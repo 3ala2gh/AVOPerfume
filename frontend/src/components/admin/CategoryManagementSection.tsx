@@ -3,6 +3,7 @@ import Button from '../common/ui/Button'
 import Input from '../common/ui/Input'
 import type { Category, CategoryInput } from '../../types/product'
 import { useI18n } from '../../hooks/useI18n'
+import AdminCollapsibleSection from './AdminCollapsibleSection'
 
 type CategoryManagementSectionProps = {
   categories: Category[]
@@ -90,116 +91,119 @@ export default function CategoryManagementSection({
   }
 
   return (
-    <section className="space-y-4 rounded-xl border border-black/10 bg-white/90 p-4 sm:p-5 lg:p-6">
-      <h2 className="text-base font-semibold sm:text-lg">{t('admin.manageCategories')}</h2>
+    <AdminCollapsibleSection
+      title={t('admin.manageCategories')}
+      description="Add, rename, and clean up the collections used across the store."
+    >
+      <div className="space-y-4">
+        <form onSubmit={handleCreate} className="grid gap-3 sm:grid-cols-2">
+          <Input
+            value={newCategory.name}
+            onChange={(event) =>
+              setNewCategory((current) => ({ ...current, name: event.target.value }))
+            }
+            placeholder={t('admin.categoryNameEnglish')}
+            aria-label={t('admin.categoryNameEnglish')}
+          />
+          <Input
+            value={newCategory.nameAr}
+            onChange={(event) =>
+              setNewCategory((current) => ({ ...current, nameAr: event.target.value }))
+            }
+            placeholder={t('admin.categoryNameArabic')}
+            aria-label={t('admin.categoryNameArabic')}
+            dir="rtl"
+          />
+          <Button type="submit" disabled={isCreating} className="sm:col-span-2">
+            {isCreating ? t('admin.adding') : t('admin.addCategory')}
+          </Button>
+        </form>
 
-      <form onSubmit={handleCreate} className="grid gap-3 sm:grid-cols-2">
-        <Input
-          value={newCategory.name}
-          onChange={(event) =>
-            setNewCategory((current) => ({ ...current, name: event.target.value }))
-          }
-          placeholder={t('admin.categoryNameEnglish')}
-          aria-label={t('admin.categoryNameEnglish')}
-        />
-        <Input
-          value={newCategory.nameAr}
-          onChange={(event) =>
-            setNewCategory((current) => ({ ...current, nameAr: event.target.value }))
-          }
-          placeholder={t('admin.categoryNameArabic')}
-          aria-label={t('admin.categoryNameArabic')}
-          dir="rtl"
-        />
-        <Button type="submit" disabled={isCreating} className="sm:col-span-2">
-          {isCreating ? t('admin.adding') : t('admin.addCategory')}
-        </Button>
-      </form>
+        {error ? <p className="text-sm text-red-600">{error}</p> : null}
+        {isLoading ? <p className="text-sm text-black/60">{t('admin.loadingCategories')}</p> : null}
 
-      {error ? <p className="text-sm text-red-600">{error}</p> : null}
-      {isLoading ? <p className="text-sm text-black/60">{t('admin.loadingCategories')}</p> : null}
+        <div className="max-h-72 space-y-2 overflow-y-auto">
+          {categories.map((category) => {
+            const isEditing = editingCategoryId === category.id
 
-      <div className="max-h-72 space-y-2 overflow-y-auto">
-        {categories.map((category) => {
-          const isEditing = editingCategoryId === category.id
-
-          return (
-            <div key={category.id} className="rounded-md border border-black/10 p-3">
-              {isEditing ? (
-                <div className="grid gap-2 sm:grid-cols-2">
-                  <Input
-                    value={editedCategory.name}
-                    onChange={(event) =>
-                      setEditedCategory((current) => ({
-                        ...current,
-                        name: event.target.value,
-                      }))
-                    }
-                    aria-label={t('admin.categoryNameEnglish')}
-                  />
-                  <Input
-                    value={editedCategory.nameAr}
-                    onChange={(event) =>
-                      setEditedCategory((current) => ({
-                        ...current,
-                        nameAr: event.target.value,
-                      }))
-                    }
-                    aria-label={t('admin.categoryNameArabic')}
-                    dir="rtl"
-                  />
-                </div>
-              ) : (
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className="font-medium">{category.name}</p>
-                    <p className="text-sm text-black/60" dir="rtl">
-                      {category.nameAr}
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              <div className="mt-3 flex flex-wrap gap-2">
+            return (
+              <div key={category.id} className="rounded-md border border-black/10 bg-white/80 p-3">
                 {isEditing ? (
-                  <>
-                    <Button
-                      type="button"
-                      onClick={() => void handleUpdate(category.id)}
-                      disabled={isUpdating}
-                    >
-                      {isUpdating ? t('admin.saving') : t('admin.saveChanges')}
-                    </Button>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <Input
+                      value={editedCategory.name}
+                      onChange={(event) =>
+                        setEditedCategory((current) => ({
+                          ...current,
+                          name: event.target.value,
+                        }))
+                      }
+                      aria-label={t('admin.categoryNameEnglish')}
+                    />
+                    <Input
+                      value={editedCategory.nameAr}
+                      onChange={(event) =>
+                        setEditedCategory((current) => ({
+                          ...current,
+                          nameAr: event.target.value,
+                        }))
+                      }
+                      aria-label={t('admin.categoryNameArabic')}
+                      dir="rtl"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="font-medium">{category.name}</p>
+                      <p className="text-sm text-black/60" dir="rtl">
+                        {category.nameAr}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {isEditing ? (
+                    <>
+                      <Button
+                        type="button"
+                        onClick={() => void handleUpdate(category.id)}
+                        disabled={isUpdating}
+                      >
+                        {isUpdating ? t('admin.saving') : t('admin.saveChanges')}
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setEditingCategoryId(null)}
+                      >
+                        {t('common.cancel')}
+                      </Button>
+                    </>
+                  ) : (
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={() => setEditingCategoryId(null)}
+                      onClick={() => startEditing(category)}
                     >
-                      {t('common.cancel')}
+                      {t('admin.editCategory')}
                     </Button>
-                  </>
-                ) : (
+                  )}
                   <Button
                     type="button"
-                    variant="outline"
-                    onClick={() => startEditing(category)}
+                    variant="danger"
+                    disabled={isDeleting}
+                    onClick={() => void handleDelete(category)}
                   >
-                    {t('admin.editCategory')}
+                    {isDeleting ? t('admin.deleting') : t('admin.deleteCategory')}
                   </Button>
-                )}
-                <Button
-                  type="button"
-                  variant="danger"
-                  disabled={isDeleting}
-                  onClick={() => void handleDelete(category)}
-                >
-                  {isDeleting ? t('admin.deleting') : t('admin.deleteCategory')}
-                </Button>
+                </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
-    </section>
+    </AdminCollapsibleSection>
   )
 }

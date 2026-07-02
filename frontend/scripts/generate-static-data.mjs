@@ -2,7 +2,8 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { loadEnv } from "vite";
 
-const FETCH_TIMEOUT_MS = 60000;
+const FETCH_TIMEOUT_MS = Number(process.env.STATIC_DATA_FETCH_TIMEOUT_MS ?? 120000);
+const FETCH_ATTEMPTS = Number(process.env.STATIC_DATA_FETCH_ATTEMPTS ?? 3);
 const DEFAULT_SIZE_PRICES = {
   "10ml": 2,
   "30ml": 6,
@@ -13,29 +14,36 @@ const DEFAULT_SIZE_PRICES = {
 async function fetchJson(candidates, endpoint) {
   let lastError = null;
 
-  for (const baseUrl of candidates) {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  for (let attempt = 1; attempt <= FETCH_ATTEMPTS; attempt += 1) {
+    for (const baseUrl of candidates) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
-    try {
-      const response = await fetch(`${baseUrl}${endpoint}`, {
-        signal: controller.signal,
-      });
-      if (response.ok) {
-        return response.json();
+      try {
+        console.log(`Fetching ${endpoint} (attempt ${attempt}/${FETCH_ATTEMPTS})`);
+        const response = await fetch(`${baseUrl}${endpoint}`, {
+          signal: controller.signal,
+        });
+        if (response.ok) {
+          return response.json();
+        }
+
+        lastError = new Error(
+          `Failed to fetch ${endpoint} from ${baseUrl} (${response.status} ${response.statusText})`,
+        );
+      } catch (error) {
+        lastError = new Error(
+          `Failed to fetch ${endpoint} from ${baseUrl}: ${
+            error instanceof Error ? error.message : String(error)
+          }`,
+        );
+      } finally {
+        clearTimeout(timeout);
       }
+    }
 
-      lastError = new Error(
-        `Failed to fetch ${endpoint} from ${baseUrl} (${response.status} ${response.statusText})`,
-      );
-    } catch (error) {
-      lastError = new Error(
-        `Failed to fetch ${endpoint} from ${baseUrl}: ${
-          error instanceof Error ? error.message : String(error)
-        }`,
-      );
-    } finally {
-      clearTimeout(timeout);
+    if (attempt < FETCH_ATTEMPTS) {
+      await new Promise((resolve) => setTimeout(resolve, attempt * 2000));
     }
   }
 
@@ -101,6 +109,8 @@ async function main() {
     "",
   );
   const apiBaseUrl =
+    process.env.STATIC_DATA_API_URL ??
+    env.STATIC_DATA_API_URL ??
     process.env.VITE_API_BASE_URL ??
     env.VITE_API_BASE_URL ??
     "http://localhost:3000/api";
@@ -113,9 +123,10 @@ async function main() {
     `Fetching static data from candidates: ${candidateBaseUrls.join(", ")}`,
   );
 
-  const [offers, products, categories] = await Promise.all([
+  // Fetch products first to wake a sleeping backend before parallel requests.
+  const products = await fetchJson(candidateBaseUrls, "/products");
+  const [offers, categories] = await Promise.all([
     fetchJson(candidateBaseUrls, "/products/offers"),
-    fetchJson(candidateBaseUrls, "/products"),
     fetchJson(candidateBaseUrls, "/products/categories"),
   ]);
   const normalizedProducts = products.map(normalizeProduct);

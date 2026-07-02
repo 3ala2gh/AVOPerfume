@@ -5,18 +5,20 @@ enum Gender {
 }
 
 model Perfume {
-  id          Int      @id @default(autoincrement())
-  name        String
-  gender      Gender   @default(UNISEX)
-  price       Decimal
-  price10Ml   Decimal  @default(2)
-  price30Ml   Decimal  @default(6)
-  price55Ml   Decimal  @default(8)
-  price100Ml  Decimal  @default(15)
+  id              Int      @id @default(autoincrement())
+  name            String
+  gender          Gender   @default(UNISEX)
+  price           Decimal
+  price10Ml       Decimal  @default(2)
+  price30Ml       Decimal  @default(6)
+  price55Ml       Decimal  @default(8)
+  price100Ml      Decimal  @default(15)
   discountPercent Decimal? @db.Decimal(5, 2)
-  description String?
-  imageUrl    String?
-  categoryId  Int
-  category    Category @relation(fields: [categoryId], references: [id])
-  createdAt   DateTime @default(now())
+  isBestSeller    Boolean  @default(false)
+  bestSellerRank  Int?     @unique
+  description     String?
+  imageUrl        String?
+  categoryId      Int
+  category        Category @relation(fields: [categoryId], references: [id])
+  createdAt       DateTime @default(now())
 }

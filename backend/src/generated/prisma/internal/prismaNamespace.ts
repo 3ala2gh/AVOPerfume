@@ -846,6 +846,8 @@ export const PerfumeScalarFieldEnum = {
   price55Ml: 'price55Ml',
   price100Ml: 'price100Ml',
   discountPercent: 'discountPercent',
+  isBestSeller: 'isBestSeller',
+  bestSellerRank: 'bestSellerRank',
   description: 'description',
   imageUrl: 'imageUrl',
   categoryId: 'categoryId',
@@ -973,6 +975,13 @@ export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'Decimal[]'
  */
 export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

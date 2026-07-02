@@ -117,6 +117,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((currentItems) => currentItems.filter((item) => item.key !== key))
   }
 
+  function changeQuantity(key: string, amount: number) {
+    setItems((currentItems) =>
+      currentItems
+        .map((item) =>
+          item.key === key
+            ? { ...item, quantity: item.quantity + amount }
+            : item,
+        )
+        .filter((item) => item.quantity > 0),
+    )
+  }
+
   function clearCart() {
     setItems([])
   }
@@ -142,6 +154,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         items,
         totalItems,
         addToCart,
+        changeQuantity,
         removeFromCart,
         clearCart,
         openWhatsAppOrder,

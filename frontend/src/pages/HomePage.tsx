@@ -1,15 +1,12 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import AboutSection from "../components/home/AboutSection";
-import CategoriesSection from "../components/home/CategoriesSection";
-import { toPerfumes, type CategoryName } from "../components/home/catalogData";
+import { toPerfumes } from "../components/home/catalogData";
 import FooterSection from "../components/home/FooterSection";
 import HeroContent from "../components/home/HeroContent";
-import ProductsSection from "../components/home/ProductsSection";
+import BestSellersSection from "../components/home/BestSellersSection";
 import { useProductsQuery } from "../hooks/useProductsQuery";
 
 function HomePage() {
-  const [selectedCategory, setSelectedCategory] = useState<CategoryName>("All");
   const { data: products = [] } = useProductsQuery();
   const perfumes = toPerfumes(products);
   const reveal = {
@@ -22,17 +19,18 @@ function HomePage() {
   return (
     <>
       <HeroContent />
-      <CategoriesSection
+      {/* <CategoriesSection
         perfumes={perfumes}
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
-      />
+      /> */}
+      <BestSellersSection perfumes={perfumes} />
       <motion.div {...reveal}>
-        <ProductsSection
+        {/* <ProductsSection
           perfumes={perfumes}
           key={selectedCategory}
           selectedCategory={selectedCategory}
-        />
+        /> */}
 
         <AboutSection />
 

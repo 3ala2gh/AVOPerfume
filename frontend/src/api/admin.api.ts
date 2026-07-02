@@ -31,3 +31,11 @@ export async function applyDiscount(payload: ApplyDiscountInput) {
   const { data } = await api.put<{ success: boolean; updatedCount: number }>('/admin/discount', payload)
   return data
 }
+
+export async function updateBestSellers(perfumeIds: number[]) {
+  const { data } = await api.put<{ success: boolean; updatedCount: number }>(
+    '/admin/best-sellers',
+    { perfumeIds },
+  )
+  return data
+}

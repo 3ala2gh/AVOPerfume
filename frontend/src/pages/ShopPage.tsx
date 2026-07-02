@@ -9,6 +9,7 @@ import Select from "../components/common/ui/Select";
 import { getCategoryOrder, toPerfumes } from "../components/home/catalogData";
 import PerfumeDetails from "../components/product/PerfumeDetails";
 import SalePrice from "../components/product/SalePrice";
+import SaleBadge from "../components/product/SaleBadge";
 import { useCart } from "../hooks/useCart";
 import { usePerfumeModal } from "../hooks/usePerfumeModal";
 import { useProductsQuery } from "../hooks/useProductsQuery";
@@ -207,7 +208,15 @@ function ShopPage() {
                   }}
                 >
                   <div className="relative mb-2 aspect-[9/16] overflow-hidden bg-gray-100 sm:mb-4">
-                    {perfume.discountPercent ? <span className="absolute bottom-2 left-2 z-10 rounded-full bg-black px-3 py-1 text-xs text-white sm:bottom-auto sm:top-2">{t("common.sale")}</span> : null}
+                    {perfume.isBestSeller ? (
+                      <span className="absolute left-2 top-2 z-10 rounded-full bg-black px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white sm:left-3 sm:top-3">
+                        {t("home.bestSellerBadge")}
+                      </span>
+                    ) : null}
+                    <SaleBadge
+                      discountPercent={perfume.discountPercent}
+                      className="absolute bottom-2 left-2 z-10 sm:bottom-auto sm:left-auto sm:right-3 sm:top-3"
+                    />
                     <img
                       src={getOptimizedCloudinaryUrl(perfume.image, {
                         width: 600,

@@ -20,6 +20,33 @@ export class AdminService {
     return { success: true, updatedCount: result.count };
   }
 
+  async updateBestSellers(perfumeIds: number[]) {
+    const existingCount = await this.prismaService.perfume.count({
+      where: { id: { in: perfumeIds } },
+    });
+
+    if (existingCount !== perfumeIds.length) {
+      throw new BadRequestException(
+        'One or more selected perfumes do not exist.',
+      );
+    }
+
+    await this.prismaService.$transaction([
+      this.prismaService.perfume.updateMany({
+        where: { isBestSeller: true },
+        data: { isBestSeller: false, bestSellerRank: null },
+      }),
+      ...perfumeIds.map((id, index) =>
+        this.prismaService.perfume.update({
+          where: { id },
+          data: { isBestSeller: true, bestSellerRank: index + 1 },
+        }),
+      ),
+    ]);
+
+    return { success: true, updatedCount: perfumeIds.length };
+  }
+
   async publishWebsite() {
     const deployHookUrl = process.env.FRONTEND_DEPLOY_HOOK_URL?.trim();
 

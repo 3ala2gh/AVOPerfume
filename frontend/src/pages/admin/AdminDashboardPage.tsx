@@ -5,13 +5,16 @@ import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import CategoryManagementSection from '../../components/admin/CategoryManagementSection'
 import DiscountManagementSection from '../../components/admin/DiscountManagementSection'
+import BestSellerManagementSection from '../../components/admin/BestSellerManagementSection'
 import AddPerfumeSection from '../../components/admin/AddPerfumeSection'
 import EditPerfumeModal, {
   type EditPerfumePayload,
 } from '../../components/admin/EditPerfumeModal'
 import PerfumeSearchSection from '../../components/admin/PerfumeSearchSection'
+import AdminCollapsibleSection from '../../components/admin/AdminCollapsibleSection'
 import { useCategoriesQuery } from '../../hooks/useCategoriesQuery'
 import { useApplyDiscountMutation } from '../../hooks/useApplyDiscountMutation'
+import { useUpdateBestSellersMutation } from '../../hooks/useUpdateBestSellersMutation'
 import { useCreateCategoryMutation } from '../../hooks/useCreateCategoryMutation'
 import { useDeleteProductMutation } from '../../hooks/useDeleteProductMutation'
 import { useDeleteCategoryMutation } from '../../hooks/useDeleteCategoryMutation'
@@ -50,6 +53,7 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
   const { mutateAsync: publishWebsiteMutation, isPending: isPublishingWebsite } =
     usePublishWebsiteMutation()
   const { mutateAsync: applyDiscountMutation, isPending: isApplyingDiscount } = useApplyDiscountMutation()
+  const { mutateAsync: updateBestSellersMutation, isPending: isUpdatingBestSellers } = useUpdateBestSellersMutation()
 
   async function refreshCategoryData() {
     await queryClient.invalidateQueries({ queryKey: ['categories'] })
@@ -152,6 +156,12 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
     toast.success(`Discount updated for ${result.updatedCount} perfume${result.updatedCount === 1 ? '' : 's'}. Publish the website when ready.`)
   }
 
+  async function handleUpdateBestSellers(perfumeIds: number[]) {
+    await updateBestSellersMutation(perfumeIds)
+    await queryClient.invalidateQueries({ queryKey: ['products'] })
+    toast.success('Best sellers updated. Publish the website when ready.')
+  }
+
   return (
     <div className="min-h-screen bg-white">
       <header className="border-b border-white/10 bg-black text-white">
@@ -200,6 +210,22 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
             />
 
             <DiscountManagementSection products={products} isLoading={isLoadingProducts} isSaving={isApplyingDiscount} onSave={handleApplyDiscount} />
+
+            {isLoadingProducts ? (
+              <AdminCollapsibleSection
+                title="Best Sellers"
+                description="Choose and order up to 6 homepage products."
+              >
+                <p className="text-sm text-black/50">Loading best sellers...</p>
+              </AdminCollapsibleSection>
+            ) : (
+              <BestSellerManagementSection
+                products={products}
+                isLoading={false}
+                isSaving={isUpdatingBestSellers}
+                onSave={handleUpdateBestSellers}
+              />
+            )}
 
             <PerfumeSearchSection
               products={products}

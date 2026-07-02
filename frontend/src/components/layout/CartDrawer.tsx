@@ -3,6 +3,7 @@ import Button from '../common/ui/Button'
 import { useCart } from '../../hooks/useCart'
 import { useI18n } from '../../hooks/useI18n'
 import { getOptimizedCloudinaryUrl } from '../../utils/cloudinary'
+import QuantityStepper from '../cart/QuantityStepper'
 
 type CartDrawerProps = {
   isOpen: boolean
@@ -10,7 +11,7 @@ type CartDrawerProps = {
 }
 
 export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
-  const { items, removeFromCart, clearCart, openWhatsAppOrder } = useCart()
+  const { items, changeQuantity, removeFromCart, clearCart, openWhatsAppOrder } = useCart()
   const { t, categoryLabel } = useI18n()
 
   return (
@@ -67,17 +68,25 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                       <p className="text-xs text-black/65">
                         {categoryLabel(item.category, item.categoryAr)} - {item.size}
                       </p>
-                      <p className="mt-1 text-sm text-black/80">
-                        {t('cart.itemPrice', { price: item.price, quantity: item.quantity })}
+                      <p className="mt-1 text-sm font-medium text-black/80">
+                        {(item.price * item.quantity).toFixed(3)} {t('common.jod')}
                       </p>
+                      <div className="mt-2 flex items-center gap-3">
+                        <QuantityStepper
+                          quantity={item.quantity}
+                          itemName={item.name}
+                          onDecrease={() => changeQuantity(item.key, -1)}
+                          onIncrease={() => changeQuantity(item.key, 1)}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => removeFromCart(item.key)}
+                          className="text-xs text-black/55 underline-offset-4 transition-colors hover:text-black hover:underline"
+                        >
+                          {t('common.remove')}
+                        </button>
+                      </div>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => removeFromCart(item.key)}
-                      className="shrink-0 border border-black/20 px-2 py-1 text-xs transition-colors hover:bg-black hover:text-white sm:px-2.5"
-                    >
-                      {t('common.remove')}
-                    </button>
                   </article>
                 ))}
               </div>

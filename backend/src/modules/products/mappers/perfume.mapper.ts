@@ -12,6 +12,8 @@ export type PerfumeWithCategory = {
   price55Ml: Prisma.Decimal;
   price100Ml: Prisma.Decimal;
   discountPercent: Prisma.Decimal | null;
+  isBestSeller: boolean;
+  bestSellerRank: number | null;
   imageUrl: string | null;
   categoryId: number;
   category: { name: string; nameAr: string };
@@ -44,11 +46,29 @@ export function mapPerfume(perfume: PerfumeWithCategory) {
     originalPrice55Ml: Number(perfume.price55Ml),
     originalPrice100Ml: Number(perfume.price100Ml),
     discountPercent,
+    isBestSeller: perfume.isBestSeller,
+    bestSellerRank: perfume.bestSellerRank,
     sizes: [
-      { size: '10ml', price: discountedPrice(perfume.price10Ml), originalPrice: Number(perfume.price10Ml) },
-      { size: '30ml', price: discountedPrice(perfume.price30Ml), originalPrice: Number(perfume.price30Ml) },
-      { size: '55ml', price: discountedPrice(perfume.price55Ml), originalPrice: Number(perfume.price55Ml) },
-      { size: '100ml', price: discountedPrice(perfume.price100Ml), originalPrice: Number(perfume.price100Ml) },
+      {
+        size: '10ml',
+        price: discountedPrice(perfume.price10Ml),
+        originalPrice: Number(perfume.price10Ml),
+      },
+      {
+        size: '30ml',
+        price: discountedPrice(perfume.price30Ml),
+        originalPrice: Number(perfume.price30Ml),
+      },
+      {
+        size: '55ml',
+        price: discountedPrice(perfume.price55Ml),
+        originalPrice: Number(perfume.price55Ml),
+      },
+      {
+        size: '100ml',
+        price: discountedPrice(perfume.price100Ml),
+        originalPrice: Number(perfume.price100Ml),
+      },
     ],
     imageUrl: perfume.imageUrl,
     categoryId: perfume.categoryId,
