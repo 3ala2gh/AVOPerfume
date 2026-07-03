@@ -4,6 +4,7 @@ import { useCart } from '../../hooks/useCart'
 import { useI18n } from '../../hooks/useI18n'
 import { getOptimizedCloudinaryUrl } from '../../utils/cloudinary'
 import QuantityStepper from '../cart/QuantityStepper'
+import { DELIVERY_FEE_JOD } from '../../config/cart'
 
 type CartDrawerProps = {
   isOpen: boolean
@@ -13,6 +14,11 @@ type CartDrawerProps = {
 export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const { items, changeQuantity, removeFromCart, clearCart, openWhatsAppOrder } = useCart()
   const { t, categoryLabel } = useI18n()
+  const subtotal = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  )
+  const total = subtotal + DELIVERY_FEE_JOD
 
   return (
     <>
@@ -94,6 +100,22 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
           </div>
 
           <footer className="border-t border-black/10 px-3 py-3 pb-4 sm:px-6 sm:py-4">
+            {items.length > 0 && (
+              <div className="mb-4 space-y-2 text-sm">
+                <div className="flex items-center justify-between text-black/65">
+                  <span>{t('cart.subtotal')}</span>
+                  <span>{subtotal.toFixed(2)} {t('common.jod')}</span>
+                </div>
+                <div className="flex items-center justify-between text-black/65">
+                  <span>{t('cart.delivery')}</span>
+                  <span>{DELIVERY_FEE_JOD.toFixed(2)} {t('common.jod')}</span>
+                </div>
+                <div className="flex items-center justify-between border-t border-black/10 pt-3 text-base font-semibold">
+                  <span>{t('cart.total')}</span>
+                  <span>{total.toFixed(2)} {t('common.jod')}</span>
+                </div>
+              </div>
+            )}
             <div className="space-y-2">
               <Button
                 type="button"

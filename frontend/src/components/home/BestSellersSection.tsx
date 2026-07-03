@@ -47,9 +47,10 @@ export default function BestSellersSection({ perfumes }: Props) {
           <Link
             to="/shop"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="hidden shrink-0 border-b border-black pb-1 text-sm font-medium transition-opacity hover:opacity-55 sm:block"
+            className="hidden shrink-0 items-center justify-center gap-2 rounded-full bg-black px-6 py-3 text-sm font-semibold tracking-wide text-white shadow-sm transition-all hover:bg-black/75 active:scale-[0.98] sm:inline-flex"
           >
             {t('home.viewAllPerfumes')}
+            <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
           </Link>
         </div>
 

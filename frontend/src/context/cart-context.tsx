@@ -14,9 +14,9 @@ import type { PerfumeSize } from '../types/product'
 import { useI18n } from '../hooks/useI18n'
 import { CartContext, type CartItem } from './cart'
 import { WHATSAPP_URL } from '../config/contact'
+import { DELIVERY_FEE_JOD } from '../config/cart'
 
 const CART_STORAGE_KEY = 'avo_cart_items'
-const DELIVERY_FEE = 2
 
 function readInitialCart(): CartItem[] {
   if (typeof window === 'undefined') {
@@ -60,13 +60,13 @@ function buildWhatsAppMessage(
     (sum, item) => sum + item.price * item.quantity,
     0,
   )
-  const totalAmount = cartAmount + DELIVERY_FEE
+  const totalAmount = cartAmount + DELIVERY_FEE_JOD
 
   return [
     t('cart.whatsappGreeting'),
     ...lines,
     '',
-    t('cart.whatsappDelivery', { fee: DELIVERY_FEE.toFixed(2) }),
+    t('cart.whatsappDelivery', { fee: DELIVERY_FEE_JOD.toFixed(2) }),
     t('cart.whatsappTotal', { total: totalAmount.toFixed(2) }),
     '',
     t('cart.whatsappThanks'),
