@@ -1,4 +1,4 @@
-import { ArrowRight, Plus, ShoppingCart } from 'lucide-react'
+import { ArrowRight, ChevronLeft, ChevronRight, Plus, ShoppingCart } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import Modal from '../common/Modal'
@@ -6,6 +6,7 @@ import PerfumeDetails from '../product/PerfumeDetails'
 import SaleBadge from '../product/SaleBadge'
 import SalePrice from '../product/SalePrice'
 import { useCart } from '../../hooks/useCart'
+import { useHorizontalCarousel } from '../../hooks/useHorizontalCarousel'
 import { useI18n } from '../../hooks/useI18n'
 import { usePerfumeModal } from '../../hooks/usePerfumeModal'
 import { getCloudinarySrcSet, getOptimizedCloudinaryUrl } from '../../utils/cloudinary'
@@ -21,6 +22,13 @@ export default function BestSellersSection({ perfumes }: Props) {
   const bestSellers = perfumes
     .filter((perfume) => perfume.isBestSeller)
     .sort((a, b) => (a.bestSellerRank ?? 99) - (b.bestSellerRank ?? 99))
+  const {
+    carouselRef,
+    canScrollPrev,
+    canScrollNext,
+    scrollCarousel,
+    carouselHandlers,
+  } = useHorizontalCarousel(bestSellers.length)
   const {
     activePerfume,
     selectedSize,
@@ -44,17 +52,43 @@ export default function BestSellersSection({ perfumes }: Props) {
               {t('home.bestSellersSubtitle')}
             </p>
           </div>
-          <Link
-            to="/shop"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="hidden shrink-0 items-center justify-center gap-2 rounded-full bg-black px-6 py-3 text-sm font-semibold tracking-wide text-white shadow-sm transition-all hover:bg-black/75 active:scale-[0.98] sm:inline-flex"
-          >
-            {t('home.viewAllPerfumes')}
-            <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
-          </Link>
+          <div className="hidden shrink-0 items-center gap-3 sm:flex">
+            <div className="hidden items-center gap-2 lg:flex">
+              <button
+                type="button"
+                onClick={() => scrollCarousel('previous')}
+                disabled={!canScrollPrev}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-black shadow-sm transition-all hover:-translate-y-0.5 hover:border-black/30 disabled:pointer-events-none disabled:opacity-35"
+                aria-label="Previous best sellers"
+              >
+                <ChevronLeft className="h-5 w-5 rtl:rotate-180" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollCarousel('next')}
+                disabled={!canScrollNext}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-black shadow-sm transition-all hover:-translate-y-0.5 hover:border-black/30 disabled:pointer-events-none disabled:opacity-35"
+                aria-label="Next best sellers"
+              >
+                <ChevronRight className="h-5 w-5 rtl:rotate-180" aria-hidden="true" />
+              </button>
+            </div>
+            <Link
+              to="/shop"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-black px-6 py-3 text-sm font-semibold tracking-wide text-white shadow-sm transition-all hover:bg-black/75 active:scale-[0.98]"
+            >
+              {t('home.viewAllPerfumes')}
+              <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
+            </Link>
+          </div>
         </div>
 
-        <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:-mx-6 sm:gap-5 sm:px-6 lg:mx-0 lg:px-0">
+        <div
+          ref={carouselRef}
+          {...carouselHandlers}
+          className="best-sellers-carousel -mx-4 flex touch-pan-y snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden px-4 pb-4 sm:-mx-6 sm:gap-5 sm:px-6 lg:mx-0 lg:cursor-grab lg:px-0 lg:active:cursor-grabbing"
+        >
           {bestSellers.map((perfume, index) => (
             <motion.article
               key={perfume.id}
