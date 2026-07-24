@@ -87,7 +87,7 @@ export default function BestSellersSection({ perfumes }: Props) {
         <div
           ref={carouselRef}
           {...carouselHandlers}
-          className="best-sellers-carousel -mx-4 flex touch-pan-y snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden px-4 pb-4 sm:-mx-6 sm:gap-5 sm:px-6 lg:mx-0 lg:cursor-grab lg:px-0 lg:active:cursor-grabbing"
+          className="best-sellers-carousel -mx-4 flex touch-pan-x touch-pan-y snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden px-4 pb-4 sm:-mx-6 sm:gap-5 sm:px-6 lg:mx-0 lg:cursor-grab lg:px-0 lg:active:cursor-grabbing"
         >
           {bestSellers.map((perfume, index) => (
             <motion.article

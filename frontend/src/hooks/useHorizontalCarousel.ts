@@ -54,7 +54,9 @@ export function useHorizontalCarousel(itemCount: number) {
   }
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    if (event.pointerType === 'mouse' && event.button !== 0) return
+    // Touch devices already provide momentum scrolling for overflow containers.
+    // Handling their pointer events here competes with the browser's native swipe.
+    if (event.pointerType !== 'mouse' || event.button !== 0) return
     if (clickResetTimer.current !== null) {
       window.clearTimeout(clickResetTimer.current)
       clickResetTimer.current = null
