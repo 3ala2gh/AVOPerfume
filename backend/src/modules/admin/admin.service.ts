@@ -8,6 +8,12 @@ import type { ApplyDiscountDto } from './dto/apply-discount.dto.js';
 import type { UpdateSizeSettingsDto } from './dto/update-size-settings.dto.js';
 
 const SITE_SETTINGS_ID = 1;
+const SIZE_SETTINGS_SELECT = {
+  is10MlEnabled: true,
+  is30MlEnabled: true,
+  is55MlEnabled: true,
+  is100MlEnabled: true,
+} as const;
 
 @Injectable()
 export class AdminService {
@@ -18,6 +24,7 @@ export class AdminService {
       where: { id: SITE_SETTINGS_ID },
       update: {},
       create: { id: SITE_SETTINGS_ID },
+      select: SIZE_SETTINGS_SELECT,
     });
   }
 
@@ -26,6 +33,7 @@ export class AdminService {
       where: { id: SITE_SETTINGS_ID },
       update: input,
       create: { id: SITE_SETTINGS_ID, ...input },
+      select: SIZE_SETTINGS_SELECT,
     });
   }
 
