@@ -3,7 +3,10 @@ import { CloudinaryService } from '../../../common/cloudinary/cloudinary.service
 import { PrismaService } from '../../../common/prisma/prisma.service.js';
 import type { UploadedFile } from '../../../common/types/uploaded-file.type.js';
 import { Gender } from '../../../generated/prisma/enums.js';
-import { mapPerfume } from '../mappers/perfume.mapper.js';
+import {
+  mapPerfume,
+  type SiteSizeSettings,
+} from '../mappers/perfume.mapper.js';
 import type {
   CreatePerfumeInput,
   PerfumeGender,
@@ -18,12 +21,15 @@ export class PerfumesService {
   ) {}
 
   async findAll() {
-    const perfumes = await this.prismaService.perfume.findMany({
-      include: { category: true },
-      orderBy: { createdAt: 'desc' },
-    });
+    const [perfumes, siteSettings] = await Promise.all([
+      this.prismaService.perfume.findMany({
+        include: { category: true },
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.getSiteSizeSettings(),
+    ]);
 
-    return perfumes.map(mapPerfume);
+    return perfumes.map((perfume) => mapPerfume(perfume, siteSettings));
   }
 
   uploadImage(file: UploadedFile) {
@@ -31,7 +37,10 @@ export class PerfumesService {
   }
 
   async create(input: CreatePerfumeInput) {
-    const uploadedImage = await this.cloudinaryService.uploadImage(input.image);
+    const [uploadedImage, siteSettings] = await Promise.all([
+      this.cloudinaryService.uploadImage(input.image),
+      this.getSiteSizeSettings(),
+    ]);
     const perfume = await this.prismaService.perfume.create({
       include: { category: true },
       data: {
@@ -40,7 +49,7 @@ export class PerfumesService {
       },
     });
 
-    return mapPerfume(perfume);
+    return mapPerfume(perfume, siteSettings);
   }
 
   async update(input: UpdatePerfumeInput) {
@@ -53,9 +62,14 @@ export class PerfumesService {
       throw new NotFoundException('Perfume not found');
     }
 
-    const imageUrl = input.image
-      ? (await this.cloudinaryService.uploadImage(input.image)).secureUrl
-      : existingPerfume.imageUrl;
+    const [imageUrl, siteSettings] = await Promise.all([
+      input.image
+        ? this.cloudinaryService
+            .uploadImage(input.image)
+            .then((uploaded) => uploaded.secureUrl)
+        : Promise.resolve(existingPerfume.imageUrl),
+      this.getSiteSizeSettings(),
+    ]);
     const perfume = await this.prismaService.perfume.update({
       where: { id: input.id },
       include: { category: true },
@@ -65,7 +79,20 @@ export class PerfumesService {
       },
     });
 
-    return mapPerfume(perfume);
+    return mapPerfume(perfume, siteSettings);
+  }
+
+  private async getSiteSizeSettings(): Promise<SiteSizeSettings> {
+    const settings = await this.prismaService.siteSettings.findUnique({
+      where: { id: 1 },
+    });
+
+    return {
+      is10MlEnabled: settings?.is10MlEnabled ?? true,
+      is30MlEnabled: settings?.is30MlEnabled ?? true,
+      is55MlEnabled: settings?.is55MlEnabled ?? true,
+      is100MlEnabled: settings?.is100MlEnabled ?? true,
+    };
   }
 
   async delete(id: number) {

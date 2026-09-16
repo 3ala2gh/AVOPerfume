@@ -5,10 +5,29 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../../common/prisma/prisma.service.js';
 import type { ApplyDiscountDto } from './dto/apply-discount.dto.js';
+import type { UpdateSizeSettingsDto } from './dto/update-size-settings.dto.js';
+
+const SITE_SETTINGS_ID = 1;
 
 @Injectable()
 export class AdminService {
   constructor(private readonly prismaService: PrismaService) {}
+
+  async getSizeSettings() {
+    return this.prismaService.siteSettings.upsert({
+      where: { id: SITE_SETTINGS_ID },
+      update: {},
+      create: { id: SITE_SETTINGS_ID },
+    });
+  }
+
+  async updateSizeSettings(input: UpdateSizeSettingsDto) {
+    return this.prismaService.siteSettings.upsert({
+      where: { id: SITE_SETTINGS_ID },
+      update: input,
+      create: { id: SITE_SETTINGS_ID, ...input },
+    });
+  }
 
   async applyDiscount(input: ApplyDiscountDto) {
     const where = input.applyToAll ? {} : { id: { in: input.perfumeIds } };

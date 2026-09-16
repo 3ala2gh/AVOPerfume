@@ -182,6 +182,10 @@ const translations = {
       selectCategory: "Select category",
       sizePrices: "Size Prices",
       enabledForSale: "Enabled for sale",
+      sizeAvailability: "Size Availability",
+      sizeAvailabilityDescription:
+        "Turn a size off site-wide to stop selling it for every perfume, regardless of each perfume's own size settings.",
+      sizeAvailabilityUpdated: "Size availability updated. Publish the website when ready.",
       searchEditPerfumes: "Search and Edit Perfumes",
       searchPerfumesPlaceholder:
         "Search by name, category, description, or price",
@@ -399,6 +403,10 @@ const translations = {
       selectCategory: "اختر الفئة",
       sizePrices: "أسعار الأحجام",
       enabledForSale: "متاح للبيع",
+      sizeAvailability: "توفر الأحجام",
+      sizeAvailabilityDescription:
+        "أوقف بيع حجم معين على مستوى الموقع بالكامل لجميع العطور، بغض النظر عن إعدادات كل عطر على حدة.",
+      sizeAvailabilityUpdated: "تم تحديث توفر الأحجام. انشر الموقع عند الجاهزية.",
       searchEditPerfumes: "بحث وتعديل العطور",
       searchPerfumesPlaceholder: "ابحث بالاسم أو الفئة أو الوصف أو السعر",
       loadingPerfumes: "جاري تحميل العطور...",

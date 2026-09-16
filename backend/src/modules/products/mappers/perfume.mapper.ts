@@ -24,7 +24,24 @@ export type PerfumeWithCategory = {
   createdAt: Date;
 };
 
-export function mapPerfume(perfume: PerfumeWithCategory) {
+export type SiteSizeSettings = {
+  is10MlEnabled: boolean;
+  is30MlEnabled: boolean;
+  is55MlEnabled: boolean;
+  is100MlEnabled: boolean;
+};
+
+const ALL_SIZES_ENABLED: SiteSizeSettings = {
+  is10MlEnabled: true,
+  is30MlEnabled: true,
+  is55MlEnabled: true,
+  is100MlEnabled: true,
+};
+
+export function mapPerfume(
+  perfume: PerfumeWithCategory,
+  siteSettings: SiteSizeSettings = ALL_SIZES_ENABLED,
+) {
   const discountPercent = perfume.discountPercent
     ? Number(perfume.discountPercent)
     : null;
@@ -57,25 +74,25 @@ export function mapPerfume(perfume: PerfumeWithCategory) {
         size: '10ml',
         price: discountedPrice(perfume.price10Ml),
         originalPrice: Number(perfume.price10Ml),
-        enabled: perfume.is10MlEnabled,
+        enabled: perfume.is10MlEnabled && siteSettings.is10MlEnabled,
       },
       {
         size: '30ml',
         price: discountedPrice(perfume.price30Ml),
         originalPrice: Number(perfume.price30Ml),
-        enabled: perfume.is30MlEnabled,
+        enabled: perfume.is30MlEnabled && siteSettings.is30MlEnabled,
       },
       {
         size: '55ml',
         price: discountedPrice(perfume.price55Ml),
         originalPrice: Number(perfume.price55Ml),
-        enabled: perfume.is55MlEnabled,
+        enabled: perfume.is55MlEnabled && siteSettings.is55MlEnabled,
       },
       {
         size: '100ml',
         price: discountedPrice(perfume.price100Ml),
         originalPrice: Number(perfume.price100Ml),
-        enabled: perfume.is100MlEnabled,
+        enabled: perfume.is100MlEnabled && siteSettings.is100MlEnabled,
       },
     ],
     imageUrl: perfume.imageUrl,

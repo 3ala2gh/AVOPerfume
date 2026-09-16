@@ -1,0 +1,7 @@
+model SiteSettings {
+  id             Int     @id @default(1)
+  is10MlEnabled  Boolean @default(true)
+  is30MlEnabled  Boolean @default(true)
+  is55MlEnabled  Boolean @default(true)
+  is100MlEnabled Boolean @default(true)
+}

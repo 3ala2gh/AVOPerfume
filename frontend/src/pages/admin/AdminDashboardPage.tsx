@@ -12,9 +12,13 @@ import EditPerfumeModal, {
 } from '../../components/admin/EditPerfumeModal'
 import PerfumeSearchSection from '../../components/admin/PerfumeSearchSection'
 import AdminCollapsibleSection from '../../components/admin/AdminCollapsibleSection'
+import SizeAvailabilitySection from '../../components/admin/SizeAvailabilitySection'
 import { useCategoriesQuery } from '../../hooks/useCategoriesQuery'
 import { useApplyDiscountMutation } from '../../hooks/useApplyDiscountMutation'
 import { useUpdateBestSellersMutation } from '../../hooks/useUpdateBestSellersMutation'
+import { useSizeSettingsQuery } from '../../hooks/useSizeSettingsQuery'
+import { useUpdateSizeSettingsMutation } from '../../hooks/useUpdateSizeSettingsMutation'
+import type { SizeSettings } from '../../api/admin.api'
 import { useCreateCategoryMutation } from '../../hooks/useCreateCategoryMutation'
 import { useDeleteProductMutation } from '../../hooks/useDeleteProductMutation'
 import { useDeleteCategoryMutation } from '../../hooks/useDeleteCategoryMutation'
@@ -38,6 +42,7 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
   const { data: products = [], isLoading: isLoadingProducts } = useProductsQuery({
     source: 'admin',
   })
+  const { data: sizeSettings, isLoading: isLoadingSizeSettings } = useSizeSettingsQuery()
   const [editingPerfume, setEditingPerfume] = useState<Product | null>(null)
 
   const { mutateAsync: createCategoryMutation, isPending: isAddingCategory } =
@@ -54,6 +59,7 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
     usePublishWebsiteMutation()
   const { mutateAsync: applyDiscountMutation, isPending: isApplyingDiscount } = useApplyDiscountMutation()
   const { mutateAsync: updateBestSellersMutation, isPending: isUpdatingBestSellers } = useUpdateBestSellersMutation()
+  const { mutateAsync: updateSizeSettingsMutation, isPending: isUpdatingSizeSettings } = useUpdateSizeSettingsMutation()
 
   async function refreshCategoryData() {
     await queryClient.invalidateQueries({ queryKey: ['categories'] })
@@ -166,6 +172,13 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
     toast.success('Best sellers updated. Publish the website when ready.')
   }
 
+  async function handleUpdateSizeSettings(settings: SizeSettings) {
+    await updateSizeSettingsMutation(settings)
+    await queryClient.invalidateQueries({ queryKey: ['size-settings'] })
+    await queryClient.invalidateQueries({ queryKey: ['products'] })
+    toast.success(t('admin.sizeAvailabilityUpdated'))
+  }
+
   return (
     <div className="min-h-screen bg-white">
       <header className="border-b border-white/10 bg-black text-white">
@@ -214,6 +227,14 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
             />
 
             <DiscountManagementSection products={products} isLoading={isLoadingProducts} isSaving={isApplyingDiscount} onSave={handleApplyDiscount} />
+
+            <SizeAvailabilitySection
+              key={sizeSettings ? 'loaded' : 'loading'}
+              settings={sizeSettings}
+              isLoading={isLoadingSizeSettings}
+              isSaving={isUpdatingSizeSettings}
+              onSave={handleUpdateSizeSettings}
+            />
 
             {isLoadingProducts ? (
               <AdminCollapsibleSection

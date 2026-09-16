@@ -55,6 +55,7 @@ export const ModelName = {
   Offer: 'Offer',
   Perfume: 'Perfume',
   Role: 'Role',
+  SiteSettings: 'SiteSettings',
   User: 'User'
 } as const
 
@@ -124,6 +125,17 @@ export const RoleScalarFieldEnum = {
 } as const
 
 export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
+
+
+export const SiteSettingsScalarFieldEnum = {
+  id: 'id',
+  is10MlEnabled: 'is10MlEnabled',
+  is30MlEnabled: 'is30MlEnabled',
+  is55MlEnabled: 'is55MlEnabled',
+  is100MlEnabled: 'is100MlEnabled'
+} as const
+
+export type SiteSettingsScalarFieldEnum = (typeof SiteSettingsScalarFieldEnum)[keyof typeof SiteSettingsScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

@@ -39,3 +39,20 @@ export async function updateBestSellers(perfumeIds: number[]) {
   )
   return data
 }
+
+export type SizeSettings = {
+  is10MlEnabled: boolean
+  is30MlEnabled: boolean
+  is55MlEnabled: boolean
+  is100MlEnabled: boolean
+}
+
+export async function getSizeSettings(): Promise<SizeSettings> {
+  const { data } = await api.get<SizeSettings>('/admin/size-settings')
+  return data
+}
+
+export async function updateSizeSettings(payload: SizeSettings): Promise<SizeSettings> {
+  const { data } = await api.put<SizeSettings>('/admin/size-settings', payload)
+  return data
+}

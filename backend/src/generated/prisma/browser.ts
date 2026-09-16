@@ -38,6 +38,11 @@ export type Perfume = Prisma.PerfumeModel
  */
 export type Role = Prisma.RoleModel
 /**
+ * Model SiteSettings
+ * 
+ */
+export type SiteSettings = Prisma.SiteSettingsModel
+/**
  * Model User
  * 
  */
