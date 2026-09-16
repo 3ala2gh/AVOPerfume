@@ -13,6 +13,10 @@ model Perfume {
   price30Ml       Decimal  @default(6)
   price55Ml       Decimal  @default(8)
   price100Ml      Decimal  @default(15)
+  is10MlEnabled   Boolean  @default(true)
+  is30MlEnabled   Boolean  @default(true)
+  is55MlEnabled   Boolean  @default(true)
+  is100MlEnabled  Boolean  @default(true)
   discountPercent Decimal? @db.Decimal(5, 2)
   isBestSeller    Boolean  @default(false)
   bestSellerRank  Int?     @unique

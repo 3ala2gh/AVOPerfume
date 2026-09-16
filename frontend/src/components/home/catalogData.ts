@@ -59,6 +59,7 @@ function normalizeProductSizes(product: Product): ProductSizePrice[] {
         product.sizes?.find((item) => item.size === size)?.price ??
         DEFAULT_PERFUME_SIZE_PRICES[size],
     ),
+    enabled: product.sizes?.find((item) => item.size === size)?.enabled ?? true,
   }))
 }
 

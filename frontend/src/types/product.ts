@@ -4,6 +4,7 @@ export interface ProductSizePrice {
   size: PerfumeSize
   price: number
   originalPrice?: number
+  enabled?: boolean
 }
 
 export interface Product {
@@ -48,6 +49,10 @@ export interface CreateProductInput {
   price30Ml: number
   price55Ml: number
   price100Ml: number
+  is10MlEnabled?: boolean
+  is30MlEnabled?: boolean
+  is55MlEnabled?: boolean
+  is100MlEnabled?: boolean
   image: File
 }
 
@@ -62,6 +67,10 @@ export interface UpdateProductInput {
   price30Ml: number
   price55Ml: number
   price100Ml: number
+  is10MlEnabled?: boolean
+  is30MlEnabled?: boolean
+  is55MlEnabled?: boolean
+  is100MlEnabled?: boolean
   image?: File
 }
 

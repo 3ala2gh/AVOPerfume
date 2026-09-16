@@ -94,10 +94,30 @@ function normalizeProduct(product) {
     originalPrice55Ml: Number(product.originalPrice55Ml ?? product.originalPrice ?? price55Ml),
     originalPrice100Ml: Number(product.originalPrice100Ml ?? price100Ml),
     sizes: [
-      { size: "10ml", price: price10Ml, originalPrice: Number(product.originalPrice10Ml ?? price10Ml) },
-      { size: "30ml", price: price30Ml, originalPrice: Number(product.originalPrice30Ml ?? price30Ml) },
-      { size: "55ml", price: price55Ml, originalPrice: Number(product.originalPrice55Ml ?? product.originalPrice ?? price55Ml) },
-      { size: "100ml", price: price100Ml, originalPrice: Number(product.originalPrice100Ml ?? price100Ml) },
+      {
+        size: "10ml",
+        price: price10Ml,
+        originalPrice: Number(product.originalPrice10Ml ?? price10Ml),
+        enabled: product.sizes?.find((item) => item.size === "10ml")?.enabled ?? true,
+      },
+      {
+        size: "30ml",
+        price: price30Ml,
+        originalPrice: Number(product.originalPrice30Ml ?? price30Ml),
+        enabled: product.sizes?.find((item) => item.size === "30ml")?.enabled ?? true,
+      },
+      {
+        size: "55ml",
+        price: price55Ml,
+        originalPrice: Number(product.originalPrice55Ml ?? product.originalPrice ?? price55Ml),
+        enabled: product.sizes?.find((item) => item.size === "55ml")?.enabled ?? true,
+      },
+      {
+        size: "100ml",
+        price: price100Ml,
+        originalPrice: Number(product.originalPrice100Ml ?? price100Ml),
+        enabled: product.sizes?.find((item) => item.size === "100ml")?.enabled ?? true,
+      },
     ],
   };
 }

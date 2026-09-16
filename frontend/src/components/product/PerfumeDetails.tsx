@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { useI18n } from '../../hooks/useI18n'
 import type { PerfumeSize } from '../../types/product'
 import {
@@ -34,6 +34,16 @@ export default function PerfumeDetails({
 }: PerfumeDetailsProps) {
   const { t, categoryLabel, genderLabel } = useI18n()
   const isPage = variant === 'page'
+  const availableSizes = PERFUME_SIZE_OPTIONS.filter(
+    (size) => perfume.sizes.find((item) => item.size === size)?.enabled !== false,
+  )
+
+  useEffect(() => {
+    if (availableSizes.length > 0 && !availableSizes.includes(selectedSize)) {
+      onSelectSize(availableSizes[0])
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [perfume, selectedSize])
 
   return (
     <div
@@ -112,7 +122,7 @@ export default function PerfumeDetails({
                 : 'mb-3 grid grid-cols-2 gap-1 sm:mb-6 sm:grid-cols-4 sm:gap-2'
             }
           >
-            {PERFUME_SIZE_OPTIONS.map((size) => {
+            {availableSizes.map((size) => {
               const isActive = selectedSize === size
 
               return (

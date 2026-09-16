@@ -97,6 +97,10 @@ export class PerfumesService {
       price30Ml: input.price30Ml,
       price55Ml: input.price55Ml,
       price100Ml: input.price100Ml,
+      is10MlEnabled: input.is10MlEnabled ?? true,
+      is30MlEnabled: input.is30MlEnabled ?? true,
+      is55MlEnabled: input.is55MlEnabled ?? true,
+      is100MlEnabled: input.is100MlEnabled ?? true,
     };
   }
 

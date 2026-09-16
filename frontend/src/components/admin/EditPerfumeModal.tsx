@@ -17,6 +17,10 @@ type EditPerfumePayload = {
   price30Ml: number
   price55Ml: number
   price100Ml: number
+  is10MlEnabled: boolean
+  is30MlEnabled: boolean
+  is55MlEnabled: boolean
+  is100MlEnabled: boolean
   image?: File
 }
 
@@ -52,6 +56,18 @@ export default function EditPerfumeModal({
   const [price30Ml, setPrice30Ml] = useState(perfume ? String(perfume.price30Ml) : '6')
   const [price55Ml, setPrice55Ml] = useState(perfume ? String(perfume.price55Ml) : '8')
   const [price100Ml, setPrice100Ml] = useState(perfume ? String(perfume.price100Ml) : '15')
+  const [is10MlEnabled, setIs10MlEnabled] = useState(
+    perfume?.sizes.find((size) => size.size === '10ml')?.enabled ?? true,
+  )
+  const [is30MlEnabled, setIs30MlEnabled] = useState(
+    perfume?.sizes.find((size) => size.size === '30ml')?.enabled ?? true,
+  )
+  const [is55MlEnabled, setIs55MlEnabled] = useState(
+    perfume?.sizes.find((size) => size.size === '55ml')?.enabled ?? true,
+  )
+  const [is100MlEnabled, setIs100MlEnabled] = useState(
+    perfume?.sizes.find((size) => size.size === '100ml')?.enabled ?? true,
+  )
   const [image, setImage] = useState<File | null>(null)
   const [localError, setLocalError] = useState('')
 
@@ -100,6 +116,10 @@ export default function EditPerfumeModal({
       price30Ml: normalizedPrice30Ml,
       price55Ml: normalizedPrice55Ml,
       price100Ml: normalizedPrice100Ml,
+      is10MlEnabled,
+      is30MlEnabled,
+      is55MlEnabled,
+      is100MlEnabled,
       image: image ?? undefined,
     })
   }
@@ -173,6 +193,14 @@ export default function EditPerfumeModal({
                 value={price10Ml}
                 onChange={(event) => setPrice10Ml(event.target.value)}
               />
+              <label className="flex items-center gap-1.5 text-xs text-black/65">
+                <input
+                  type="checkbox"
+                  checked={is10MlEnabled}
+                  onChange={(event) => setIs10MlEnabled(event.target.checked)}
+                />
+                {t('admin.enabledForSale')}
+              </label>
             </div>
             <div className="space-y-1.5">
               <label htmlFor="edit-perfume-price-30ml" className="block text-xs text-black/65">
@@ -186,6 +214,14 @@ export default function EditPerfumeModal({
                 value={price30Ml}
                 onChange={(event) => setPrice30Ml(event.target.value)}
               />
+              <label className="flex items-center gap-1.5 text-xs text-black/65">
+                <input
+                  type="checkbox"
+                  checked={is30MlEnabled}
+                  onChange={(event) => setIs30MlEnabled(event.target.checked)}
+                />
+                {t('admin.enabledForSale')}
+              </label>
             </div>
             <div className="space-y-1.5">
               <label htmlFor="edit-perfume-price-55ml" className="block text-xs text-black/65">
@@ -199,6 +235,14 @@ export default function EditPerfumeModal({
                 value={price55Ml}
                 onChange={(event) => setPrice55Ml(event.target.value)}
               />
+              <label className="flex items-center gap-1.5 text-xs text-black/65">
+                <input
+                  type="checkbox"
+                  checked={is55MlEnabled}
+                  onChange={(event) => setIs55MlEnabled(event.target.checked)}
+                />
+                {t('admin.enabledForSale')}
+              </label>
             </div>
             <div className="space-y-1.5">
               <label htmlFor="edit-perfume-price-100ml" className="block text-xs text-black/65">
@@ -212,6 +256,14 @@ export default function EditPerfumeModal({
                 value={price100Ml}
                 onChange={(event) => setPrice100Ml(event.target.value)}
               />
+              <label className="flex items-center gap-1.5 text-xs text-black/65">
+                <input
+                  type="checkbox"
+                  checked={is100MlEnabled}
+                  onChange={(event) => setIs100MlEnabled(event.target.checked)}
+                />
+                {t('admin.enabledForSale')}
+              </label>
             </div>
           </div>
         </div>

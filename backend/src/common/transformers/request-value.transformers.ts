@@ -9,3 +9,7 @@ export function normalizeLowercaseString(value: unknown): unknown {
 export function toNumber(value: unknown): number {
   return Number(value);
 }
+
+export function toBoolean(value: unknown): boolean {
+  return value === true || value === 'true';
+}

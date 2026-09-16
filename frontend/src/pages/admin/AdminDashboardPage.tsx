@@ -108,6 +108,10 @@ function AdminDashboardPage({ onLogout }: AdminDashboardPageProps) {
         price30Ml: values.price30Ml,
         price55Ml: values.price55Ml,
         price100Ml: values.price100Ml,
+        is10MlEnabled: values.is10MlEnabled,
+        is30MlEnabled: values.is30MlEnabled,
+        is55MlEnabled: values.is55MlEnabled,
+        is100MlEnabled: values.is100MlEnabled,
         image: values.image,
       })
       await queryClient.invalidateQueries({ queryKey: ['products'] })

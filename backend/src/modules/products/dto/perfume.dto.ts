@@ -1,14 +1,17 @@
 import { Transform, type TransformFnParams } from 'class-transformer';
 import {
+  IsBoolean,
   IsIn,
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   Min,
 } from 'class-validator';
 import {
   normalizeLowercaseString,
+  toBoolean,
   toNumber,
   trimString,
 } from '../../../common/transformers/request-value.transformers.js';
@@ -54,4 +57,32 @@ export abstract class PerfumeDto {
   @IsNumber()
   @Min(0.01)
   price100Ml!: number;
+
+  @IsOptional()
+  @Transform(({ value }: TransformFnParams) =>
+    value === undefined ? undefined : toBoolean(value),
+  )
+  @IsBoolean()
+  is10MlEnabled?: boolean;
+
+  @IsOptional()
+  @Transform(({ value }: TransformFnParams) =>
+    value === undefined ? undefined : toBoolean(value),
+  )
+  @IsBoolean()
+  is30MlEnabled?: boolean;
+
+  @IsOptional()
+  @Transform(({ value }: TransformFnParams) =>
+    value === undefined ? undefined : toBoolean(value),
+  )
+  @IsBoolean()
+  is55MlEnabled?: boolean;
+
+  @IsOptional()
+  @Transform(({ value }: TransformFnParams) =>
+    value === undefined ? undefined : toBoolean(value),
+  )
+  @IsBoolean()
+  is100MlEnabled?: boolean;
 }

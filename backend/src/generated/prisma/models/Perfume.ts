@@ -59,6 +59,10 @@ export type PerfumeMinAggregateOutputType = {
   price30Ml: runtime.Decimal | null
   price55Ml: runtime.Decimal | null
   price100Ml: runtime.Decimal | null
+  is10MlEnabled: boolean | null
+  is30MlEnabled: boolean | null
+  is55MlEnabled: boolean | null
+  is100MlEnabled: boolean | null
   discountPercent: runtime.Decimal | null
   isBestSeller: boolean | null
   bestSellerRank: number | null
@@ -77,6 +81,10 @@ export type PerfumeMaxAggregateOutputType = {
   price30Ml: runtime.Decimal | null
   price55Ml: runtime.Decimal | null
   price100Ml: runtime.Decimal | null
+  is10MlEnabled: boolean | null
+  is30MlEnabled: boolean | null
+  is55MlEnabled: boolean | null
+  is100MlEnabled: boolean | null
   discountPercent: runtime.Decimal | null
   isBestSeller: boolean | null
   bestSellerRank: number | null
@@ -95,6 +103,10 @@ export type PerfumeCountAggregateOutputType = {
   price30Ml: number
   price55Ml: number
   price100Ml: number
+  is10MlEnabled: number
+  is30MlEnabled: number
+  is55MlEnabled: number
+  is100MlEnabled: number
   discountPercent: number
   isBestSeller: number
   bestSellerRank: number
@@ -139,6 +151,10 @@ export type PerfumeMinAggregateInputType = {
   price30Ml?: true
   price55Ml?: true
   price100Ml?: true
+  is10MlEnabled?: true
+  is30MlEnabled?: true
+  is55MlEnabled?: true
+  is100MlEnabled?: true
   discountPercent?: true
   isBestSeller?: true
   bestSellerRank?: true
@@ -157,6 +173,10 @@ export type PerfumeMaxAggregateInputType = {
   price30Ml?: true
   price55Ml?: true
   price100Ml?: true
+  is10MlEnabled?: true
+  is30MlEnabled?: true
+  is55MlEnabled?: true
+  is100MlEnabled?: true
   discountPercent?: true
   isBestSeller?: true
   bestSellerRank?: true
@@ -175,6 +195,10 @@ export type PerfumeCountAggregateInputType = {
   price30Ml?: true
   price55Ml?: true
   price100Ml?: true
+  is10MlEnabled?: true
+  is30MlEnabled?: true
+  is55MlEnabled?: true
+  is100MlEnabled?: true
   discountPercent?: true
   isBestSeller?: true
   bestSellerRank?: true
@@ -280,6 +304,10 @@ export type PerfumeGroupByOutputType = {
   price30Ml: runtime.Decimal
   price55Ml: runtime.Decimal
   price100Ml: runtime.Decimal
+  is10MlEnabled: boolean
+  is30MlEnabled: boolean
+  is55MlEnabled: boolean
+  is100MlEnabled: boolean
   discountPercent: runtime.Decimal | null
   isBestSeller: boolean
   bestSellerRank: number | null
@@ -321,6 +349,10 @@ export type PerfumeWhereInput = {
   price30Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: Prisma.BoolFilter<"Perfume"> | boolean
+  is30MlEnabled?: Prisma.BoolFilter<"Perfume"> | boolean
+  is55MlEnabled?: Prisma.BoolFilter<"Perfume"> | boolean
+  is100MlEnabled?: Prisma.BoolFilter<"Perfume"> | boolean
   discountPercent?: Prisma.DecimalNullableFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: Prisma.BoolFilter<"Perfume"> | boolean
   bestSellerRank?: Prisma.IntNullableFilter<"Perfume"> | number | null
@@ -340,6 +372,10 @@ export type PerfumeOrderByWithRelationInput = {
   price30Ml?: Prisma.SortOrder
   price55Ml?: Prisma.SortOrder
   price100Ml?: Prisma.SortOrder
+  is10MlEnabled?: Prisma.SortOrder
+  is30MlEnabled?: Prisma.SortOrder
+  is55MlEnabled?: Prisma.SortOrder
+  is100MlEnabled?: Prisma.SortOrder
   discountPercent?: Prisma.SortOrderInput | Prisma.SortOrder
   isBestSeller?: Prisma.SortOrder
   bestSellerRank?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -363,6 +399,10 @@ export type PerfumeWhereUniqueInput = Prisma.AtLeast<{
   price30Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: Prisma.BoolFilter<"Perfume"> | boolean
+  is30MlEnabled?: Prisma.BoolFilter<"Perfume"> | boolean
+  is55MlEnabled?: Prisma.BoolFilter<"Perfume"> | boolean
+  is100MlEnabled?: Prisma.BoolFilter<"Perfume"> | boolean
   discountPercent?: Prisma.DecimalNullableFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: Prisma.BoolFilter<"Perfume"> | boolean
   description?: Prisma.StringNullableFilter<"Perfume"> | string | null
@@ -381,6 +421,10 @@ export type PerfumeOrderByWithAggregationInput = {
   price30Ml?: Prisma.SortOrder
   price55Ml?: Prisma.SortOrder
   price100Ml?: Prisma.SortOrder
+  is10MlEnabled?: Prisma.SortOrder
+  is30MlEnabled?: Prisma.SortOrder
+  is55MlEnabled?: Prisma.SortOrder
+  is100MlEnabled?: Prisma.SortOrder
   discountPercent?: Prisma.SortOrderInput | Prisma.SortOrder
   isBestSeller?: Prisma.SortOrder
   bestSellerRank?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -407,6 +451,10 @@ export type PerfumeScalarWhereWithAggregatesInput = {
   price30Ml?: Prisma.DecimalWithAggregatesFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalWithAggregatesFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalWithAggregatesFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: Prisma.BoolWithAggregatesFilter<"Perfume"> | boolean
+  is30MlEnabled?: Prisma.BoolWithAggregatesFilter<"Perfume"> | boolean
+  is55MlEnabled?: Prisma.BoolWithAggregatesFilter<"Perfume"> | boolean
+  is100MlEnabled?: Prisma.BoolWithAggregatesFilter<"Perfume"> | boolean
   discountPercent?: Prisma.DecimalNullableWithAggregatesFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: Prisma.BoolWithAggregatesFilter<"Perfume"> | boolean
   bestSellerRank?: Prisma.IntNullableWithAggregatesFilter<"Perfume"> | number | null
@@ -424,6 +472,10 @@ export type PerfumeCreateInput = {
   price30Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: boolean
+  is30MlEnabled?: boolean
+  is55MlEnabled?: boolean
+  is100MlEnabled?: boolean
   discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: boolean
   bestSellerRank?: number | null
@@ -442,6 +494,10 @@ export type PerfumeUncheckedCreateInput = {
   price30Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: boolean
+  is30MlEnabled?: boolean
+  is55MlEnabled?: boolean
+  is100MlEnabled?: boolean
   discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: boolean
   bestSellerRank?: number | null
@@ -459,6 +515,10 @@ export type PerfumeUpdateInput = {
   price30Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is30MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is55MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is100MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bestSellerRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -477,6 +537,10 @@ export type PerfumeUncheckedUpdateInput = {
   price30Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is30MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is55MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is100MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bestSellerRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -495,6 +559,10 @@ export type PerfumeCreateManyInput = {
   price30Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: boolean
+  is30MlEnabled?: boolean
+  is55MlEnabled?: boolean
+  is100MlEnabled?: boolean
   discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: boolean
   bestSellerRank?: number | null
@@ -512,6 +580,10 @@ export type PerfumeUpdateManyMutationInput = {
   price30Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is30MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is55MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is100MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bestSellerRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -529,6 +601,10 @@ export type PerfumeUncheckedUpdateManyInput = {
   price30Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is30MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is55MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is100MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bestSellerRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -557,6 +633,10 @@ export type PerfumeCountOrderByAggregateInput = {
   price30Ml?: Prisma.SortOrder
   price55Ml?: Prisma.SortOrder
   price100Ml?: Prisma.SortOrder
+  is10MlEnabled?: Prisma.SortOrder
+  is30MlEnabled?: Prisma.SortOrder
+  is55MlEnabled?: Prisma.SortOrder
+  is100MlEnabled?: Prisma.SortOrder
   discountPercent?: Prisma.SortOrder
   isBestSeller?: Prisma.SortOrder
   bestSellerRank?: Prisma.SortOrder
@@ -587,6 +667,10 @@ export type PerfumeMaxOrderByAggregateInput = {
   price30Ml?: Prisma.SortOrder
   price55Ml?: Prisma.SortOrder
   price100Ml?: Prisma.SortOrder
+  is10MlEnabled?: Prisma.SortOrder
+  is30MlEnabled?: Prisma.SortOrder
+  is55MlEnabled?: Prisma.SortOrder
+  is100MlEnabled?: Prisma.SortOrder
   discountPercent?: Prisma.SortOrder
   isBestSeller?: Prisma.SortOrder
   bestSellerRank?: Prisma.SortOrder
@@ -605,6 +689,10 @@ export type PerfumeMinOrderByAggregateInput = {
   price30Ml?: Prisma.SortOrder
   price55Ml?: Prisma.SortOrder
   price100Ml?: Prisma.SortOrder
+  is10MlEnabled?: Prisma.SortOrder
+  is30MlEnabled?: Prisma.SortOrder
+  is55MlEnabled?: Prisma.SortOrder
+  is100MlEnabled?: Prisma.SortOrder
   discountPercent?: Prisma.SortOrder
   isBestSeller?: Prisma.SortOrder
   bestSellerRank?: Prisma.SortOrder
@@ -680,16 +768,16 @@ export type DecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type NullableDecimalFieldUpdateOperationsInput = {
   set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
   decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
   multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
-}
-
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -712,6 +800,10 @@ export type PerfumeCreateWithoutCategoryInput = {
   price30Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: boolean
+  is30MlEnabled?: boolean
+  is55MlEnabled?: boolean
+  is100MlEnabled?: boolean
   discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: boolean
   bestSellerRank?: number | null
@@ -729,6 +821,10 @@ export type PerfumeUncheckedCreateWithoutCategoryInput = {
   price30Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: boolean
+  is30MlEnabled?: boolean
+  is55MlEnabled?: boolean
+  is100MlEnabled?: boolean
   discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: boolean
   bestSellerRank?: number | null
@@ -775,6 +871,10 @@ export type PerfumeScalarWhereInput = {
   price30Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: Prisma.BoolFilter<"Perfume"> | boolean
+  is30MlEnabled?: Prisma.BoolFilter<"Perfume"> | boolean
+  is55MlEnabled?: Prisma.BoolFilter<"Perfume"> | boolean
+  is100MlEnabled?: Prisma.BoolFilter<"Perfume"> | boolean
   discountPercent?: Prisma.DecimalNullableFilter<"Perfume"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: Prisma.BoolFilter<"Perfume"> | boolean
   bestSellerRank?: Prisma.IntNullableFilter<"Perfume"> | number | null
@@ -793,6 +893,10 @@ export type PerfumeCreateManyCategoryInput = {
   price30Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: boolean
+  is30MlEnabled?: boolean
+  is55MlEnabled?: boolean
+  is100MlEnabled?: boolean
   discountPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: boolean
   bestSellerRank?: number | null
@@ -809,6 +913,10 @@ export type PerfumeUpdateWithoutCategoryInput = {
   price30Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is30MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is55MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is100MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bestSellerRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -826,6 +934,10 @@ export type PerfumeUncheckedUpdateWithoutCategoryInput = {
   price30Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is30MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is55MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is100MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bestSellerRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -843,6 +955,10 @@ export type PerfumeUncheckedUpdateManyWithoutCategoryInput = {
   price30Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price55Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   price100Ml?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  is10MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is30MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is55MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is100MlEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   discountPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isBestSeller?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bestSellerRank?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -862,6 +978,10 @@ export type PerfumeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   price30Ml?: boolean
   price55Ml?: boolean
   price100Ml?: boolean
+  is10MlEnabled?: boolean
+  is30MlEnabled?: boolean
+  is55MlEnabled?: boolean
+  is100MlEnabled?: boolean
   discountPercent?: boolean
   isBestSeller?: boolean
   bestSellerRank?: boolean
@@ -881,6 +1001,10 @@ export type PerfumeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   price30Ml?: boolean
   price55Ml?: boolean
   price100Ml?: boolean
+  is10MlEnabled?: boolean
+  is30MlEnabled?: boolean
+  is55MlEnabled?: boolean
+  is100MlEnabled?: boolean
   discountPercent?: boolean
   isBestSeller?: boolean
   bestSellerRank?: boolean
@@ -900,6 +1024,10 @@ export type PerfumeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   price30Ml?: boolean
   price55Ml?: boolean
   price100Ml?: boolean
+  is10MlEnabled?: boolean
+  is30MlEnabled?: boolean
+  is55MlEnabled?: boolean
+  is100MlEnabled?: boolean
   discountPercent?: boolean
   isBestSeller?: boolean
   bestSellerRank?: boolean
@@ -919,6 +1047,10 @@ export type PerfumeSelectScalar = {
   price30Ml?: boolean
   price55Ml?: boolean
   price100Ml?: boolean
+  is10MlEnabled?: boolean
+  is30MlEnabled?: boolean
+  is55MlEnabled?: boolean
+  is100MlEnabled?: boolean
   discountPercent?: boolean
   isBestSeller?: boolean
   bestSellerRank?: boolean
@@ -928,7 +1060,7 @@ export type PerfumeSelectScalar = {
   createdAt?: boolean
 }
 
-export type PerfumeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "gender" | "price" | "price10Ml" | "price30Ml" | "price55Ml" | "price100Ml" | "discountPercent" | "isBestSeller" | "bestSellerRank" | "description" | "imageUrl" | "categoryId" | "createdAt", ExtArgs["result"]["perfume"]>
+export type PerfumeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "gender" | "price" | "price10Ml" | "price30Ml" | "price55Ml" | "price100Ml" | "is10MlEnabled" | "is30MlEnabled" | "is55MlEnabled" | "is100MlEnabled" | "discountPercent" | "isBestSeller" | "bestSellerRank" | "description" | "imageUrl" | "categoryId" | "createdAt", ExtArgs["result"]["perfume"]>
 export type PerfumeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
 }
@@ -953,6 +1085,10 @@ export type $PerfumePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     price30Ml: runtime.Decimal
     price55Ml: runtime.Decimal
     price100Ml: runtime.Decimal
+    is10MlEnabled: boolean
+    is30MlEnabled: boolean
+    is55MlEnabled: boolean
+    is100MlEnabled: boolean
     discountPercent: runtime.Decimal | null
     isBestSeller: boolean
     bestSellerRank: number | null
@@ -1392,6 +1528,10 @@ export interface PerfumeFieldRefs {
   readonly price30Ml: Prisma.FieldRef<"Perfume", 'Decimal'>
   readonly price55Ml: Prisma.FieldRef<"Perfume", 'Decimal'>
   readonly price100Ml: Prisma.FieldRef<"Perfume", 'Decimal'>
+  readonly is10MlEnabled: Prisma.FieldRef<"Perfume", 'Boolean'>
+  readonly is30MlEnabled: Prisma.FieldRef<"Perfume", 'Boolean'>
+  readonly is55MlEnabled: Prisma.FieldRef<"Perfume", 'Boolean'>
+  readonly is100MlEnabled: Prisma.FieldRef<"Perfume", 'Boolean'>
   readonly discountPercent: Prisma.FieldRef<"Perfume", 'Decimal'>
   readonly isBestSeller: Prisma.FieldRef<"Perfume", 'Boolean'>
   readonly bestSellerRank: Prisma.FieldRef<"Perfume", 'Int'>

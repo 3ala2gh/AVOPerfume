@@ -13,6 +13,10 @@ export type PerfumeInput = {
   price30Ml: number;
   price55Ml: number;
   price100Ml: number;
+  is10MlEnabled?: boolean;
+  is30MlEnabled?: boolean;
+  is55MlEnabled?: boolean;
+  is100MlEnabled?: boolean;
 };
 
 export type CreatePerfumeInput = PerfumeInput & {

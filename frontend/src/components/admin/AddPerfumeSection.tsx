@@ -44,6 +44,10 @@ export default function AddPerfumeSection({
       price30Ml: 6,
       price55Ml: 8,
       price100Ml: 15,
+      is10MlEnabled: true,
+      is30MlEnabled: true,
+      is55MlEnabled: true,
+      is100MlEnabled: true,
     },
   })
 
@@ -65,6 +69,10 @@ export default function AddPerfumeSection({
         price30Ml: values.price30Ml,
         price55Ml: values.price55Ml,
         price100Ml: values.price100Ml,
+        is10MlEnabled: values.is10MlEnabled,
+        is30MlEnabled: values.is30MlEnabled,
+        is55MlEnabled: values.is55MlEnabled,
+        is100MlEnabled: values.is100MlEnabled,
         image,
       })
       await queryClient.invalidateQueries({ queryKey: ['products'] })
@@ -141,6 +149,10 @@ export default function AddPerfumeSection({
                 {...register('price10Ml', { valueAsNumber: true })}
               />
               {errors.price10Ml && <p className="text-xs text-red-600">{errors.price10Ml.message}</p>}
+              <label className="flex items-center gap-1.5 text-xs text-black/65">
+                <input type="checkbox" {...register('is10MlEnabled')} />
+                {t('admin.enabledForSale')}
+              </label>
             </div>
             <div className="space-y-1.5">
               <label htmlFor="perfume-price-30ml" className="block text-xs text-black/65">
@@ -154,6 +166,10 @@ export default function AddPerfumeSection({
                 {...register('price30Ml', { valueAsNumber: true })}
               />
               {errors.price30Ml && <p className="text-xs text-red-600">{errors.price30Ml.message}</p>}
+              <label className="flex items-center gap-1.5 text-xs text-black/65">
+                <input type="checkbox" {...register('is30MlEnabled')} />
+                {t('admin.enabledForSale')}
+              </label>
             </div>
             <div className="space-y-1.5">
               <label htmlFor="perfume-price-55ml" className="block text-xs text-black/65">
@@ -167,6 +183,10 @@ export default function AddPerfumeSection({
                 {...register('price55Ml', { valueAsNumber: true })}
               />
               {errors.price55Ml && <p className="text-xs text-red-600">{errors.price55Ml.message}</p>}
+              <label className="flex items-center gap-1.5 text-xs text-black/65">
+                <input type="checkbox" {...register('is55MlEnabled')} />
+                {t('admin.enabledForSale')}
+              </label>
             </div>
             <div className="space-y-1.5">
               <label htmlFor="perfume-price-100ml" className="block text-xs text-black/65">
@@ -180,6 +200,10 @@ export default function AddPerfumeSection({
                 {...register('price100Ml', { valueAsNumber: true })}
               />
               {errors.price100Ml && <p className="text-xs text-red-600">{errors.price100Ml.message}</p>}
+              <label className="flex items-center gap-1.5 text-xs text-black/65">
+                <input type="checkbox" {...register('is100MlEnabled')} />
+                {t('admin.enabledForSale')}
+              </label>
             </div>
           </div>
         </div>

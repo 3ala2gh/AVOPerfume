@@ -181,6 +181,7 @@ const translations = {
       creating: "Creating...",
       selectCategory: "Select category",
       sizePrices: "Size Prices",
+      enabledForSale: "Enabled for sale",
       searchEditPerfumes: "Search and Edit Perfumes",
       searchPerfumesPlaceholder:
         "Search by name, category, description, or price",
@@ -397,6 +398,7 @@ const translations = {
       creating: "جاري الإنشاء...",
       selectCategory: "اختر الفئة",
       sizePrices: "أسعار الأحجام",
+      enabledForSale: "متاح للبيع",
       searchEditPerfumes: "بحث وتعديل العطور",
       searchPerfumesPlaceholder: "ابحث بالاسم أو الفئة أو الوصف أو السعر",
       loadingPerfumes: "جاري تحميل العطور...",

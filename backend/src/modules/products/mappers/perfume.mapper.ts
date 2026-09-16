@@ -11,6 +11,10 @@ export type PerfumeWithCategory = {
   price30Ml: Prisma.Decimal;
   price55Ml: Prisma.Decimal;
   price100Ml: Prisma.Decimal;
+  is10MlEnabled: boolean;
+  is30MlEnabled: boolean;
+  is55MlEnabled: boolean;
+  is100MlEnabled: boolean;
   discountPercent: Prisma.Decimal | null;
   isBestSeller: boolean;
   bestSellerRank: number | null;
@@ -53,21 +57,25 @@ export function mapPerfume(perfume: PerfumeWithCategory) {
         size: '10ml',
         price: discountedPrice(perfume.price10Ml),
         originalPrice: Number(perfume.price10Ml),
+        enabled: perfume.is10MlEnabled,
       },
       {
         size: '30ml',
         price: discountedPrice(perfume.price30Ml),
         originalPrice: Number(perfume.price30Ml),
+        enabled: perfume.is30MlEnabled,
       },
       {
         size: '55ml',
         price: discountedPrice(perfume.price55Ml),
         originalPrice: Number(perfume.price55Ml),
+        enabled: perfume.is55MlEnabled,
       },
       {
         size: '100ml',
         price: discountedPrice(perfume.price100Ml),
         originalPrice: Number(perfume.price100Ml),
+        enabled: perfume.is100MlEnabled,
       },
     ],
     imageUrl: perfume.imageUrl,
