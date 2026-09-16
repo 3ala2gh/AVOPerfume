@@ -7,15 +7,30 @@ function ProductsPage() {
   const { t } = useI18n()
 
   return (
-    <main className="container">
-      <h1>{t('products.title')}</h1>
-      <p className="lead">{t('products.subtitle')}</p>
-      {isLoading && <p>{t('common.loadingProducts')}</p>}
-      <section className="card-grid">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </section>
+    <main className="min-h-screen bg-ivory">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+        <header className="mb-12 text-center">
+          <h1 className="font-display text-4xl font-light tracking-wide sm:text-5xl">
+            {t('products.title')}
+          </h1>
+          <div className="mx-auto my-6 h-px w-20 bg-gradient-to-r from-transparent via-champagne to-transparent" />
+          <p className="mx-auto max-w-lg text-sm font-light leading-relaxed text-ink-muted">
+            {t('products.subtitle')}
+          </p>
+        </header>
+
+        {isLoading && (
+          <p className="text-center text-[11px] uppercase tracking-luxe text-ink-muted">
+            {t('common.loadingProducts')}
+          </p>
+        )}
+
+        <section className="grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-3 lg:gap-x-8">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </section>
+      </div>
     </main>
   )
 }

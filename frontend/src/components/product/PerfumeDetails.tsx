@@ -6,8 +6,8 @@ import {
   PERFUME_SIZE_OPTIONS,
   type Perfume,
 } from '../home/catalogData'
-import Button from '../common/ui/Button'
 import SalePrice from './SalePrice'
+import SaleBadge from './SaleBadge'
 import {
   getCloudinarySrcSet,
   getOptimizedCloudinaryUrl,
@@ -56,10 +56,14 @@ export default function PerfumeDetails({
       <div
         className={
           isPage
-            ? 'relative aspect-square'
-            : 'perfume-modal-details__image relative aspect-square w-full overflow-hidden sm:aspect-[9/16]'
+            ? 'relative aspect-square bg-sand'
+            : 'perfume-modal-details__image relative aspect-square w-full overflow-hidden bg-sand sm:aspect-[9/16]'
         }
       >
+        <SaleBadge
+          discountPercent={perfume.discountPercent}
+          className="absolute left-4 top-4 z-10"
+        />
         <img
           src={getOptimizedCloudinaryUrl(perfume.image, { width: 1200 })}
           srcSet={getCloudinarySrcSet(perfume.image, [600, 900, 1200, 1600])}
@@ -67,59 +71,59 @@ export default function PerfumeDetails({
           alt={perfume.name}
           className={
             isPage
-              ? 'h-full w-full object-contain'
-              : 'h-full w-full object-contain sm:object-cover'
+              ? 'h-full w-full object-contain p-6'
+              : 'h-full w-full object-contain p-4 sm:object-cover sm:p-0'
           }
           decoding="async"
         />
       </div>
 
-      <div className={isPage ? 'p-6 md:p-10' : 'min-w-0 p-3 sm:p-6 md:p-8'}>
-        <div className={isPage ? 'mb-6' : 'mb-3 sm:mb-6'}>
-          <p
-            className={
-              isPage
-                ? 'mb-2 text-xs uppercase tracking-[0.18em] text-black/50'
-                : 'mb-1 text-[10px] uppercase tracking-[0.12em] text-black/50 sm:mb-2 sm:text-xs sm:tracking-[0.18em]'
-            }
-          >
+      <div className={isPage ? 'p-6 md:p-12' : 'min-w-0 p-4 sm:p-8 md:p-10'}>
+        <div className={isPage ? 'mb-8' : 'mb-4 sm:mb-7'}>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-ink-muted">
             {categoryLabel(perfume.category, perfume.categoryAr)}
           </p>
           {showGender ? (
-            <p
-              className={
-                isPage
-                  ? 'mb-3 text-xs uppercase tracking-[0.16em] text-black/45'
-                  : 'mb-2 text-[10px] uppercase tracking-[0.12em] text-black/45 sm:mb-3 sm:text-xs sm:tracking-[0.16em]'
-              }
-            >
+            <p className="mb-3 text-[10px] uppercase tracking-widest text-ink/35">
               {genderLabel(perfume.gender)}
             </p>
           ) : null}
+
           <h1
             className={
               isPage
-                ? 'mb-4 text-3xl tracking-wide md:text-4xl'
-                : 'mb-2 break-words text-lg tracking-wide sm:mb-4 sm:text-3xl md:text-4xl'
+                ? 'font-display text-4xl font-light leading-tight tracking-wide md:text-5xl'
+                : 'break-words font-display text-2xl font-light leading-tight tracking-wide sm:text-4xl'
             }
           >
             {perfume.name}
           </h1>
+
+          <div className="my-4 h-px w-14 bg-champagne/50 sm:my-5" />
+
           <p
             className={
               isPage
-                ? 'mb-4 text-2xl tracking-wide md:text-3xl'
-                : 'mb-3 text-base tracking-wide sm:mb-4 sm:text-2xl md:text-3xl'
+                ? 'mb-7 text-2xl font-light tracking-wide md:text-3xl'
+                : 'mb-4 text-lg font-light tracking-wide sm:mb-6 sm:text-2xl'
             }
           >
-            <SalePrice price={getPerfumeSizePrice(perfume, selectedSize)} originalPrice={perfume.sizes.find((item) => item.size === selectedSize)?.originalPrice} />
+            <SalePrice
+              price={getPerfumeSizePrice(perfume, selectedSize)}
+              originalPrice={
+                perfume.sizes.find((item) => item.size === selectedSize)?.originalPrice
+              }
+            />
           </p>
 
+          <p className="mb-3 text-[10px] uppercase tracking-widest text-ink-muted">
+            {t('common.size')}
+          </p>
           <div
             className={
               isPage
-                ? 'mb-6 grid grid-cols-4 gap-2'
-                : 'mb-3 grid grid-cols-2 gap-1 sm:mb-6 sm:grid-cols-4 sm:gap-2'
+                ? 'mb-8 grid grid-cols-4 gap-2.5'
+                : 'mb-4 grid grid-cols-2 gap-2 sm:mb-6 sm:grid-cols-4 sm:gap-2.5'
             }
           >
             {availableSizes.map((size) => {
@@ -130,31 +134,22 @@ export default function PerfumeDetails({
                   key={size}
                   type="button"
                   onClick={() => onSelectSize(size)}
-                  className={`min-w-0 border text-center transition-colors ${
-                    isPage ? 'px-2 py-2' : 'px-0.5 py-1.5 sm:px-2 sm:py-2'
-                  } ${
+                  className={`min-w-0 border px-2 py-2.5 text-center transition-all duration-300 ease-luxe ${
                     isActive
-                      ? 'border-black bg-black text-white'
-                      : 'border-black/20 hover:border-black'
+                      ? 'border-champagne bg-champagne text-white'
+                      : 'border-ink/15 text-ink hover:border-champagne hover:text-champagne'
                   }`}
                 >
-                  <span
-                    className={
-                      isPage
-                        ? 'block text-xs tracking-wide'
-                        : 'block text-[9px] tracking-wide sm:text-xs'
-                    }
-                  >
+                  <span className="block text-[10px] uppercase tracking-widest">
                     {size}
                   </span>
-                  <span
-                    className={
-                      isPage
-                        ? 'block text-sm font-medium'
-                        : 'block text-[10px] font-medium sm:text-sm'
-                    }
-                  >
-                    <SalePrice price={getPerfumeSizePrice(perfume, size)} originalPrice={perfume.sizes.find((item) => item.size === size)?.originalPrice} />
+                  <span className="mt-1 block text-xs font-light">
+                    <SalePrice
+                      price={getPerfumeSizePrice(perfume, size)}
+                      originalPrice={
+                        perfume.sizes.find((item) => item.size === size)?.originalPrice
+                      }
+                    />
                   </span>
                 </button>
               )
@@ -164,8 +159,8 @@ export default function PerfumeDetails({
           <p
             className={
               isPage
-                ? 'text-base leading-relaxed text-black/70 md:text-lg'
-                : 'perfume-modal-details__description line-clamp-4 text-xs leading-relaxed text-black/70 sm:line-clamp-none sm:text-base md:text-lg'
+                ? 'text-sm font-light leading-relaxed text-ink-muted md:text-base'
+                : 'perfume-modal-details__description line-clamp-4 text-xs font-light leading-relaxed text-ink-muted sm:line-clamp-none sm:text-sm'
             }
           >
             {perfume.description}
@@ -173,17 +168,15 @@ export default function PerfumeDetails({
         </div>
 
         <div className="space-y-3">
-          <Button
+          <button
             type="button"
             onClick={onAddToCart}
-            className={
-              isPage
-                ? 'w-full rounded-none py-4 tracking-wide'
-                : 'w-full rounded-none px-2 py-2 text-xs tracking-wide sm:py-4 sm:text-sm'
-            }
+            className={`w-full bg-ink text-[11px] font-medium uppercase tracking-luxe text-white transition-all duration-500 ease-luxe hover:bg-champagne ${
+              isPage ? 'py-4' : 'py-3.5'
+            }`}
           >
             {t('common.addToCart')}
-          </Button>
+          </button>
           {secondaryAction}
         </div>
       </div>

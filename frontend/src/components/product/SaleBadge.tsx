@@ -11,7 +11,9 @@ export default function SaleBadge({ discountPercent, className = '' }: SaleBadge
   if (!discountPercent) return null
 
   return (
-    <span className={`rounded-full bg-black px-3 py-1 text-xs text-white ${className}`}>
+    <span
+      className={`inline-block bg-champagne px-2.5 py-1 text-[9px] font-medium uppercase tracking-widest text-white ${className}`}
+    >
       {t('common.sale')} {discountPercent}%
     </span>
   )

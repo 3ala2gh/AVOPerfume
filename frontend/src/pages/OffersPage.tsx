@@ -21,23 +21,30 @@ function OffersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-black">
-      <section className="bg-black py-14 text-white sm:py-16 lg:py-20">
-        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <h1 className="mb-3 text-3xl tracking-[0.18em] sm:text-4xl md:text-6xl">{t('offers.title')}</h1>
-          <p className="text-sm tracking-wide opacity-90 sm:text-base lg:text-lg">
+    <div className="min-h-screen bg-ivory text-ink">
+      <section className="relative overflow-hidden bg-ink py-20 text-white sm:py-24">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(184,146,90,0.18),transparent_60%)]" />
+        <div className="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+          <p className="eyebrow mb-4">{t('nav.offers')}</p>
+          <h1 className="font-display text-4xl font-light tracking-wide sm:text-6xl">
+            {t('offers.title')}
+          </h1>
+          <div className="mx-auto my-6 h-px w-20 bg-gradient-to-r from-transparent via-champagne to-transparent" />
+          <p className="mx-auto max-w-lg text-sm font-light leading-relaxed text-white/60 sm:text-base">
             {t('offers.subtitle')}
           </p>
         </div>
       </section>
 
-      <section className="px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10">
+      <section className="px-4 py-10 sm:px-6 sm:py-12 lg:px-10">
         {offers.length === 0 ? (
-          <div className="mx-auto w-full max-w-7xl">
-            <p className="text-black/70">{t('offers.empty')}</p>
+          <div className="mx-auto w-full max-w-7xl border border-ink/10 bg-white px-4 py-16 text-center">
+            <p className="font-display text-xl font-light text-ink-muted">
+              {t('offers.empty')}
+            </p>
           </div>
         ) : (
-          <div className="relative mx-auto w-full max-w-[1500px] overflow-hidden bg-black/5 shadow-sm">
+          <div className="relative mx-auto w-full max-w-[1500px] overflow-hidden bg-sand">
             <img
               src={getOptimizedCloudinaryUrl(offers[activeIndex]?.imageUrl ?? '', {
                 width: 1600,
@@ -58,17 +65,17 @@ function OffersPage() {
                   type="button"
                   aria-label={t('offers.previous')}
                   onClick={goPrevious}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 p-2 text-white transition-colors hover:bg-black sm:left-5"
+                  className="absolute left-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/60 text-white backdrop-blur-sm transition-colors hover:bg-champagne sm:left-5"
                 >
-                  <ChevronLeft className="h-6 w-6" />
+                  <ChevronLeft className="h-5 w-5" />
                 </button>
                 <button
                   type="button"
                   aria-label={t('offers.next')}
                   onClick={goNext}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 p-2 text-white transition-colors hover:bg-black sm:right-5"
+                  className="absolute right-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/60 text-white backdrop-blur-sm transition-colors hover:bg-champagne sm:right-5"
                 >
-                  <ChevronRight className="h-6 w-6" />
+                  <ChevronRight className="h-5 w-5" />
                 </button>
               </>
             )}

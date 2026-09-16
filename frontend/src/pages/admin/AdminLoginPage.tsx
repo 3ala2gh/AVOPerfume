@@ -28,13 +28,19 @@ function AdminLoginPage({ onLogin }: AdminLoginPageProps) {
   const onSubmit = useAdminLoginSubmit({ onLogin, setError })
 
   return (
-    <main className="container">
-      <h1>{t('admin.loginTitle')}</h1>
-      <p className="lead">{t('admin.loginSubtitle')}</p>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="max-w-sm space-y-4 rounded-xl border border-black/10 bg-white/90 p-5"
-      >
+    <main className="flex min-h-screen items-center justify-center bg-ivory px-4 py-16">
+      <div className="w-full max-w-sm">
+        <div className="mb-8 text-center">
+          <h1 className="font-display text-3xl font-light tracking-wide">
+            {t('admin.loginTitle')}
+          </h1>
+          <div className="mx-auto my-5 h-px w-16 bg-gradient-to-r from-transparent via-champagne to-transparent" />
+          <p className="text-sm font-light text-ink-muted">{t('admin.loginSubtitle')}</p>
+        </div>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-4 border border-ink/10 bg-white p-6 shadow-card"
+        >
         <div className="space-y-2">
           <label htmlFor="admin-email" className="block text-sm font-medium">
             {t('common.email')}
@@ -57,15 +63,12 @@ function AdminLoginPage({ onLogin }: AdminLoginPageProps) {
           />
           {errors.password && <p className="text-sm text-red-600">{errors.password.message}</p>}
         </div>
-        {errors.root && <p className="text-sm text-red-600">{errors.root.message}</p>}
-        <Button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full"
-        >
-          {isSubmitting ? t('admin.loggingIn') : t('admin.login')}
-        </Button>
-      </form>
+          {errors.root && <p className="text-sm text-red-600">{errors.root.message}</p>}
+          <Button type="submit" disabled={isSubmitting} className="w-full">
+            {isSubmitting ? t('admin.loggingIn') : t('admin.login')}
+          </Button>
+        </form>
+      </div>
     </main>
   )
 }

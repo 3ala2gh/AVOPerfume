@@ -8,6 +8,8 @@ function App() {
 
   const isAdminRoute = location.pathname.startsWith('/admin')
   const isAdminLoginRoute = location.pathname === '/admin/login'
+  // The home hero runs full-bleed beneath the transparent navbar.
+  const isHomeRoute = location.pathname === '/'
 
   useEffect(() => {
     if (location.hash) {
@@ -32,7 +34,11 @@ function App() {
   return (
     <>
       {!isAdminRoute && <Navbar />}
-      <main style={{ paddingTop: isAdminRoute || isAdminLoginRoute ? 0 : 64 }}>
+      <main
+        style={{
+          paddingTop: isAdminRoute || isAdminLoginRoute || isHomeRoute ? 0 : 72,
+        }}
+      >
         <AppRouter />
       </main>
     </>

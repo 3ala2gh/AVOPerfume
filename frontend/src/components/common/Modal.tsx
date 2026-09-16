@@ -51,7 +51,7 @@ export default function Modal({
     <AnimatePresence>
       {isOpen ? (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-2 sm:p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/60 p-2 backdrop-blur-sm sm:p-4"
           onClick={onClose}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -61,7 +61,7 @@ export default function Modal({
             role="dialog"
             aria-modal="true"
             aria-label={title ?? "Modal"}
-            className={`relative max-h-[95vh] w-full overflow-y-auto bg-white ${sizeClassMap[size]}`}
+            className={`relative max-h-[95vh] w-full overflow-y-auto bg-white shadow-lift ${sizeClassMap[size]}`}
             onClick={(event) => event.stopPropagation()}
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -71,7 +71,7 @@ export default function Modal({
             <button
               type="button"
               onClick={onClose}
-              className="absolute right-3 top-3 z-30 border border-black bg-white p-1 text-black shadow-sm transition-colors hover:bg-black hover:text-white"
+              className="absolute right-3 top-3 z-30 inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 bg-white/90 text-ink backdrop-blur-sm transition-all duration-300 hover:border-champagne hover:bg-champagne hover:text-white"
               aria-label={t('common.closeModal')}
             >
               <X className="h-4 w-4" />

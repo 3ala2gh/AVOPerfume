@@ -1,7 +1,8 @@
-import { ArrowRight, ChevronLeft, ChevronRight, Plus, ShoppingCart } from 'lucide-react'
+import { ArrowRight, ChevronLeft, ChevronRight, Plus } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import Modal from '../common/Modal'
+import Reveal from '../common/Reveal'
 import PerfumeDetails from '../product/PerfumeDetails'
 import SaleBadge from '../product/SaleBadge'
 import SalePrice from '../product/SalePrice'
@@ -40,15 +41,15 @@ export default function BestSellersSection({ perfumes }: Props) {
   if (bestSellers.length === 0) return null
 
   return (
-    <section id="best-sellers" className="bg-[#f3efe8] py-16 sm:py-20">
+    <section id="best-sellers" className="scroll-mt-24 bg-ivory py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-7 flex items-end justify-between gap-5 sm:mb-10">
+        <Reveal className="mb-10 flex items-end justify-between gap-6 sm:mb-14">
           <div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.28em] text-black/50">
-              {t('home.customerFavorites')}
-            </p>
-            <h2 className="text-2xl tracking-wider sm:text-4xl">{t('home.bestSellers')}</h2>
-            <p className="mt-2 max-w-xl text-sm text-black/60 sm:text-base">
+            <p className="eyebrow mb-3">{t('home.customerFavorites')}</p>
+            <h2 className="font-display text-4xl font-light tracking-wide sm:text-5xl lg:text-6xl">
+              {t('home.bestSellers')}
+            </h2>
+            <p className="mt-4 max-w-md text-sm font-light leading-relaxed text-ink-muted sm:text-base">
               {t('home.bestSellersSubtitle')}
             </p>
           </div>
@@ -58,76 +59,102 @@ export default function BestSellersSection({ perfumes }: Props) {
                 type="button"
                 onClick={() => scrollCarousel('previous')}
                 disabled={!canScrollPrev}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-black shadow-sm transition-all hover:-translate-y-0.5 hover:border-black/30 disabled:pointer-events-none disabled:opacity-35"
-                aria-label="Previous best sellers"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink transition-all duration-300 hover:border-champagne hover:bg-champagne hover:text-white disabled:pointer-events-none disabled:opacity-25"
+                aria-label={t('home.previousPerfumes')}
               >
-                <ChevronLeft className="h-5 w-5 rtl:rotate-180" aria-hidden="true" />
+                <ChevronLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
               </button>
               <button
                 type="button"
                 onClick={() => scrollCarousel('next')}
                 disabled={!canScrollNext}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-black shadow-sm transition-all hover:-translate-y-0.5 hover:border-black/30 disabled:pointer-events-none disabled:opacity-35"
-                aria-label="Next best sellers"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink transition-all duration-300 hover:border-champagne hover:bg-champagne hover:text-white disabled:pointer-events-none disabled:opacity-25"
+                aria-label={t('home.nextPerfumes')}
               >
-                <ChevronRight className="h-5 w-5 rtl:rotate-180" aria-hidden="true" />
+                <ChevronRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
               </button>
             </div>
             <Link
               to="/shop"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-black px-6 py-3 text-sm font-semibold tracking-wide text-white shadow-sm transition-all hover:bg-black/75 active:scale-[0.98]"
+              className="group inline-flex shrink-0 items-center justify-center gap-2.5 bg-ink px-7 py-3.5 text-[11px] font-medium uppercase tracking-luxe text-white transition-all duration-500 ease-luxe hover:bg-champagne"
             >
               {t('home.viewAllPerfumes')}
-              <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
+              <ArrowRight
+                className="h-3.5 w-3.5 transition-transform duration-500 ease-luxe group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1"
+                aria-hidden="true"
+              />
             </Link>
           </div>
-        </div>
+        </Reveal>
 
         <div
           ref={carouselRef}
           {...carouselHandlers}
-          className="best-sellers-carousel -mx-4 flex touch-pan-x touch-pan-y snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden px-4 pb-4 sm:-mx-6 sm:gap-5 sm:px-6 lg:mx-0 lg:cursor-grab lg:px-0 lg:active:cursor-grabbing"
+          className="best-sellers-carousel -mx-4 flex touch-pan-x touch-pan-y snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden px-4 pb-4 sm:-mx-6 sm:gap-6 sm:px-6 lg:mx-0 lg:cursor-grab lg:px-0 lg:active:cursor-grabbing"
         >
           {bestSellers.map((perfume, index) => (
             <motion.article
               key={perfume.id}
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.45, delay: Math.min(index * 0.06, 0.24) }}
+              transition={{
+                duration: 0.7,
+                delay: Math.min(index * 0.08, 0.32),
+                ease: [0.22, 1, 0.36, 1],
+              }}
               onClick={() => openPerfume(perfume)}
-              className="group min-w-[78%] cursor-pointer snap-start sm:min-w-[42%] lg:min-w-[calc(25%-0.95rem)]"
+              className="group min-w-[78%] cursor-pointer snap-start sm:min-w-[42%] lg:min-w-[calc(25%-1.125rem)]"
             >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-[#faf8f4] shadow-[0_1px_0_rgba(0,0,0,0.06)] transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
-                <span className="absolute left-3 top-3 z-10 rounded-full bg-black px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
+              <div className="relative aspect-[4/5] overflow-hidden bg-sand">
+                <span className="absolute left-0 top-4 z-10 bg-ink px-3 py-1.5 text-[9px] font-medium uppercase tracking-widest text-white">
                   {t('home.bestSellerBadge')}
                 </span>
-                <span className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-black/10 bg-white/90 text-xs font-semibold backdrop-blur">
-                  #{perfume.bestSellerRank ?? index + 1}
+                <span className="absolute right-4 top-4 z-10 font-display text-sm text-ink/30">
+                  {String(perfume.bestSellerRank ?? index + 1).padStart(2, '0')}
                 </span>
-                <SaleBadge discountPercent={perfume.discountPercent} className="absolute bottom-3 left-3 z-10" />
+                <SaleBadge
+                  discountPercent={perfume.discountPercent}
+                  className="absolute bottom-4 left-4 z-10"
+                />
                 <img
                   src={getOptimizedCloudinaryUrl(perfume.image, { width: 700 })}
                   srcSet={getCloudinarySrcSet(perfume.image, [400, 600, 800])}
                   sizes="(min-width: 1024px) 24vw, (min-width: 640px) 42vw, 78vw"
                   alt={perfume.name}
-                  className="h-full w-full object-contain p-5 transition-transform duration-500 group-hover:scale-[1.04] sm:p-7"
+                  className="h-full w-full object-contain p-7 transition-transform duration-[900ms] ease-luxe group-hover:scale-[1.07] sm:p-9"
                   loading="lazy"
                   decoding="async"
                 />
+
+                {/* Quick-add slides up from the bottom edge on hover (desktop only). */}
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    addToCart(perfume)
+                  }}
+                  className="absolute inset-x-0 bottom-0 z-10 hidden translate-y-full items-center justify-center gap-2 bg-ink/95 py-3.5 text-[10px] font-medium uppercase tracking-luxe text-white backdrop-blur-sm transition-transform duration-500 ease-luxe group-hover:translate-y-0 hover:bg-champagne lg:flex"
+                  aria-label={t('home.addNamedToCart', { name: perfume.name })}
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                  {t('common.addToCart')}
+                </button>
               </div>
 
-              <div className="px-1 pt-4">
-                <p className="text-xs uppercase tracking-[0.16em] text-black/45">
+              <div className="pt-5">
+                <p className="text-[10px] uppercase tracking-widest text-ink-muted">
                   {categoryLabel(perfume.category, perfume.categoryAr)}
                 </p>
-                <h3 className="mt-1 line-clamp-1 text-base font-medium sm:text-lg">{perfume.name}</h3>
+                <h3 className="mt-2 line-clamp-1 font-display text-xl font-normal tracking-wide transition-colors duration-300 group-hover:text-champagne">
+                  {perfume.name}
+                </h3>
                 <div className="mt-3 flex items-center justify-between gap-3">
                   <SalePrice
                     price={perfume.price}
                     originalPrice={perfume.originalPrice}
-                    className="text-sm sm:text-base"
+                    className="text-sm"
                   />
                   <button
                     type="button"
@@ -135,13 +162,10 @@ export default function BestSellersSection({ perfumes }: Props) {
                       event.stopPropagation()
                       addToCart(perfume)
                     }}
-                    className="inline-flex h-10 w-12 shrink-0 items-center justify-center rounded-full bg-black text-white transition-all hover:scale-105 hover:bg-black/75"
+                    className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-ink/15 text-ink transition-all duration-300 hover:border-champagne hover:bg-champagne hover:text-white lg:hidden"
                     aria-label={t('home.addNamedToCart', { name: perfume.name })}
                   >
-                    <span className="relative inline-flex">
-                      <ShoppingCart className="h-4 w-4" />
-                      <Plus className="absolute left-1.5 top-0.5 h-2.5 w-2.5" />
-                    </span>
+                    <Plus className="h-4 w-4" />
                   </button>
                 </div>
               </div>
@@ -152,10 +176,10 @@ export default function BestSellersSection({ perfumes }: Props) {
         <Link
           to="/shop"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-black px-6 py-3.5 text-sm font-semibold tracking-wide text-white shadow-sm transition-all active:scale-[0.98] sm:hidden"
+          className="mt-8 flex w-full items-center justify-center gap-2 bg-ink px-6 py-4 text-[11px] font-medium uppercase tracking-luxe text-white transition-colors hover:bg-champagne sm:hidden"
         >
           {t('home.viewAllPerfumes')}
-          <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
+          <ArrowRight className="h-3.5 w-3.5 rtl:rotate-180" aria-hidden="true" />
         </Link>
       </div>
 

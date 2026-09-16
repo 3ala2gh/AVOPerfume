@@ -22,22 +22,26 @@ function PerfumeDetailsPage() {
 
   if (isLoading) {
     return (
-      <main className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-        <p className="opacity-70">{t('details.loading')}</p>
+      <main className="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 lg:px-8">
+        <p className="text-sm font-light uppercase tracking-luxe text-ink-muted">
+          {t('details.loading')}
+        </p>
       </main>
     );
   }
 
   if (!perfume) {
     return (
-      <main className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-        <h1 className="mb-4 text-3xl tracking-wide">{t('details.notFoundTitle')}</h1>
-        <p className="mb-6 opacity-70">
+      <main className="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 lg:px-8">
+        <h1 className="mb-4 font-display text-4xl font-light tracking-wide">
+          {t('details.notFoundTitle')}
+        </h1>
+        <p className="mb-8 text-sm font-light text-ink-muted">
           {t('details.notFoundText')}
         </p>
         <Link
           to="/"
-          className="border border-black px-6 py-3 transition-all hover:bg-black hover:text-white"
+          className="inline-block border border-ink/20 px-8 py-3.5 text-[11px] font-medium uppercase tracking-luxe text-ink no-underline transition-all duration-300 hover:border-ink hover:bg-ink hover:text-white"
         >
           {t('common.backHome')}
         </Link>
@@ -46,22 +50,27 @@ function PerfumeDetailsPage() {
   }
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
-      <PerfumeDetails
-        perfume={perfume}
-        selectedSize={selectedSize}
-        onSelectSize={setSelectedSize}
-        onAddToCart={() => addToCart(perfume, selectedSize)}
-        variant="page"
-        secondaryAction={
-          <Link
-            to="/shop"
-            className="block w-full border border-black py-4 text-center text-sm font-medium tracking-wide transition-all hover:bg-black hover:text-white md:text-base"
-          >
-            {t('common.continueShopping')}
-          </Link>
-        }
-      />
+    <main className="bg-ivory">
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-20">
+        <div className="border border-ink/10 bg-white">
+          <PerfumeDetails
+            perfume={perfume}
+            selectedSize={selectedSize}
+            onSelectSize={setSelectedSize}
+            onAddToCart={() => addToCart(perfume, selectedSize)}
+            variant="page"
+            secondaryAction={
+              <Link
+                to="/shop"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="block w-full border border-ink/20 py-4 text-center text-[11px] font-medium uppercase tracking-luxe text-ink no-underline transition-all duration-300 hover:border-ink hover:bg-ink hover:text-white"
+              >
+                {t('common.continueShopping')}
+              </Link>
+            }
+          />
+        </div>
+      </div>
     </main>
   );
 }

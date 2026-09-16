@@ -2,22 +2,124 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: "Poppins", "Segoe UI", sans-serif;
-  color: #2f2a25;
-  background: #fcfbf9;
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    margin: 0;
+    background: theme('colors.ivory');
+    color: theme('colors.ink.DEFAULT');
+    font-family: theme('fontFamily.sans');
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: theme('fontFamily.display');
+    font-weight: 400;
+    margin: 0;
+  }
+
+  ::selection {
+    background: theme('colors.champagne.DEFAULT');
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.champagne.DEFAULT');
+    outline-offset: 3px;
+  }
+
+  /* Arabic pairs better with Tajawal across both display and body text. */
+  html[dir='rtl'] body,
+  html[dir='rtl'] h1,
+  html[dir='rtl'] h2,
+  html[dir='rtl'] h3 {
+    font-family: 'Tajawal', sans-serif;
+  }
+
+  html[dir='rtl'] body {
+    text-align: right;
+  }
+
+  html[dir='rtl'] .text-left {
+    text-align: right;
+  }
+
+  html[dir='rtl'] .text-right {
+    text-align: left;
+  }
 }
 
-* {
-  box-sizing: border-box;
+@layer components {
+  /* Understated link underline that draws in from the start edge on hover. */
+  .link-underline {
+    position: relative;
+  }
+
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    bottom: -4px;
+    height: 1px;
+    width: 100%;
+    transform: scaleX(0);
+    /* transform-origin has no logical keywords, so RTL is flipped explicitly below. */
+    transform-origin: left;
+    background: currentColor;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  html[dir='rtl'] .link-underline::after {
+    transform-origin: right;
+  }
+
+  .link-underline:hover::after,
+  .link-underline[data-active='true']::after {
+    transform: scaleX(1);
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-medium uppercase tracking-wider2 text-champagne;
+  }
+
+  /* Hairline divider that fades out at both ends. */
+  .rule-fade {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(11, 11, 12, 0.14),
+      transparent
+    );
+  }
 }
 
-html {
-  scroll-behavior: smooth;
-}
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
 
-body {
-  margin: 0;
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .best-sellers-carousel {
@@ -27,6 +129,25 @@ body {
 
 .best-sellers-carousel::-webkit-scrollbar {
   display: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: theme('colors.sand');
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(11, 11, 12, 0.25);
+  border: 2px solid theme('colors.sand');
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.champagne.DEFAULT');
 }
 
 @media (min-width: 640px) and (max-height: 850px) {
@@ -61,56 +182,20 @@ body {
   }
 }
 
-html[dir="rtl"] {
-  font-family: "Tajawal", sans-serif;
-}
-
-html[dir="rtl"] body {
-  text-align: right;
-}
-
-html[dir="rtl"] .text-left {
-  text-align: right;
-}
-
-html[dir="rtl"] .text-right {
-  text-align: left;
-}
-
 #root {
   min-height: 100vh;
 }
 
-.container {
-  width: min(1000px, 92vw);
-  margin: 0 auto;
-  padding: 48px 0;
-}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-h1 {
-  margin: 0;
-  font-size: clamp(2rem, 3vw, 3rem);
-}
-
-h2 {
-  margin: 0 0 10px;
-}
-
-.lead {
-  margin: 14px 0 24px;
-  color: #6a5f56;
-}
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
-}
-
-.card {
-  padding: 20px;
-  border: 1px solid #e3d6c8;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(4px);
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

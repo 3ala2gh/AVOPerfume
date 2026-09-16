@@ -10,11 +10,11 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-black text-white hover:opacity-90 disabled:opacity-70 disabled:cursor-not-allowed',
+    'bg-ink text-white hover:bg-champagne disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-ink',
   outline:
-    'border border-black/20 text-black hover:bg-black hover:text-white disabled:opacity-70 disabled:cursor-not-allowed',
+    'border border-ink/20 text-ink hover:border-ink hover:bg-ink hover:text-white disabled:opacity-60 disabled:cursor-not-allowed',
   danger:
-    'border border-red-300 text-red-700 hover:bg-red-50 disabled:opacity-70 disabled:cursor-not-allowed',
+    'border border-red-300 text-red-700 hover:bg-red-600 hover:border-red-600 hover:text-white disabled:opacity-60 disabled:cursor-not-allowed',
 }
 
 export default function Button({
@@ -28,7 +28,7 @@ export default function Button({
     <button
       type={type}
       className={cn(
-        'rounded-md px-4 py-2.5 text-sm transition-colors sm:text-base',
+        'rounded-md px-4 py-2.5 text-sm tracking-wide transition-all duration-300 ease-luxe',
         variantClasses[variant],
         className,
       )}
