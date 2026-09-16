@@ -1,4 +1,5 @@
 import { X } from 'lucide-react'
+import { createPortal } from 'react-dom'
 import { useCart } from '../../hooks/useCart'
 import { useI18n } from '../../hooks/useI18n'
 import { getOptimizedCloudinaryUrl } from '../../utils/cloudinary'
@@ -19,7 +20,10 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   )
   const total = subtotal + DELIVERY_FEE_JOD
 
-  return (
+  // Rendered via portal: the navbar's backdrop-blur makes it a containing
+  // block for fixed-position descendants, which would otherwise confine
+  // this drawer's height/position to the navbar's own small box.
+  return createPortal(
     <>
       <div
         className={`fixed inset-0 z-[70] bg-ink/50 backdrop-blur-sm transition-opacity duration-500 ${
@@ -139,6 +143,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
           </footer>
         </div>
       </aside>
-    </>
+    </>,
+    document.body,
   )
 }
