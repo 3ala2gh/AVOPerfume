@@ -233,7 +233,7 @@ function ShopPage() {
                       srcSet={getCloudinarySrcSet(perfume.image, [300, 450, 600])}
                       sizes="(min-width: 1024px) 24vw, (min-width: 640px) 45vw, 46vw"
                       alt={perfume.name}
-                      className="h-full w-full object-cover transition-transform duration-[900ms] ease-luxe group-hover:scale-[1.06]"
+                      className="h-full w-full object-contain p-4 transition-transform duration-[900ms] ease-luxe group-hover:scale-[1.06] sm:p-6"
                       loading="lazy"
                       decoding="async"
                     />

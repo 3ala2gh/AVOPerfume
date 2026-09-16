@@ -19,7 +19,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <img
             src={getOptimizedCloudinaryUrl(product.imageUrl, { width: 600 })}
             alt={product.name}
-            className="h-full w-full object-cover transition-transform duration-[900ms] ease-luxe group-hover:scale-[1.06]"
+            className="h-full w-full object-contain p-4 transition-transform duration-[900ms] ease-luxe group-hover:scale-[1.06] sm:p-6"
             loading="lazy"
             decoding="async"
           />
