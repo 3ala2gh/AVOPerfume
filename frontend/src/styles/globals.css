@@ -64,6 +64,15 @@
   html[dir='rtl'] .text-right {
     text-align: left;
   }
+
+  /*
+   * Letter-spacing breaks Arabic cursive joining (letters render in their
+   * isolated form instead of connecting), so every tracking-* utility used
+   * for the Latin/serif look must be neutralized under RTL.
+   */
+  html[dir='rtl'] * {
+    letter-spacing: normal;
+  }
 }
 
 @layer components {
