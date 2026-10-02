@@ -57,6 +57,47 @@
     text-align: right;
   }
 
+  /* Admin dashboard: a readable UI face at normal weights instead of the storefront's light Jost. */
+  .admin-ui,
+  .admin-ui h1,
+  .admin-ui h2,
+  .admin-ui h3,
+  .admin-ui input,
+  .admin-ui select,
+  .admin-ui textarea,
+  .admin-ui button {
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  }
+
+  .admin-ui {
+    font-weight: 400;
+  }
+
+  .admin-ui input,
+  .admin-ui select,
+  .admin-ui textarea {
+    font-weight: 400;
+    letter-spacing: normal;
+  }
+
+  .admin-ui input:not([type='checkbox']):not([type='radio']):focus,
+  .admin-ui select:focus,
+  .admin-ui textarea:focus {
+    border-color: theme('colors.champagne.DEFAULT');
+    box-shadow: 0 0 0 3px rgba(184, 146, 90, 0.18);
+  }
+
+  html[dir='rtl'] .admin-ui,
+  html[dir='rtl'] .admin-ui h1,
+  html[dir='rtl'] .admin-ui h2,
+  html[dir='rtl'] .admin-ui h3,
+  html[dir='rtl'] .admin-ui input,
+  html[dir='rtl'] .admin-ui select,
+  html[dir='rtl'] .admin-ui textarea,
+  html[dir='rtl'] .admin-ui button {
+    font-family: 'Tajawal', sans-serif;
+  }
+
   html[dir='rtl'] .text-left {
     text-align: right;
   }

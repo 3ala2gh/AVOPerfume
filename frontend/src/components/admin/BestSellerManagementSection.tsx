@@ -1,8 +1,12 @@
 import { useMemo, useState } from 'react'
-import { Check, GripVertical, Search, Star, X } from 'lucide-react'
+import { Check, ChevronDown, ChevronUp, GripVertical, Plus, Search, Star, X } from 'lucide-react'
 import type { Product } from '../../types/product'
 import Input from '../common/ui/Input'
-import AdminCollapsibleSection from './AdminCollapsibleSection'
+import { useI18n } from '../../hooks/useI18n'
+import { getOptimizedCloudinaryUrl } from '../../utils/cloudinary'
+import AdminButton from './AdminButton'
+import AdminEmptyState, { AdminListSkeleton } from './AdminEmptyState'
+import AdminPanel from './AdminPanel'
 
 const MAX_BEST_SELLERS = 6
 
@@ -19,6 +23,7 @@ export default function BestSellerManagementSection({
   isSaving,
   onSave,
 }: Props) {
+  const { t } = useI18n()
   const [selectedIds, setSelectedIds] = useState<number[]>(() =>
     products
       .filter((product) => product.isBestSeller)
@@ -28,6 +33,7 @@ export default function BestSellerManagementSection({
   const [search, setSearch] = useState('')
   const [draggedId, setDraggedId] = useState<number | null>(null)
   const [isDirty, setIsDirty] = useState(false)
+  const isFull = selectedIds.length >= MAX_BEST_SELLERS
 
   const productById = useMemo(
     () => new Map(products.map((product) => [product.id, product])),
@@ -43,7 +49,7 @@ export default function BestSellerManagementSection({
   }, [products, search, selectedIds])
 
   function selectProduct(id: number) {
-    if (selectedIds.length >= MAX_BEST_SELLERS) return
+    if (isFull) return
     setSelectedIds((current) => [...current, id])
     setIsDirty(true)
   }
@@ -64,97 +70,156 @@ export default function BestSellerManagementSection({
     setIsDirty(true)
   }
 
+  function shiftProduct(index: number, direction: -1 | 1) {
+    const target = index + direction
+    if (target < 0 || target >= selectedIds.length) return
+    setSelectedIds((current) => {
+      const next = [...current]
+      ;[next[index], next[target]] = [next[target], next[index]]
+      return next
+    })
+    setIsDirty(true)
+  }
+
   async function save() {
     await onSave(selectedIds)
     setIsDirty(false)
   }
 
   return (
-    <AdminCollapsibleSection
-      title="Best Sellers"
-      description={`Choose and order up to ${MAX_BEST_SELLERS} homepage products.`}
-      badge={
-        <span className="inline-flex items-center gap-1 rounded-full bg-black px-2.5 py-1 text-[11px] font-medium text-white">
-          <Star className="h-3.5 w-3.5 fill-white" />
-          {selectedIds.length}/{MAX_BEST_SELLERS}
-        </span>
-      }
-    >
-      <div className="space-y-2">
-        {selectedIds.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-black/20 px-4 py-6 text-center text-sm text-black/50">
-            Select products below to build the collection.
+    <div className="space-y-5">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
+        <AdminPanel
+          title={t('admin.shownOnHomepage')}
+          description={t('admin.dragToReorder')}
+          actions={
+            <span className="inline-flex items-center gap-1 rounded-full bg-ink px-2.5 py-1 text-xs font-semibold text-white">
+              <Star className="h-3.5 w-3.5 fill-champagne text-champagne" />
+              {selectedIds.length}/{MAX_BEST_SELLERS}
+            </span>
+          }
+        >
+          {selectedIds.length === 0 ? (
+            <AdminEmptyState icon={Star} title={t('admin.bestSellersEmpty')} />
+          ) : (
+            <ol className="space-y-2">
+              {selectedIds.map((id, index) => {
+                const product = productById.get(id)
+                if (!product) return null
+                return (
+                  <li
+                    key={id}
+                    draggable
+                    onDragStart={() => setDraggedId(id)}
+                    onDragOver={(event) => event.preventDefault()}
+                    onDrop={() => moveProduct(id)}
+                    className="flex items-center gap-2 rounded-xl border border-ink/[0.08] bg-white p-2 sm:cursor-grab sm:gap-3 sm:p-2.5 sm:active:cursor-grabbing"
+                  >
+                    <GripVertical className="hidden h-4 w-4 shrink-0 text-ink/30 sm:block" />
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-champagne/15 text-xs font-bold text-champagne-dark">
+                      {index + 1}
+                    </span>
+                    {product.imageUrl ? (
+                      <img
+                        src={getOptimizedCloudinaryUrl(product.imageUrl, { width: 120 })}
+                        alt=""
+                        className="h-10 w-10 shrink-0 rounded-lg border border-ink/10 object-contain"
+                      />
+                    ) : null}
+                    <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink">{product.name}</span>
+                    <span className="flex shrink-0 items-center">
+                      <button
+                        type="button"
+                        onClick={() => shiftProduct(index, -1)}
+                        disabled={index === 0}
+                        className="flex h-8 w-8 items-center justify-center rounded-md text-ink/50 hover:bg-sand hover:text-ink disabled:opacity-25"
+                        aria-label={t('admin.moveUp')}
+                      >
+                        <ChevronUp className="h-4 w-4" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => shiftProduct(index, 1)}
+                        disabled={index === selectedIds.length - 1}
+                        className="flex h-8 w-8 items-center justify-center rounded-md text-ink/50 hover:bg-sand hover:text-ink disabled:opacity-25"
+                        aria-label={t('admin.moveDown')}
+                      >
+                        <ChevronDown className="h-4 w-4" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => removeProduct(id)}
+                        className="flex h-8 w-8 items-center justify-center rounded-md text-ink/50 hover:bg-red-50 hover:text-red-600"
+                        aria-label={t('admin.removeNamed', { name: product.name })}
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </span>
+                  </li>
+                )
+              })}
+            </ol>
+          )}
+        </AdminPanel>
+
+        <AdminPanel
+          title={t('admin.addPerfumes')}
+          description={isFull ? t('admin.limitReached') : undefined}
+        >
+          <div className="relative">
+            <Search className="pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/40" />
+            <Input
+              type="search"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder={t('admin.searchToAdd')}
+              aria-label={t('admin.searchToAdd')}
+              className="ps-10"
+            />
           </div>
-        ) : (
-          selectedIds.map((id, index) => {
-            const product = productById.get(id)
-            if (!product) return null
-            return (
-              <div
-                key={id}
-                draggable
-                onDragStart={() => setDraggedId(id)}
-                onDragOver={(event) => event.preventDefault()}
-                onDrop={() => moveProduct(id)}
-                className="flex cursor-grab items-center gap-3 rounded-lg border border-black/10 bg-white p-2.5 shadow-sm active:cursor-grabbing"
-              >
-                <GripVertical className="h-4 w-4 shrink-0 text-black/35" />
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-black text-xs font-semibold text-white">
-                  {index + 1}
-                </span>
-                {product.imageUrl ? (
-                  <img src={product.imageUrl} alt="" className="h-10 w-10 rounded object-cover" />
-                ) : null}
-                <span className="min-w-0 flex-1 truncate text-sm font-medium">{product.name}</span>
-                <button
-                  type="button"
-                  onClick={() => removeProduct(id)}
-                  className="rounded-full p-1.5 text-black/50 transition-colors hover:bg-black hover:text-white"
-                  aria-label={`Remove ${product.name} from best sellers`}
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-            )
-          })
-        )}
+          <div className="mt-3 max-h-96 overflow-y-auto">
+            {isLoading ? (
+              <AdminListSkeleton rows={4} />
+            ) : availableProducts.length === 0 ? (
+              <p className="py-6 text-center text-sm text-ink-muted">{t('admin.noAvailablePerfumes')}</p>
+            ) : (
+              <ul className="space-y-1">
+                {availableProducts.map((product) => (
+                  <li key={product.id}>
+                    <button
+                      type="button"
+                      disabled={isFull}
+                      onClick={() => selectProduct(product.id)}
+                      className="group flex w-full items-center gap-3 rounded-lg p-2 text-start text-sm transition-colors hover:bg-sand/50 disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      {product.imageUrl ? (
+                        <img
+                          src={getOptimizedCloudinaryUrl(product.imageUrl, { width: 120 })}
+                          alt=""
+                          loading="lazy"
+                          className="h-9 w-9 shrink-0 rounded-md border border-ink/10 object-contain"
+                        />
+                      ) : (
+                        <span className="h-9 w-9 shrink-0 rounded-md bg-ivory" />
+                      )}
+                      <span className="min-w-0 flex-1 truncate font-medium text-ink">{product.name}</span>
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-ink/15 text-ink/60 transition-colors group-hover:border-champagne group-hover:bg-champagne group-hover:text-white">
+                        <Plus className="h-3.5 w-3.5" />
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </AdminPanel>
       </div>
 
-      <div className="relative mt-4">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/40" />
-        <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search perfumes to add..." className="pl-9" />
+      <div className="flex justify-end">
+        <AdminButton icon={Check} onClick={() => void save()} isLoading={isSaving} disabled={!isDirty} className="w-full sm:w-auto">
+          {isSaving ? t('admin.saving') : t('admin.saveBestSellers')}
+        </AdminButton>
       </div>
-      <div className="mt-2 max-h-48 overflow-y-auto rounded-lg border border-black/10 bg-white/80 p-1">
-        {isLoading ? (
-          <p className="p-3 text-sm text-black/50">Loading...</p>
-        ) : availableProducts.length === 0 ? (
-          <p className="p-3 text-sm text-black/50">No available perfumes.</p>
-        ) : (
-          availableProducts.map((product) => (
-            <button
-              key={product.id}
-              type="button"
-              disabled={selectedIds.length >= MAX_BEST_SELLERS}
-              onClick={() => selectProduct(product.id)}
-              className="flex w-full items-center gap-3 rounded-md p-2 text-left text-sm transition-colors hover:bg-black/5 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              <span className="flex h-7 w-7 items-center justify-center rounded-full border border-black/15">
-                <Check className="h-3.5 w-3.5" />
-              </span>
-              <span className="truncate">{product.name}</span>
-            </button>
-          ))
-        )}
-      </div>
-
-      <button
-        type="button"
-        onClick={save}
-        disabled={isSaving || !isDirty}
-        className="mt-4 rounded-md bg-black px-4 py-2.5 text-sm text-white transition-opacity hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-40"
-      >
-        {isSaving ? 'Saving...' : 'Save best sellers'}
-      </button>
-    </AdminCollapsibleSection>
+    </div>
   )
 }

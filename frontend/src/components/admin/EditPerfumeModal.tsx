@@ -1,11 +1,16 @@
 import { type FormEvent, useState } from 'react'
 import Modal from '../common/Modal'
-import Button from '../common/ui/Button'
+import { CircleAlert, Trash2 } from 'lucide-react'
 import Input from '../common/ui/Input'
 import Select from '../common/ui/Select'
 import Textarea from '../common/ui/Textarea'
 import type { Category, Product } from '../../types/product'
 import { useI18n } from '../../hooks/useI18n'
+import { getOptimizedCloudinaryUrl } from '../../utils/cloudinary'
+import AdminButton from './AdminButton'
+import AdminField from './AdminField'
+import ImagePicker from './ImagePicker'
+import SizePriceCard from './SizePriceCard'
 
 type EditPerfumePayload = {
   name: string
@@ -124,199 +129,139 @@ export default function EditPerfumeModal({
     })
   }
 
+  const sizeFields = [
+    { size: '10ml', price: price10Ml, setPrice: setPrice10Ml, enabled: is10MlEnabled, setEnabled: setIs10MlEnabled },
+    { size: '30ml', price: price30Ml, setPrice: setPrice30Ml, enabled: is30MlEnabled, setEnabled: setIs30MlEnabled },
+    { size: '55ml', price: price55Ml, setPrice: setPrice55Ml, enabled: is55MlEnabled, setEnabled: setIs55MlEnabled },
+    { size: '100ml', price: price100Ml, setPrice: setPrice100Ml, enabled: is100MlEnabled, setEnabled: setIs100MlEnabled },
+  ]
+  const isBusy = isUpdatingPerfume || isDeletingPerfume
+
   return (
     <Modal
       isOpen={perfume !== null}
       onClose={onClose}
       title={perfume ? t('admin.editNamedPerfume', { name: perfume.name }) : t('admin.editPerfume')}
-      size="md"
+      size="lg"
     >
-      <form onSubmit={handleSubmit} className="space-y-4 p-4 sm:p-6">
-        <h2 className="text-base font-semibold sm:text-lg">
-          {perfume ? t('admin.editNamedPerfume', { name: perfume.name }) : t('admin.editPerfume')}
-        </h2>
-        <div className="space-y-2">
-          <label htmlFor="edit-perfume-name" className="block text-sm font-medium">
-            {t('common.name')}
-          </label>
-          <Input
-            id="edit-perfume-name"
-            type="text"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="edit-perfume-gender" className="block text-sm font-medium">
-            {t('common.gender')}
-          </label>
-          <Select
-            id="edit-perfume-gender"
-            value={gender}
-            onChange={(event) => setGender(event.target.value as 'male' | 'female' | 'unisex')}
-          >
-            <option value="unisex">{t('common.unisex')}</option>
-            <option value="male">{t('common.male')}</option>
-            <option value="female">{t('common.female')}</option>
-          </Select>
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="edit-perfume-category" className="block text-sm font-medium">
-            {t('common.category')}
-          </label>
-          <Select
-            id="edit-perfume-category"
-            value={categoryId}
-            onChange={(event) => setCategoryId(Number(event.target.value))}
-            disabled={isLoadingCategories}
-          >
-            <option value={0}>{t('admin.selectCategory')}</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </Select>
-        </div>
-        <div className="space-y-2">
-          <p className="block text-sm font-medium">{t('admin.sizePrices')}</p>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <div className="space-y-1.5">
-              <label htmlFor="edit-perfume-price-10ml" className="block text-xs text-black/65">
-                10ml
-              </label>
+      <form onSubmit={handleSubmit} className="flex flex-col">
+        <header className="border-b border-ink/[0.08] px-5 py-4 pe-14 sm:px-6">
+          <h2 className="truncate text-lg font-semibold text-ink">
+            {perfume ? t('admin.editNamedPerfume', { name: perfume.name }) : t('admin.editPerfume')}
+          </h2>
+          {perfume ? (
+            <p className="mt-0.5 text-sm text-ink-muted">{perfume.category}</p>
+          ) : null}
+        </header>
+
+        <div className="space-y-6 px-5 py-5 sm:px-6">
+          <section className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <AdminField label={t('common.name')} htmlFor="edit-perfume-name" className="sm:col-span-2">
               <Input
-                id="edit-perfume-price-10ml"
-                type="number"
-                min="0.01"
-                step="0.01"
-                value={price10Ml}
-                onChange={(event) => setPrice10Ml(event.target.value)}
+                id="edit-perfume-name"
+                type="text"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
               />
-              <label className="flex items-center gap-1.5 text-xs text-black/65">
-                <input
-                  type="checkbox"
-                  checked={is10MlEnabled}
-                  onChange={(event) => setIs10MlEnabled(event.target.checked)}
-                />
-                {t('admin.enabledForSale')}
-              </label>
+            </AdminField>
+            <AdminField label={t('common.category')} htmlFor="edit-perfume-category">
+              <Select
+                id="edit-perfume-category"
+                value={categoryId}
+                onChange={(event) => setCategoryId(Number(event.target.value))}
+                disabled={isLoadingCategories}
+              >
+                <option value={0}>{t('admin.selectCategory')}</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </Select>
+            </AdminField>
+            <AdminField label={t('common.gender')} htmlFor="edit-perfume-gender">
+              <Select
+                id="edit-perfume-gender"
+                value={gender}
+                onChange={(event) => setGender(event.target.value as 'male' | 'female' | 'unisex')}
+              >
+                <option value="unisex">{t('common.unisex')}</option>
+                <option value="male">{t('common.male')}</option>
+                <option value="female">{t('common.female')}</option>
+              </Select>
+            </AdminField>
+          </section>
+
+          <section className="space-y-3">
+            <div>
+              <h3 className="text-sm font-semibold text-ink">{t('admin.stepPrices')}</h3>
+              <p className="text-xs text-ink-muted">{t('admin.stepPricesHint')}</p>
             </div>
-            <div className="space-y-1.5">
-              <label htmlFor="edit-perfume-price-30ml" className="block text-xs text-black/65">
-                30ml
-              </label>
-              <Input
-                id="edit-perfume-price-30ml"
-                type="number"
-                min="0.01"
-                step="0.01"
-                value={price30Ml}
-                onChange={(event) => setPrice30Ml(event.target.value)}
-              />
-              <label className="flex items-center gap-1.5 text-xs text-black/65">
-                <input
-                  type="checkbox"
-                  checked={is30MlEnabled}
-                  onChange={(event) => setIs30MlEnabled(event.target.checked)}
+            <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2">
+              {sizeFields.map((field) => (
+                <SizePriceCard
+                  key={field.size}
+                  id={`edit-perfume-price-${field.size}`}
+                  size={field.size}
+                  enabled={field.enabled}
+                  onEnabledChange={field.setEnabled}
+                  inputProps={{
+                    value: field.price,
+                    onChange: (event) => field.setPrice(event.target.value),
+                  }}
                 />
-                {t('admin.enabledForSale')}
-              </label>
+              ))}
             </div>
-            <div className="space-y-1.5">
-              <label htmlFor="edit-perfume-price-55ml" className="block text-xs text-black/65">
-                55ml
-              </label>
-              <Input
-                id="edit-perfume-price-55ml"
-                type="number"
-                min="0.01"
-                step="0.01"
-                value={price55Ml}
-                onChange={(event) => setPrice55Ml(event.target.value)}
-              />
-              <label className="flex items-center gap-1.5 text-xs text-black/65">
-                <input
-                  type="checkbox"
-                  checked={is55MlEnabled}
-                  onChange={(event) => setIs55MlEnabled(event.target.checked)}
-                />
-                {t('admin.enabledForSale')}
-              </label>
-            </div>
-            <div className="space-y-1.5">
-              <label htmlFor="edit-perfume-price-100ml" className="block text-xs text-black/65">
-                100ml
-              </label>
-              <Input
-                id="edit-perfume-price-100ml"
-                type="number"
-                min="0.01"
-                step="0.01"
-                value={price100Ml}
-                onChange={(event) => setPrice100Ml(event.target.value)}
-              />
-              <label className="flex items-center gap-1.5 text-xs text-black/65">
-                <input
-                  type="checkbox"
-                  checked={is100MlEnabled}
-                  onChange={(event) => setIs100MlEnabled(event.target.checked)}
-                />
-                {t('admin.enabledForSale')}
-              </label>
-            </div>
-          </div>
+          </section>
+
+          <AdminField label={t('common.description')} htmlFor="edit-perfume-description">
+            <Textarea
+              id="edit-perfume-description"
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+              placeholder={t('admin.descriptionPlaceholder')}
+              className="min-h-28"
+            />
+          </AdminField>
+
+          <AdminField label={t('admin.replaceImage')} htmlFor="edit-perfume-image">
+            <ImagePicker
+              id="edit-perfume-image"
+              file={image}
+              existingUrl={perfume?.imageUrl ? getOptimizedCloudinaryUrl(perfume.imageUrl, { width: 200 }) : null}
+              inputProps={{ onChange: (event) => setImage(event.target.files?.item(0) ?? null) }}
+            />
+          </AdminField>
+
+          {localError ? (
+            <p role="alert" className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700">
+              <CircleAlert className="h-4 w-4 shrink-0" />
+              {localError}
+            </p>
+          ) : null}
         </div>
-        <div className="space-y-2">
-          <label htmlFor="edit-perfume-description" className="block text-sm font-medium">
-            {t('common.description')}
-          </label>
-          <Textarea
-            id="edit-perfume-description"
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-            className="min-h-28"
-          />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="edit-perfume-image" className="block text-sm font-medium">
-            {t('admin.replaceImage')}
-          </label>
-          <Input
-            id="edit-perfume-image"
-            type="file"
-            accept="image/*"
-            onChange={(event) => setImage(event.target.files?.item(0) ?? null)}
-          />
-        </div>
-        {localError && <p className="text-sm text-red-600">{localError}</p>}
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-          <Button
-            type="submit"
-            disabled={isUpdatingPerfume || isDeletingPerfume}
-            className="w-full sm:w-auto"
-          >
-            {isUpdatingPerfume ? t('admin.saving') : t('admin.saveChanges')}
-          </Button>
-          <Button
-            type="button"
+
+        <footer className="sticky bottom-0 flex items-center gap-2 border-t border-ink/[0.08] bg-white/95 px-4 py-3 backdrop-blur sm:px-6 sm:py-4">
+          <AdminButton
+            variant="danger-outline"
+            icon={Trash2}
             onClick={() => void onDelete()}
-            disabled={isUpdatingPerfume || isDeletingPerfume}
-            variant="danger"
-            className="w-full sm:w-auto"
+            disabled={isBusy}
+            isLoading={isDeletingPerfume}
+            aria-label={t('admin.deletePerfume')}
+            className="px-3 sm:px-4"
           >
-            {isDeletingPerfume ? t('admin.deleting') : t('admin.deletePerfume')}
-          </Button>
-          <Button
-            type="button"
-            onClick={onClose}
-            disabled={isDeletingPerfume}
-            variant="outline"
-            className="w-full sm:w-auto"
-          >
+            <span className="hidden sm:inline">
+              {isDeletingPerfume ? t('admin.deleting') : t('admin.deletePerfume')}
+            </span>
+          </AdminButton>
+          <AdminButton variant="outline" onClick={onClose} disabled={isDeletingPerfume} className="flex-1 sm:ms-auto sm:flex-none">
             {t('common.cancel')}
-          </Button>
-        </div>
+          </AdminButton>
+          <AdminButton type="submit" disabled={isBusy} isLoading={isUpdatingPerfume} className="flex-1 sm:flex-none">
+            {isUpdatingPerfume ? t('admin.saving') : t('admin.saveChanges')}
+          </AdminButton>
+        </footer>
       </form>
     </Modal>
   )

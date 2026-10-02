@@ -20,6 +20,7 @@ export default {
       fontFamily: {
         display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
         sans: ['Jost', '"Segoe UI"', 'system-ui', 'sans-serif'],
+        ui: ['Inter', '"Segoe UI"', 'system-ui', 'sans-serif'],
       },
       letterSpacing: {
         luxe: '0.22em',

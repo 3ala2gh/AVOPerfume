@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { toast } from 'sonner'
-import Button from '../common/ui/Button'
+import { CirclePlus } from 'lucide-react'
 import Input from '../common/ui/Input'
 import Select from '../common/ui/Select'
 import Textarea from '../common/ui/Textarea'
@@ -13,12 +13,23 @@ import {
 } from '../../schema/adminCreatePerfume.schema'
 import type { Category } from '../../types/product'
 import { useI18n } from '../../hooks/useI18n'
-import AdminCollapsibleSection from './AdminCollapsibleSection'
+import AdminButton from './AdminButton'
+import AdminField from './AdminField'
+import AdminPanel from './AdminPanel'
+import ImagePicker from './ImagePicker'
+import SizePriceCard from './SizePriceCard'
 
 type AddPerfumeSectionProps = {
   categories: Category[]
   isLoadingCategories: boolean
 }
+
+const SIZE_FIELDS = [
+  { size: '10ml', price: 'price10Ml', enabled: 'is10MlEnabled' },
+  { size: '30ml', price: 'price30Ml', enabled: 'is30MlEnabled' },
+  { size: '55ml', price: 'price55Ml', enabled: 'is55MlEnabled' },
+  { size: '100ml', price: 'price100Ml', enabled: 'is100MlEnabled' },
+] as const
 
 export default function AddPerfumeSection({
   categories,
@@ -32,6 +43,8 @@ export default function AddPerfumeSection({
     handleSubmit,
     reset,
     setError,
+    setValue,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<AdminCreatePerfumePayload>({
     resolver: zodResolver(adminCreatePerfumeSchema),
@@ -50,6 +63,12 @@ export default function AddPerfumeSection({
       is100MlEnabled: true,
     },
   })
+  const [is10MlEnabled, is30MlEnabled, is55MlEnabled, is100MlEnabled, imageFiles] = useWatch({
+    control,
+    name: ['is10MlEnabled', 'is30MlEnabled', 'is55MlEnabled', 'is100MlEnabled', 'image'],
+  })
+  const enabledBySize = { is10MlEnabled, is30MlEnabled, is55MlEnabled, is100MlEnabled }
+  const selectedImage = imageFiles?.item(0)
 
   async function onSubmit(values: AdminCreatePerfumePayload) {
     const image = values.image.item(0)
@@ -84,161 +103,106 @@ export default function AddPerfumeSection({
   }
 
   return (
-    <AdminCollapsibleSection
-      title={t('admin.addPerfume')}
-      description="Create a new perfume, upload its image, and set pricing for each size."
-      defaultOpen
-      className="h-fit"
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="grid grid-cols-1 gap-5 lg:grid-cols-3 lg:gap-6"
+      noValidate
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className="space-y-2">
-          <label htmlFor="perfume-name" className="block text-sm font-medium">
-            {t('common.name')}
-          </label>
-          <Input
-            id="perfume-name"
-            type="text"
-            {...register('name')}
-          />
-          {errors.name && <p className="text-sm text-red-600">{errors.name.message}</p>}
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="perfume-category" className="block text-sm font-medium">
-            {t('common.category')}
-          </label>
-          <Select
-            id="perfume-category"
-            {...register('categoryId', { valueAsNumber: true })}
-            disabled={isLoadingCategories}
-          >
-            <option value={0}>{t('admin.selectCategory')}</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </Select>
-          {errors.categoryId && <p className="text-sm text-red-600">{errors.categoryId.message}</p>}
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="perfume-gender" className="block text-sm font-medium">
-            {t('common.gender')}
-          </label>
-          <Select
-            id="perfume-gender"
-            {...register('gender')}
-          >
-            <option value="unisex">{t('common.unisex')}</option>
-            <option value="male">{t('common.male')}</option>
-            <option value="female">{t('common.female')}</option>
-          </Select>
-          {errors.gender && <p className="text-sm text-red-600">{errors.gender.message}</p>}
-        </div>
-        <div className="space-y-2">
-          <p className="block text-sm font-medium">{t('admin.sizePrices')}</p>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="space-y-1.5">
-              <label htmlFor="perfume-price-10ml" className="block text-xs text-black/65">
-                10ml
-              </label>
+      <div className="space-y-5 lg:col-span-2 lg:space-y-6">
+        <AdminPanel step={1} title={t('admin.stepBasics')} description={t('admin.stepBasicsHint')}>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <AdminField
+              label={t('common.name')}
+              htmlFor="perfume-name"
+              error={errors.name?.message}
+              className="sm:col-span-2"
+            >
               <Input
-                id="perfume-price-10ml"
-                type="number"
-                min="0.01"
-                step="0.01"
-                {...register('price10Ml', { valueAsNumber: true })}
+                id="perfume-name"
+                type="text"
+                placeholder={t('admin.namePlaceholder')}
+                aria-invalid={Boolean(errors.name)}
+                {...register('name')}
               />
-              {errors.price10Ml && <p className="text-xs text-red-600">{errors.price10Ml.message}</p>}
-              <label className="flex items-center gap-1.5 text-xs text-black/65">
-                <input type="checkbox" {...register('is10MlEnabled')} />
-                {t('admin.enabledForSale')}
-              </label>
-            </div>
-            <div className="space-y-1.5">
-              <label htmlFor="perfume-price-30ml" className="block text-xs text-black/65">
-                30ml
-              </label>
-              <Input
-                id="perfume-price-30ml"
-                type="number"
-                min="0.01"
-                step="0.01"
-                {...register('price30Ml', { valueAsNumber: true })}
+            </AdminField>
+            <AdminField
+              label={t('common.category')}
+              htmlFor="perfume-category"
+              error={errors.categoryId?.message}
+            >
+              <Select
+                id="perfume-category"
+                disabled={isLoadingCategories}
+                aria-invalid={Boolean(errors.categoryId)}
+                {...register('categoryId', { valueAsNumber: true })}
+              >
+                <option value={0}>{t('admin.selectCategory')}</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </Select>
+            </AdminField>
+            <AdminField label={t('common.gender')} htmlFor="perfume-gender" error={errors.gender?.message}>
+              <Select id="perfume-gender" {...register('gender')}>
+                <option value="unisex">{t('common.unisex')}</option>
+                <option value="male">{t('common.male')}</option>
+                <option value="female">{t('common.female')}</option>
+              </Select>
+            </AdminField>
+            <AdminField
+              label={t('common.description')}
+              htmlFor="perfume-description"
+              error={errors.description?.message}
+              className="sm:col-span-2"
+            >
+              <Textarea
+                id="perfume-description"
+                placeholder={t('admin.descriptionPlaceholder')}
+                className="min-h-28"
+                {...register('description')}
               />
-              {errors.price30Ml && <p className="text-xs text-red-600">{errors.price30Ml.message}</p>}
-              <label className="flex items-center gap-1.5 text-xs text-black/65">
-                <input type="checkbox" {...register('is30MlEnabled')} />
-                {t('admin.enabledForSale')}
-              </label>
-            </div>
-            <div className="space-y-1.5">
-              <label htmlFor="perfume-price-55ml" className="block text-xs text-black/65">
-                55ml
-              </label>
-              <Input
-                id="perfume-price-55ml"
-                type="number"
-                min="0.01"
-                step="0.01"
-                {...register('price55Ml', { valueAsNumber: true })}
-              />
-              {errors.price55Ml && <p className="text-xs text-red-600">{errors.price55Ml.message}</p>}
-              <label className="flex items-center gap-1.5 text-xs text-black/65">
-                <input type="checkbox" {...register('is55MlEnabled')} />
-                {t('admin.enabledForSale')}
-              </label>
-            </div>
-            <div className="space-y-1.5">
-              <label htmlFor="perfume-price-100ml" className="block text-xs text-black/65">
-                100ml
-              </label>
-              <Input
-                id="perfume-price-100ml"
-                type="number"
-                min="0.01"
-                step="0.01"
-                {...register('price100Ml', { valueAsNumber: true })}
-              />
-              {errors.price100Ml && <p className="text-xs text-red-600">{errors.price100Ml.message}</p>}
-              <label className="flex items-center gap-1.5 text-xs text-black/65">
-                <input type="checkbox" {...register('is100MlEnabled')} />
-                {t('admin.enabledForSale')}
-              </label>
-            </div>
+            </AdminField>
           </div>
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="perfume-description" className="block text-sm font-medium">
-            {t('common.description')}
-          </label>
-          <Textarea
-            id="perfume-description"
-            {...register('description')}
-            className="min-h-28"
-          />
-          {errors.description && <p className="text-sm text-red-600">{errors.description.message}</p>}
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="perfume-image" className="block text-sm font-medium">
-            {t('common.image')}
-          </label>
-          <Input
+        </AdminPanel>
+
+        <AdminPanel step={2} title={t('admin.stepPrices')} description={t('admin.stepPricesHint')}>
+          <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2">
+            {SIZE_FIELDS.map(({ size, price, enabled }) => (
+              <SizePriceCard
+                key={size}
+                id={`perfume-price-${size}`}
+                size={size}
+                enabled={enabledBySize[enabled]}
+                onEnabledChange={(value) => setValue(enabled, value, { shouldDirty: true })}
+                error={errors[price]?.message}
+                inputProps={register(price, { valueAsNumber: true })}
+              />
+            ))}
+          </div>
+        </AdminPanel>
+      </div>
+
+      <div className="space-y-5 lg:sticky lg:top-28 lg:h-fit lg:space-y-6">
+        <AdminPanel step={3} title={t('admin.stepImage')} description={t('admin.stepImageHint')}>
+          <ImagePicker
             id="perfume-image"
-            type="file"
-            accept="image/*"
-            {...register('image')}
+            file={selectedImage}
+            invalid={Boolean(errors.image)}
+            inputProps={register('image')}
           />
-          {errors.image && <p className="text-sm text-red-600">{errors.image.message}</p>}
-        </div>
-        {errors.root && <p className="text-sm text-red-600">{errors.root.message}</p>}
-        <Button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full sm:w-auto"
-        >
+          {errors.image?.message ? (
+            <p className="mt-2 text-xs font-medium text-red-600">{errors.image.message}</p>
+          ) : null}
+        </AdminPanel>
+
+        {errors.root ? <p className="text-sm text-red-600">{errors.root.message}</p> : null}
+
+        <AdminButton type="submit" icon={CirclePlus} isLoading={isSubmitting} className="w-full">
           {isSubmitting ? t('admin.creating') : t('admin.createPerfume')}
-        </Button>
-      </form>
-    </AdminCollapsibleSection>
+        </AdminButton>
+      </div>
+    </form>
   )
 }
